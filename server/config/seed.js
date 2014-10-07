@@ -43,10 +43,20 @@ User.find({}).remove(function() {
     email: 'summer@test.com',
     password: 'summer'
   }, {
-    provider: 'local',
-    name: 'Jaimie',
-    email: 'jaimie@test.com',
-    password: 'jaimie'
+    provider: 'google',
+    name: 'Jaimie Li',
+    email: 'jaimieli@gmail.com',
+    google : {
+        "locale" : "en",
+        "picture" : "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+        "family_name" : "Li",
+        "given_name" : "Jaimie",
+        "name" : "Jaimie Li",
+        "verified_email" : true,
+        "email" : "jaimieli@gmail.com",
+        "id" : "111686876465131664784"
+    },
+    role: 'admin'
   }, {
     provider: 'local',
     role: 'admin',

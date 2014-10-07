@@ -36,7 +36,8 @@ var GroupSchema = new Schema({
   groupName: String,
   active: Boolean,
   users: [{ type: String, default: '' }],
-  questionsArr: [ QuestionsArrSchema ]
+  questionsArr: [ QuestionsArrSchema ],
+  admin: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
 
