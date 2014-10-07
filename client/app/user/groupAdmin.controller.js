@@ -16,12 +16,23 @@ angular.module('companyCultureApp')
     //     }
     //   });
     // };
+    this.invitedArr = [];
+    this.invitedMember = function() {
+      return {
+      name: '',
+      email: ''
+      }
+    };
+    this.addMember = function() {
+      this.invitedArr.push(new this.invitedMember());
+    }
     this.createGroup = function(groupName){
       console.log(groupName);
       var groupObj = {
         groupName: groupName,
         admin: $scope.currentUser._id,
         users: [$scope.currentUser._id],
+        // invited: this.invitedArr,
         active: true
       };
       console.log(groupObj);
