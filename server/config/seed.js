@@ -7,6 +7,7 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Group = require('../api/group/group.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -30,20 +31,15 @@ Thing.find({}).remove(function() {
   });
 });
 
-User.find({}).remove(function() {
-  User.create({
-    provider: 'local',
-    name: 'Test User',
-    email: 'test@test.com',
-    password: 'test'
-  }, {
-    provider: 'local',
-    role: 'admin',
-    name: 'Admin',
-    email: 'admin@admin.com',
-    password: 'admin'
-  }, function() {
-      console.log('finished populating users');
-    }
-  );
+Group.find({}).remove(function() {
+  Group.create({
+  groupName: "tester",
+  users: ["random", "second", "jellybean"],
+  questionsArr: [{
+    question: "questionId",
+    answersArr: [{user: "random", answer: "something"}, {user: "second", answer: "anotheranswer"}, {user: "third", answer: "lastanswer"}]
+  }]
+})
+}, function() {
+  console.log("it worked!");
 });
