@@ -30,7 +30,6 @@ angular.module('companyCultureApp')
       });
     };
   };
-
   var MatchingInstanceCtrl = function ($scope, $modalInstance, $http) {
     $scope.ok = function () {
     };
@@ -53,7 +52,6 @@ angular.module('companyCultureApp')
       });
     };
   };
-
   var SortingInstanceCtrl = function ($scope, $modalInstance, $http) {
     $scope.ok = function () {
     };
@@ -76,7 +74,6 @@ angular.module('companyCultureApp')
       });
     };
   };
-
   var OrderingInstanceCtrl = function ($scope, $modalInstance, $http) {
     $scope.ok = function () {
     };
