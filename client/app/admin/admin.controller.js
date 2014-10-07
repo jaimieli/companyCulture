@@ -2,10 +2,8 @@
 
 angular.module('companyCultureApp')
   .controller('AdminCtrl', function ($scope, $http, Auth, User) {
-
     // Use the User $resource to fetch all users
     $scope.users = User.query();
-
     $scope.delete = function(user) {
       User.remove({ id: user._id });
       angular.forEach($scope.users, function(u, i) {
@@ -14,19 +12,7 @@ angular.module('companyCultureApp')
         }
       });
     };
-
-
-    $scope.createSorting = function(){
-      $http.post('/api/questions', { questionType: 'Sort', questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}});
-    };
-    $scope.createOrdering = function(){
-      $http.post('/api/questions', { questionType: 'Order', questionText: $scope.questionText});
-    };
-    $scope.createMatching = function(){
-      $http.post('/api/questions', { questionType: 'Match', questionText: $scope.questionText});
-    };
   });
-
 
 // MATCHING CTRL FOR MATCHING QUESTION
   var MatchingCtrl = function ($scope, $modal, $log) {
@@ -49,13 +35,11 @@ angular.module('companyCultureApp')
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };
-    $scope.createMatching = function() {
-      console.log("is this matching working?");
+    $scope.createMatching = function(){
+      console.log("i got to the matcing func");
+      $http.post('/api/questions', { questionType: 'Match', questionText: $scope.questionText});
     };
   };
-
-
-
 
 // SORTING CTRL FOR SORTING QUESTION
   var SortingCtrl = function ($scope, $modal, $log) {
@@ -73,24 +57,37 @@ angular.module('companyCultureApp')
     };
   };
   var SortingInstanceCtrl = function ($scope, $modalInstance, $http) {
+    var sortType = $scope.sortType;
     $scope.options = [
       { type: "would", value: true },
       { type: "have", value: true },
       { type: "choose", value: true },
     ];
-
     $scope.ok = function () {
     };
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };
-    $scope.createSorting = function() {
-      console.log("is this sorting working?");
-    };
+    $scope.test = function (argument) {
+      console.log($scope.Test);
+    }
   };
+ //SORTING FORM CONTROLLER
+var FormController = function($scope, $http) {
+ $scope.createSorting = function(sortType) {
+    // console.log("is this sorting working?");
+    if (sortType.type === "would") {
+      $http.post('/api/questions', { questionType: 'Sort', questionText: "Would you rather " + $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}});
+    }
+    if (sortType.type === "have") {
+      $http.post('/api/questions', { questionType: 'Sort', questionText: "Have you ever " + $scope.questionText + "?" });
+    }
+    if (sortType.type === "choose") {
+      $http.post('/api/questions', { questionType: 'Sort', questionText: $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}});
+    }
 
-
-
+  };
+};
 
 // SORTING CTRL FOR SORTING QUESTION
   var OrderingCtrl = function ($scope, $modal, $log) {
@@ -113,8 +110,8 @@ angular.module('companyCultureApp')
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };
-    $scope.createOrdering = function() {
-      console.log("is this ordering working?");
+    $scope.createOrdering = function(){
+      $http.post('/api/questions', { questionType: 'Order', questionText: $scope.questionText});
     };
   };
 

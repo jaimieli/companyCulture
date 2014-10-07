@@ -40,6 +40,8 @@ var GroupSchema = new Schema({
 });
 
 
-
-
 module.exports = mongoose.model('Group', GroupSchema);
+
+
+
+
