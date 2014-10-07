@@ -9,6 +9,20 @@ var validationError = function(res, err) {
   return res.json(422, err);
 };
 
+
+exports.getGroups = function(req, res) {
+  var groups = {};
+  User.findOne({_id: req.user._id})
+      .populate('groupsAdmin')
+      .populate('groups')
+      .exec(function(err, results) {
+        console.log(results);
+        res.send(results)
+      })
+    // groups.participants = user.populate('groups');
+    // console.log(groups);
+    // res.send(groups);
+}
 /**
  * Get list of users
  * restriction: 'admin'

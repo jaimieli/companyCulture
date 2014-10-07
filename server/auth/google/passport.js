@@ -27,7 +27,12 @@ exports.setup = function (User, config) {
             return done(err, user);
           });
         } else {
-          return done(err, user);
+          user.google = profile._json;
+          user.google.accessToken = accessToken;
+          user.google.refreshToken = refreshToken;
+          user.save(function() {
+            return done(err, user);
+          });
         }
       });
     }

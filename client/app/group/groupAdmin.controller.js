@@ -26,25 +26,6 @@ angular.module('companyCultureApp')
     this.addMember = function() {
       this.invitedArr.push(new this.invitedMember());
     }
-    this.createGroup = function(groupName){
-      console.log(groupName);
-      var groupObj = {
-        groupName: groupName,
-        admin: $scope.currentUser._id,
-        users: [$scope.currentUser._id],
-        // invited: this.invitedArr,
-        active: true
-      };
-      console.log(groupObj);
-      $http.post('/api/groups', groupObj).success(function(data){
-        console.log(data);
-        $scope.groupCreated = data;
-        // $scope.currentUser.groups.push(data._id);
-        // $http.put('/api/users/+'$scope.currentUser._id, $scope.currentUser )
-        // $scope.inviteLink = 'http://localhost:9000/auth/google/' + data._id;
-      });
-      // generate unique links with the group id as a token to be sent out to the people's gmail address
-    };
     this.sendMessage = function(invite) {
       var subject = invite.name + ', Join Company Culture Group: ' + $scope.groupCreated.groupName;
       var body = '<p>Login or Signup through Google by clicking <a href="http://localhost:9000/login">here.</a></p>'

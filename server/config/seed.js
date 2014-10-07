@@ -72,15 +72,15 @@ User.find({}).remove(function() {
   );
 });
 
-Group.find({}).remove(function() {
-  Group.create({
-  groupName: "tester",
-  users: ["random", "second", "jellybean"],
-  questionsArr: [{
-    question: "questionId",
-    answersArr: [{user: "random", answer: "something"}, {user: "second", answer: "anotheranswer"}, {user: "third", answer: "lastanswer"}]
-  }]
-})
-}, function() {
-  console.log("it worked!");
-});
+// Group.find({}).remove(function() {
+//   Group.create({
+//   groupName: "tester",
+//   users: ["random", "second", "jellybean"],
+//   questionsArr: [{
+//     question: "questionId",
+//     answersArr: [{user: "random", answer: "something"}, {user: "second", answer: "anotheranswer"}, {user: "third", answer: "lastanswer"}]
+//   }]
+// })
+// }, function() {
+//   console.log("it worked!");
+// });
