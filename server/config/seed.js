@@ -8,6 +8,7 @@
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var Group = require('../api/group/group.model');
+var Question = require('../api/question/question.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -30,6 +31,21 @@ Thing.find({}).remove(function() {
     info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
   });
 });
+
+Question.find({}).remove(function(){
+  Question.create({
+    questionType:'Sort',
+    questionOption: {optionA: 'This is optionA', optionB: 'This is optionB'}
+  },{
+    questionType: 'Order',
+    questionText: 'This is the text for an order question'
+  },{
+    questionType: 'Match',
+    questionText: 'This is the text for a match question'
+  });
+
+});
+
 
 User.find({}).remove(function() {
   User.create({
