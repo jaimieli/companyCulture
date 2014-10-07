@@ -20,6 +20,8 @@ exports.setup = function (User, config) {
             provider: 'google',
             google: profile._json
           });
+          user.google.accessToken = accessToken;
+          user.google.refreshToken = refreshToken;
           user.save(function(err) {
             if (err) done(err);
             return done(err, user);

@@ -11,35 +11,3 @@
   </ul>
 </div>
 
-<!-- <button ng-click="newQuestion = !newQuestion">Create new question</button><br>
-	<div ng-model="newQuestion">
-		<div ng-init="questionType"=[
-		{type:'Sort', text: 'Create a new sorting question'},
-		{type:'Order', text: 'Create a new'}
-	}>
-		<h3></h3>
-	</div> -->
-
-<!-- <div><input type="text" ng-model="newQ"></div> -->
-
-<div class="container">
-  <div class="col-md-12">
-    <h4>Create a Group</h4>
-    <label>Group Name: </label>
-    <input ng-model="group"></input>
-    <button ng-click="Admin.createGroup(group)">Submit</button>
-    <h4>Invite a Member to this new group</h4>
-    <p>Link: {{inviteLink}}</p>
-    <label>Email Address: </label>
-    <input ng-model="email"></input>
-    <button>Send Invite</button>
-    <h4>Group Created</h4>
-    <p>Group Name: {{groupCreated.groupName}}</p>
-    <p>Admin: {{groupCreated.admin}}</p>
-    <p>Users:</p>
-    <ul ng-repeat="user in groupCreated.users">
-      <li>{{user}}</li>
-    </ul>
-  </div>
-
-</div>

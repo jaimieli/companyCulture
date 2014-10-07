@@ -5,7 +5,11 @@ angular.module('companyCultureApp')
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
-    }];
+    }, {
+      'title': 'User',
+      'link': '/user'
+    }
+    ];
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;

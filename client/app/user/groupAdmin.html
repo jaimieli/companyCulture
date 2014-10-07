@@ -1,0 +1,23 @@
+<div class="col-md-12" ng-controller="GroupAdminCtrl as Group">
+  <div class="container">
+    <h1>This is the group admin view</h1>
+    <h4>Create a Group</h4>
+    <label>Group Name: </label>
+    <input ng-model="group"></input>
+    <button ng-click="Group.createGroup(group)">Submit</button>
+    <h4>Invite a Member to this new group</h4>
+  <!--   <p>Link: {{inviteLink}}</p> -->
+    <label>Name: </label>
+    <input ng-model="invite.name"></input>
+    <label>Email Address: </label>
+    <input ng-model="invite.email"></input>
+    <button ng-click="Group.sendMessage(invite)">Send Invite</button>
+    <h4>Group Created</h4>
+    <p>Group Name: {{groupCreated.groupName}}</p>
+    <p>Admin: {{groupCreated.admin}}</p>
+    <p>Users:</p>
+    <ul ng-repeat="user in groupCreated.users">
+      <li>{{user}}</li>
+    </ul>
+  </div>
+</div>
