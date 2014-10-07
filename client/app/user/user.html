@@ -1,7 +1,7 @@
 <div class="col-md-12">
-  <p>
-    {{questionsArr[questionsArr.length-1]}}
-  </p>
+  <p>question type: {{questionsArr[questionsArr.length-1].questionType}}</p>
+  <p>question text: {{questionsArr[questionsArr.length-1].questionText}}</p>
+  <p>sort type: {{questionsArr[questionsArr.length-1].sortType}}</p>
 
   <div ng-if="questionsArr[questionsArr.length-1].questionType === 'Match'">
     <form name="userAnswerMatch" ng-submit="userAnswer()" class="simple-form">

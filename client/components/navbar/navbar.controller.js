@@ -3,9 +3,13 @@
 angular.module('companyCultureApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
-      'title': 'Home',
-      'link': '/'
-    }];
+      'title': 'User Profile',
+      'link': '/user'
+    },{
+      'title': 'Game',
+      'link': '/game'
+    }
+    ];
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
