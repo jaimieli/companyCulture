@@ -14,9 +14,20 @@ angular.module('companyCultureApp')
         }
       });
     };
+
+
+    $scope.createSorting = function(){
+      $http.post('/api/questions', { questionType: 'Sort', questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}});
+    };
+    $scope.createOrdering = function(){
+      $http.post('/api/questions', { questionType: 'Order', questionText: $scope.questionText});
+    };
+    $scope.createMatching = function(){
+      $http.post('/api/questions', { questionType: 'Match', questionText: $scope.questionText});
+    };
   });
 
-  var MatchingCtrl = function ($scope, $modal, $log) {
+    var MatchingCtrl = function ($scope, $modal, $log) {
     $scope.open = function (size) {
       var modalInstance = $modal.open({
         templateUrl: 'matchingQuestion.html',
@@ -81,9 +92,4 @@ angular.module('companyCultureApp')
       $modalInstance.dismiss('cancel');
     };
   };
-
-
-
-
-
 
