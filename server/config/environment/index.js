@@ -2,6 +2,9 @@
 
 var path = require('path');
 var _ = require('lodash');
+console.log(process.env.GOOGLE_ID);
+console.log(process.env.GOOGLE_SECRET);
+console.log(process.env.DOMAIN);
 
 function requiredProcessEnv(name) {
   if(!process.env[name]) {
@@ -53,3 +56,18 @@ var all = {
 module.exports = _.merge(
   all,
   require('./' + process.env.NODE_ENV + '.js') || {});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
