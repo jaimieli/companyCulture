@@ -31,6 +31,34 @@ Thing.find({}).remove(function() {
   });
 });
 
+User.find({}).remove(function() {
+  User.create({
+    provider: 'local',
+    name: 'Test User',
+    email: 'test@test.com',
+    password: 'test'
+  },{
+    provider: 'local',
+    name: 'Summer',
+    email: 'summer@test.com',
+    password: 'summer'
+  }, {
+    provider: 'local',
+    name: 'Jaimie',
+    email: 'jaimie@test.com',
+    password: 'jaimie'
+  }, {
+    provider: 'local',
+    role: 'admin',
+    name: 'Admin',
+    email: 'admin@admin.com',
+    password: 'admin'
+  }, function() {
+      console.log('finished populating users');
+    }
+  );
+});
+
 Group.find({}).remove(function() {
   Group.create({
   groupName: "tester",
