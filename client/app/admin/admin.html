@@ -9,16 +9,53 @@
         <a ng-click="delete(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
     </li>
   </ul>
+  <button ng-controller="MatchingCtrl" ng-click="open('matchingQuestion.html')">Matching Question</button>
+  <script type="text/ng-template" id="matchingQuestion.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Create A Matching Question</h3>
+    </div>
+    <div class="modal-body">
+      testing matching
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
+
+
+
+  <button ng-controller="SortingCtrl" ng-click="open('sortingQuestion.html')">Sorting Question</button>
+  <script type="text/ng-template" id="sortingQuestion.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Create A Sorting Question</h3>
+    </div>
+    <div class="modal-body">
+      testing sorting
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
+
+
+
+  <button ng-controller="OrderingCtrl" ng-click="open('orderingQuestion.html')">Ordering Question</button>
+  <script type="text/ng-template" id="orderingQuestion.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Create An Ordering Question</h3>
+    </div>
+    <div class="modal-body">
+      testing ordering
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
+
+
+
+
+
 </div>
 
-<!-- <button ng-click="newQuestion = !newQuestion">Create new question</button><br>
-	<div ng-model="newQuestion">
-		<div ng-init="questionType"=[
-		{type:'Sort', text: 'Create a new sorting question'},
-		{type:'Order', text: 'Create a new'}
-	}>
-		<h3></h3>
-	</div> -->
 
-
-<!-- <div><input type="text" ng-model="newQ"></div> -->
