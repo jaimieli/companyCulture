@@ -9,13 +9,19 @@
         <a ng-click="delete(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
     </li>
   </ul>
+
+
+
   <button ng-controller="MatchingCtrl" ng-click="open('matchingQuestion.html')">Matching Question</button>
   <script type="text/ng-template" id="matchingQuestion.html">
     <div class="modal-header">
         <h3 class="modal-title">Create A Matching Question</h3>
     </div>
     <div class="modal-body">
-      testing matching
+      <form name="createMatchingQuestionForm" ng-submit="createMatching()" class="simple-form">
+      Question: <input ng-model="questionText">
+        <input type="submit" value="Create">
+      </form>
     </div>
     <div class="modal-footer">
         <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
@@ -30,7 +36,21 @@
         <h3 class="modal-title">Create A Sorting Question</h3>
     </div>
     <div class="modal-body">
-      testing sorting
+      <form name="createSortingQuestionForm" ng-submit="createSorting()" class="simple-form">
+        <select ng-model="myOption" ng-options="option.type for option in options">
+        </select>
+
+        <div ng-show="myOption.type === 'would' && myOption.value">
+        </div>
+
+        <div ng-show="myOption.type === 'have' && myOption.value">
+        </div>
+
+        <div ng-show="myOption.type === 'choose' && myOption.value">
+        </div>
+
+        <input type="submit" value="Create Question">
+      </form>
     </div>
     <div class="modal-footer">
         <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
@@ -45,17 +65,15 @@
         <h3 class="modal-title">Create An Ordering Question</h3>
     </div>
     <div class="modal-body">
-      testing ordering
+      <form name="createOrderingQuestionForm" ng-submit="createOrdering()" class="simple-form">
+        Question: <input ng-model="questionText">
+        <input type="submit" value="Create">
+      </form>
     </div>
     <div class="modal-footer">
         <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
     </div>
   </script>
-
-
-
-
-
 </div>
 
 

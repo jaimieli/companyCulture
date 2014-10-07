@@ -27,7 +27,9 @@ angular.module('companyCultureApp')
     };
   });
 
-    var MatchingCtrl = function ($scope, $modal, $log) {
+
+// MATCHING CTRL FOR MATCHING QUESTION
+  var MatchingCtrl = function ($scope, $modal, $log) {
     $scope.open = function (size) {
       var modalInstance = $modal.open({
         templateUrl: 'matchingQuestion.html',
@@ -47,8 +49,15 @@ angular.module('companyCultureApp')
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };
+    $scope.createMatching = function() {
+      console.log("is this matching working?");
+    };
   };
 
+
+
+
+// SORTING CTRL FOR SORTING QUESTION
   var SortingCtrl = function ($scope, $modal, $log) {
     $scope.open = function (size) {
       var modalInstance = $modal.open({
@@ -64,13 +73,26 @@ angular.module('companyCultureApp')
     };
   };
   var SortingInstanceCtrl = function ($scope, $modalInstance, $http) {
+    $scope.options = [
+      { type: "would", value: true },
+      { type: "have", value: true },
+      { type: "choose", value: true },
+    ];
+
     $scope.ok = function () {
     };
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };
+    $scope.createSorting = function() {
+      console.log("is this sorting working?");
+    };
   };
 
+
+
+
+// SORTING CTRL FOR SORTING QUESTION
   var OrderingCtrl = function ($scope, $modal, $log) {
     $scope.open = function (size) {
       var modalInstance = $modal.open({
@@ -90,6 +112,9 @@ angular.module('companyCultureApp')
     };
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
+    };
+    $scope.createOrdering = function() {
+      console.log("is this ordering working?");
     };
   };
 
