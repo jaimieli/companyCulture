@@ -5,16 +5,6 @@
     <label>Group Name: </label>
     <input ng-model="group"></input>
     <button ng-click="Group.createGroup(group)">Submit</button>
-    <h4>Invite Members to this new group</h4>
-  <!--   <p>Link: {{inviteLink}}</p> -->
-    <button ng-click="Group.addMember()">Add Member</button>
-    <div ng-repeat="invite in Group.invitedArr track by $index">
-      <label>Name: </label>
-      <input ng-model="invite.name"></input>
-      <label>Email Address: </label>
-      <input ng-model="invite.email"></input>
-      <button ng-click="Group.sendMessage(invite)">Send Invite</button>
-    </div>
     <h4>Group Created</h4>
     <p>Group Name: {{groupCreated.groupName}}</p>
     <p>Admin: {{groupCreated.admin}}</p>
@@ -26,5 +16,15 @@
     <ul ng-repeat="user in groupCreated.users">
       <li>{{user}}</li>
     </ul>
+    <h4>Invite Members to a group</h4>
+  <!--   <p>Link: {{inviteLink}}</p> -->
+    <button ng-click="Group.addMember()">Add Member</button>
+    <div ng-repeat="invite in Group.invitedArr track by $index">
+      <label>Name: </label>
+      <input ng-model="invite.name"></input>
+      <label>Email Address: </label>
+      <input ng-model="invite.email"></input>
+      <button ng-click="Group.sendMessage(invite)">Send Invite</button>
+    </div>
   </div>
 </div>

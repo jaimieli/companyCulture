@@ -39,6 +39,8 @@ angular.module('companyCultureApp')
       $http.post('/api/groups', groupObj).success(function(data){
         console.log(data);
         $scope.groupCreated = data;
+        // $scope.currentUser.groups.push(data._id);
+        // $http.put('/api/users/+'$scope.currentUser._id, $scope.currentUser )
         // $scope.inviteLink = 'http://localhost:9000/auth/google/' + data._id;
       });
       // generate unique links with the group id as a token to be sent out to the people's gmail address
@@ -58,5 +60,6 @@ angular.module('companyCultureApp')
       $http.post('/api/messages/sendMessage', message).success(function(data) {
         console.log('Email Results: ', data.results);
       })
+      // $http.put('/api/groups/' + $scope.groupCreated._id, {})
     }
   });

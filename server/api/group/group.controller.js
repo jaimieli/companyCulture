@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Group = require('./group.model');
+var User = require('../user/user.model')
 
 // Get list of groups
 exports.index = function(req, res) {
@@ -22,8 +23,15 @@ exports.show = function(req, res) {
 
 // Creates a new group in the DB.
 exports.create = function(req, res) {
+  console.log('req.user before: ', req.user);
+
   Group.create(req.body, function(err, group) {
     if(err) { return handleError(res, err); }
+    req.user.groups.addToSet(group._id);
+    req.user.groupsAdmin.addToSet(group._id);
+    req.user.save(function(err, user){
+      console.log('user after save: ', user);
+    });
     return res.json(201, group);
   });
 };
