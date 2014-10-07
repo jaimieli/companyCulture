@@ -8,6 +8,7 @@ var QuestionSchema = new Schema({
   groupId: { type: Schema.Types.ObjectId, ref: 'Group' },
   // User schema groupId
   questionType: String,
+  sortType: String,
   questionText: String,
   questionOption: {optionA: String, optionB: String}
 });

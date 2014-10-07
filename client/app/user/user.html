@@ -1,5 +1,35 @@
 <div class="col-md-12">
   <p>
-    {{questionsArr[questionsArr.length-1].questionText}}
+    {{questionsArr[questionsArr.length-1]}}
   </p>
+
+  <div ng-if="questionsArr[questionsArr.length-1].questionType === 'Match'">
+    <form name="userAnswerMatch" ng-submit="userAnswer()" class="simple-form">
+      <input ng-model="userAnswer" required>
+      <input type="submit" value="Answer">
+    </form>
+  </div>
+
+  <div ng-if="questionsArr[questionsArr.length-1].questionType === 'Sort'">
+    <form name="userAnswerSort" class="simple-form">
+
+      <div ng-if="questionsArr[questionsArr.length-1].sortType === 'would' || questionsArr[questionsArr.length-1].sortType === 'choose'">
+        <button>{{questionsArr[questionsArr.length-1].questionOption.optionA}}</button>
+        <button>{{questionsArr[questionsArr.length-1].questionOption.optionB}}</button>
+      </div>
+
+      <div ng-if="questionsArr[questionsArr.length-1].sortType === 'have'">
+        <button>Yes</button>
+        <button>No</button>
+      </div>
+
+    </form>
+  </div>
+
+  <div ng-if="questionsArr[questionsArr.length-1].questionType === 'Order'">
+    <form name="userAnswerOrder" class="simple-form">
+      <input ng-model="userAnswer" required>
+      <input type="submit" value="Answer">
+    </form>
+  </div>
 </div>

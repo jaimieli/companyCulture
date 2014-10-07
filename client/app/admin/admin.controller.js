@@ -36,7 +36,6 @@ angular.module('companyCultureApp')
       $modalInstance.dismiss('cancel');
     };
     $scope.createMatching = function(){
-      console.log("i got to the matcing func");
       $http.post('/api/questions', { questionType: 'Match', questionText: $scope.questionText});
     };
   };
@@ -77,13 +76,13 @@ var FormController = function($scope, $http) {
  $scope.createSorting = function(sortType) {
     // console.log("is this sorting working?");
     if (sortType.type === "would") {
-      $http.post('/api/questions', { questionType: 'Sort', questionText: "Would you rather " + $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}});
+      $http.post('/api/questions', { questionType: 'Sort', sortType: sortType.type, questionText: "Would you rather " + $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}});
     }
     if (sortType.type === "have") {
-      $http.post('/api/questions', { questionType: 'Sort', questionText: "Have you ever " + $scope.questionText + "?" });
+      $http.post('/api/questions', { questionType: 'Sort', sortType: sortType.type, questionText: "Have you ever " + $scope.questionText + "?" });
     }
     if (sortType.type === "choose") {
-      $http.post('/api/questions', { questionType: 'Sort', questionText: $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}});
+      $http.post('/api/questions', { questionType: 'Sort', sortType: sortType.type, questionText: $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}});
     }
 
   };
