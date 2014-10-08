@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('MainCtrl', function ($scope, $http, socket) {
+  .controller('MainCtrl', function ($scope, $http, socket, $cookies) {
     $scope.awesomeThings = [];
 
     $http.get('/api/things').success(function(awesomeThings) {

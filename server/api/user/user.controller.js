@@ -18,10 +18,7 @@ exports.getGroups = function(req, res) {
       .exec(function(err, results) {
         console.log(results);
         res.send(results)
-      })
-    // groups.participants = user.populate('groups');
-    // console.log(groups);
-    // res.send(groups);
+  })
 }
 /**
  * Get list of users
@@ -111,5 +108,5 @@ exports.me = function(req, res, next) {
  * Authentication callback
  */
 exports.authCallback = function(req, res, next) {
-  res.redirect('/');
+  res.redirect('/user');
 };

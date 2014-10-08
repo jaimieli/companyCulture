@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location, $window) {
+  .controller('LoginCtrl', function ($scope, Auth, $location, $window, $cookies) {
+    console.log($location.search());
+    $cookies.inviteUserToGroup = $location.search().cookie;
     $scope.user = {};
     $scope.errors = {};
 
@@ -15,7 +17,7 @@ angular.module('companyCultureApp')
         })
         .then( function() {
           // Logged in, redirect to home
-          $location.path('/');
+          $location.path('/user');
         })
         .catch( function(err) {
           $scope.errors.other = err.message;

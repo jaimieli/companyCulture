@@ -10,8 +10,7 @@ angular.module('companyCultureApp')
     this.inviteMemberObj = function() {
       return {
       name: '',
-      email: '',
-      confirmed: false
+      email: ''
       }
     };
     this.addMember = function() {
@@ -33,7 +32,8 @@ angular.module('companyCultureApp')
     };
     this.sendMessage = function(invite) {
       var subject = invite.name + ', Join Company Culture Group: ' + $scope.groupData.groupName;
-      var body = '<p>Login or Signup through Google by clicking <a href="http://localhost:9000/login">here.</a></p>'
+      var link = 'http://localhost:9000/login?cookie=' + $scope.groupId;
+      var body = '<p>Login or Signup through Google by clicking <a href="' + link + '">here.</a></p>';
       var message = {
         userId: "me",
         message: {
