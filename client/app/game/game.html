@@ -1,20 +1,40 @@
 <div class="col-md-12">
-  Question Type : {{questionsArr[questionsArr.length-1].questionType}}
-  <div ng-if="questionsArr[questionsArr.length-1].questionType==='Match'">
-    <p>Match each of your group members to their responses to <span style="color:red">{{questionsArr[questionsArr.length-1].questionText}}</span>.</p>
+  <div ng-if="questionsArray[questionsArray.length-1].questionType==='Match'">
+    <p>Match each of your group members to their responses to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span>.</p>
   </div>
-  <div ng-if="questionsArr[questionsArr.length-1].questionType==='Sort'">
-    <p>Guess how your group members responded to <span style="color:red">{{questionsArr[questionsArr.length-1].questionText}}</span>.</p>
-    <div ng-if="questionsArr[questionsArr.length-1].sortType==='have'">
+  <div ng-if="questionsArray[questionsArray.length-1].questionType==='Sort'">
+    <p>Guess how your group members responded to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span>.</p>
+    <div ng-if="questionsArray[questionsArray.length-1].sortType==='have'">
       <div>Yes</div>
       <div>No</div>
     </div>
-    <div ng-if="questionsArr[questionsArr.length-1].sortType==='would' || questionsArr[questionsArr.length-1].sortType==='choose' ">
-      <div>{{questionsArr[questionsArr.length-1].questionOption.optionA}}</div>
-      <div>{{questionsArr[questionsArr.length-1].questionOption.optionB}}</div>
+    <div ng-if="questionsArray[questionsArray.length-1].sortType==='would' || questionsArray[questionsArray.length-1].sortType==='choose' ">
+      <div>{{questionsArray[questionsArray.length-1].questionOption.optionA}}</div>
+      <div>{{questionsArray[questionsArray.length-1].questionOption.optionB}}</div>
     </div>
   </div>
-  <div ng-if="questionsArr[questionsArr.length-1].questionType==='Order'">
-    <p>Order your group members' responses to <span style="color:red">{{questionsArr[questionsArr.length-1].questionText}}</span> from least to greatest.</p>
+  <div ng-if="questionsArray[questionsArray.length-1].questionType==='Order'">
+    <p>Order your group members' responses to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span> from least to greatest.</p>
   </div>
+
+<!-- DELETE LATER - ONLY INFORMATIVE FOR US -->
+Question Type : {{questionsArray[questionsArray.length-1].questionType}}
+
+  <div class="matchMembers">
+    <h1>GROUP MEMBERS</h1>
+    <p ng-repeat="answers in groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr|orderBy:random" class="draggableMember">{{answers.user}}</p>
+  </div>
+  <div class="matchAnswers">
+    <h1>ANSWERS</h1>
+    <p ng-repeat="answers in groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr|orderBy:random" class="droppableAnswer">{{answers.answer}}</p>
+  </div>
+
+
+<!--   {{groupData[groupData.length-1].questionsArr[0].answersArr[0].user}}
+ -->  <!-- <p ng-repeat=""></p> -->
+<!--   {{groupData[groupData.length-1].questionsArr[0].answersArr[0].answer}}
+ -->
+
+
+
 </div>
