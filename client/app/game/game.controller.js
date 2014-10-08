@@ -13,5 +13,9 @@ angular.module('companyCultureApp')
      });
      $scope.random = function() {
       return 0.5 - Math.random();
-     }
+     };
+     $scope.list1 = {title: 'AngularJS - Drag Me'};
+     $scope.list2 = {};
   });
+
+
