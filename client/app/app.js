@@ -7,7 +7,8 @@ angular.module('companyCultureApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
-  'ngDragDrop'
+  'ngDragDrop',
+  'timer'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
