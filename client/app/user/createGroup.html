@@ -1,14 +1,26 @@
-<div class="col-md-12" ng-controller="createGroupCtrl as Create">
+<div class="col-md-12" ng-controller="CreateGroupCtrl as Create">
   <div class="container">
     <h1>Create a Group</h1>
-    <label>Group Name: </label>
-    <input ng-model="group"></input>
-    <button ng-click="Create.createGroup(group)">Submit</button>
+    <label>Group Name: </label><input ng-model="Create.newGroup.groupName"></input>
+    <br></br>
+    <label>Members:</label>
+    <button ng-click="Create.addMember()">Add Member</button>
+    <div ng-form="memberForm">
+      <div ng-repeat="invite in Create.newGroup.invited">
+        <label>Name: </label>
+        <input ng-model="invite.name"></input>
+        <label>Email Address: </label>
+        <input ng-model="invite.email"></input>
+      </div>
+    </div>
+    <button ng-click="Create.createGroup(Create.newGroup)">Submit New Group</button>
+
+
     <h4>Group Created</h4>
     <p>Group Name: {{groupCreated.groupName}}</p>
     <p>Admin: {{groupCreated.admin}}</p>
     <p>Invited: </p>
-    <ul ng-repeat="invite in Create.invitedArr">
+    <ul ng-repeat="invite in groupCreated.invited">
       <li>{{invite.email}}</li>
     </ul>
     <p>Users:</p>

@@ -16,7 +16,7 @@ angular.module('companyCultureApp')
           password: $scope.user.password
         })
         .then( function() {
-          // Logged in, redirect to home
+          // Logged in, redirect to user page
           $location.path('/user');
         })
         .catch( function(err) {

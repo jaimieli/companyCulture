@@ -33,7 +33,7 @@ angular.module('companyCultureApp')
     this.sendMessage = function(invite) {
       var subject = invite.name + ', Join Company Culture Group: ' + $scope.groupData.groupName;
       var link = 'http://localhost:9000/login?cookie=' + $scope.groupId;
-      var body = '<p>Login or Signup through Google by clicking <a href="' + link + '">here.</a></p>';
+      var body = '<p>Join this group by clicking <a href="' + link + '">here.</a></p>';
       var message = {
         userId: "me",
         message: {
