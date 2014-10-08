@@ -6,15 +6,15 @@
     <h1>Groups You're In</h1>
     <ul ng-repeat="group in currentUser.groups">
       <li>
-        <a ng-href= '/group/{{group._id}}'>{{group.groupName}}</a>
+        <a ng-href= '/group/{{group._id}}' target="_blank">{{group.groupName}}</a>
       </li>
     </ul>
-    <h1>Groups You Manage</h1>
+<!--     <h1>Groups You Manage</h1>
     <ul ng-repeat="groupAdmin in currentUser.groupsAdmin">
       <li>
         <a ng-href= ''>{{groupAdmin.groupName}}</a>
       </li>
-    </ul>
-    <div ng-include=" 'app/user/createGroup.html' "></div>
+    </ul> -->
   </div>
 </div>
+<div ng-include=" 'app/user/createGroup.html' "></div>

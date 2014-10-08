@@ -1,0 +1,12 @@
+<h1>This is the admin view</h1>
+<h4>Invite Members to {{groupData.groupName}}</h4>
+<!--   <p>Link: {{inviteLink}}</p> -->
+<button ng-click="Admin.addMember()">Add Member</button>
+<div ng-repeat="invite in Admin.inviteArrField track by $index">
+  <label>Name: </label>
+  <input ng-model="invite.name"></input>
+  <label>Email Address: </label>
+  <input ng-model="invite.email"></input>
+  <button ng-click="Admin.sendMessage(invite)">Send Invite</button>
+</div>
+{{Admin.inviteArrField}}

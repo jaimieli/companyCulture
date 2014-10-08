@@ -4,6 +4,7 @@ var _ = require('lodash');
 var Message = require('./message.model');
 
 var User = require('../user/user.model');
+var Group = require('../group/group.model')
 
 var google = require('googleapis');
 var gmail = google.gmail('v1');
@@ -52,7 +53,16 @@ exports.sendMessage = function(req, res){
   }, function(err, results) {
     if(err) { return console.log('error: ', err)};
     console.log("results: ", results);
-    return res.send({results: results});
+    // update group with invitee
+    Group.findById(req.body.groupId, function(err, group) {
+      if (err) {return handleError(res, err);}
+      if (!group) {return res.send(404);}
+      group.invited.addToSet(req.body.invite);
+      group.save(function(err, group){
+        console.log('group after save: ', group);
+        return res.send({gmail: results, group: group});
+      })
+    })
   })
 }
 

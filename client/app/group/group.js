@@ -14,5 +14,5 @@ angular.module('companyCultureApp')
         templateUrl:'app/group/groupPage.html',
         controller: 'GroupCtrl',
         controllerAs: 'Group'
-      });
+      })
   });
