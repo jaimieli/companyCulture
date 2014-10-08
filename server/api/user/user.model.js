@@ -16,11 +16,12 @@ var UserSchema = new Schema({
   hashedPassword: String,
   provider: String,
   salt: String,
-  score: Number,
   google: {},
   github: {},
   groups: [ {type: Schema.Types.ObjectId, ref: 'Group'} ],
-  groupsAdmin: [ {type: Schema.Types.ObjectId, ref: 'Group'} ]
+  groupsAdmin: [ {type: Schema.Types.ObjectId, ref: 'Group'} ],
+  gameTime: { type: Number, default: null },
+  bestTime: { type: Number, default: null}
 });
 
 /**
