@@ -10,34 +10,24 @@ angular.module('companyCultureApp')
     this.inviteMemberObj = function() {
       return {
       name: '',
-      email: ''
+      email: '',
+      sent: false,
+      button: 'Send Invite'
       }
     };
     this.addMember = function() {
       this.inviteArrField.push(new this.inviteMemberObj());
     }
-    this.createGroup = function(groupName){
-      console.log(groupName);
-      var groupObj = {
-        groupName: groupName,
-        admin: $scope.currentUser._id,
-        users: [$scope.currentUser._id],
-        active: true
-      };
-      console.log(groupObj);
-      $http.post('/api/groups', groupObj).success(function(data){
-        console.log(data);
-        $scope.groupCreated = data;
-      });
-    };
     this.sendMessage = function(invite) {
+      invite.sent = true;
+      invite.button = "Invite Sent"
       var subject = invite.name + ', Join Company Culture Group: ' + $scope.groupData.groupName;
       var link = 'http://localhost:9000/login?cookie=' + $scope.groupId;
       var body = '<p>Join this group by clicking <a href="' + link + '">here.</a></p>';
       var message = {
         userId: "me",
         message: {
-          to: invite.email,
+          to: invite.email + '@gmail.com',
           subjectLine: subject,
           bodyOfEmail: body
         },

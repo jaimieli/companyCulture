@@ -1,16 +1,17 @@
 <div class="col-md-12" ng-controller="CreateGroupCtrl as Create">
   <div class="container">
     <h1>Create a Group</h1>
-    <label>Group Name: </label><input ng-model="Create.newGroup.groupName"></input>
-    <br></br>
-    <label>Members:</label>
-    <button ng-click="Create.addMember()">Add Member</button>
     <div ng-form="memberForm">
+      <label>Group Name: </label><input ng-model="Create.newGroup.groupName" required />
+      <br></br>
+      <label>Members:</label>
+      <button ng-click="Create.addMember()">Add Member</button>
       <div ng-repeat="invite in Create.newGroup.invited">
         <label>Name: </label>
-        <input ng-model="invite.name"></input>
+        <input ng-model="invite.name" required/>
         <label>Email Address: </label>
-        <input ng-model="invite.email"></input>
+        <input ng-model="invite.email" required>@gmail.com
+        <button class="btn btn-xs btn-danger" ng-click="Create.deleteMember($index)">Delete</button>
       </div>
     </div>
     <button ng-click="Create.createGroup(Create.newGroup)">Submit New Group</button>

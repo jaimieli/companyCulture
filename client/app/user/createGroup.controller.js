@@ -2,32 +2,44 @@
 
 angular.module('companyCultureApp')
   .controller('CreateGroupCtrl', function ($scope, $http, Auth, User) {
-    this.newGroup = {invited: []};
-    this.invited = [];
+    this.newGroup = {
+      active: true,
+      invited: []
+    };
     this.countMembers = 0;
     this.addMember = function() {
       this.newGroup.invited.push({
-        name: '',
-        email: ''
+        name: undefined,
+        email: undefined
       })
       this.countMembers++;
     };
+    this.deleteMember = function(index) {
+      this.newGroup.invited.splice(index, 1);
+    }
+    var self = this;
     this.createGroup = function(group){
       console.log('group obj: ', group);
       console.log('# of invited members: ', this.countMembers)
-      // set other properties on the new group
-      if (this.countMembers < 2) {
-        return alert('You need to invite at least 2 members.')
+      group.admin = $scope.currentUser._id;
+      group.users = [$scope.currentUser._id];
+      if (this.countMembers < 2 || group.groupName === undefined) {
+        return alert('You need to submit a groupName and invite at least 2 members.')
       }
-      this.newGroup.admin = $scope.currentUser._id;
-      this.newGroup.users = [$scope.currentUser._id];
-      this.newGroup.active = true;
-      console.log('group obj after adding props: ', group);
+      console.log('group before post: ', group);
       $http.post('/api/groups', group).success(function(data){
         console.log(data);
         $scope.groupCreated = data;
+
         // emit the event below so that the parent user controller will listen for the event
         $scope.$emit('new group created');
+
+        // reset input variables
+        self.newGroup = {
+          active: true,
+          invited: []
+        };
+
         // creating the message for each initially invited member
         var len = data.invited.length;
         for (var i = 0; i < len; i++) {
@@ -37,7 +49,7 @@ angular.module('companyCultureApp')
           var message = {
             userId: "me",
             message: {
-              to: data.invited[i].email,
+              to: data.invited[i].email+'@gmail.com',
               subjectLine: subject,
               bodyOfEmail: body
             },
