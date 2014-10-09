@@ -29,10 +29,7 @@ exports.removeMember = function(req, res){
         if(err) { return handleError(res, err); }
         updatedObj.group = group;
         callback();
-      }), function(err) {
-        if(err) console.log(err);
-        callback();
-      }
+      })
     })
   }
 
@@ -54,10 +51,7 @@ exports.removeMember = function(req, res){
         if(err) { return handleError(res, err); }
         updatedObj.user = user;
         callback();
-      }), function(err) {
-        if(err) console.log(err);
-        callback();
-      }
+      })
     })
   }
   async.parallel([updateGroup, updateUser], function(err, results){
@@ -66,7 +60,7 @@ exports.removeMember = function(req, res){
   })
 }
 
-// Add User and Update Group
+// Add Invitee to Group, Update Group, and Add Group to User Object
 exports.addInvitee = function(req, res) {
   Group.findById(req.params.id, function(err, group) {
     var updatedObj = {}
@@ -76,14 +70,14 @@ exports.addInvitee = function(req, res) {
     var updateGroup = function(callback) {
       // remove user from invitee list
       var len = group.invited.length;
-      // loop through the invite list and find the matching email
-      console.log('group inside update group: ', group);
       for (var i = 0; i < len; i++) {
-        if(req.user.email === group.invited[i].email + '@gmail.com'){
-          group.invited.splice(i, 1);
-          break;
+        if (group.invited[i] !== null) {
+          if(req.user.email === group.invited[i].email + '@gmail.com'){
+            group.invited.set(i, undefined);
+          }
         }
       }
+      console.log('group.invited outside loop: ', group.invited);
       // add user to group object
       group.users.addToSet(req.user._id);
       // save group
@@ -91,11 +85,8 @@ exports.addInvitee = function(req, res) {
         if (err) { return handleError(res, err); }
         updatedObj.group = group;
         callback();
-      }), function(err) {
-        if(err) console.log(err);
-        callback();
-      }
-    }
+      });
+    };
 
     var updateUser = function(callback) {
       // add group to user object
@@ -104,11 +95,8 @@ exports.addInvitee = function(req, res) {
       req.user.save(function(err, user){
         updatedObj.user = user;
         callback()
-      }), function(err) {
-        if(err) console.log(err);
-        callback();
-      }
-    }
+      });
+    };
 
     async.parallel([updateGroup, updateUser], function(err, results){
       if (err) console.log(err);

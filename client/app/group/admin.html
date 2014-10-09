@@ -19,8 +19,8 @@
   </li>
 </ul>
 <h4>Invited but Unconfirmed</h4>
-<ul ng-repeat="invite in groupData.invited">
-  <li>
+<ul ng-repeat="invite in groupData.invited track by $index">
+  <li ng-if="invite">
     {{invite.name}}: {{invite.email}}@gmail.com
   </li>
 </ul>

@@ -21,7 +21,7 @@ var GroupSchema = new Schema({
   users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   questionsArr: [ QuestionsArrSchema ],
   admin: { type: Schema.Types.ObjectId, ref: 'User' },
-  invited: []
+  invited: [Schema.Types.Mixed]
 });
 
 // var AnswerSchema = new Schema({
