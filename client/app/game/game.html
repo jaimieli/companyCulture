@@ -1,4 +1,11 @@
 <div class="col-md-12">
+  <br>
+  <br>
+
+  <timer>
+    {{60 - seconds}}
+    <progressbar class="progress-striped active" value="timerSeconds" max="60"></progressbar>
+  </timer>
 
 <!-- DELETE LATER - ONLY INFORMATIVE FOR US -->
 Question Type : {{questionsArray[questionsArray.length-1].questionType}}
@@ -20,23 +27,6 @@ Question Type : {{questionsArray[questionsArray.length-1].questionType}}
   <div ng-if="questionsArray[questionsArray.length-1].questionType==='Order'">
     <p>Order your group members' responses to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span> from least to greatest.</p>
   </div>
-
-
-  <!-- <div class="matchMembers">
-    <h1>GROUP MEMBERS</h1>
-    <div ng-repeat="answers in groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr|orderBy:random">
-        <p class="draggableMember"  data-drop="true" data-drag="true" jqyoui-draggable="{animate:true}" data-jqyoui-options="{revert: 'invalid', snap: true, snapMode: 'inner', snapTolerance: 30}">{{answers.user}}<p>
-    </div>
-  </div>
-
-  <div class="matchAnswers">
-    <h1>ANSWERS</h1>
-    <div ng-repeat="answers in groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr|orderBy:random">
-      <div data-drop="true"  jqyoui-draggable="{animate:true}" data-jqyoui-options="{snap: true, snapMode: 'inner', snapTolerance: 30}" jqyoui-droppable class="thumbnail droppableAnswer" style='height: 80px; width: 293px'>{{answers.answer}}
-        <div data-drag="false" data-jqyoui-options="{snap: true, snapMode: 'inner'}">{{answers.answer}}</div>
-      </div>
-    </div>
-  </div> -->
 
 <!-- BUTTON TO DRAG INTO BLANK BOX -->
 <div ng-repeat="item in users" class="top">

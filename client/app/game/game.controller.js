@@ -1,7 +1,18 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('GameCtrl', function ($scope, $http) {
+  .controller('GameCtrl', function ($scope, $http, $interval) {
+
+    // TIMER
+    $scope.timerSeconds = 0;
+    $scope.$on('timer-tick', function(event, value) {
+      $scope.timerSeconds = 60 - (Math.floor(value.millis / 1000)) % 60;
+    });
+    $scope.interval = 0;
+    $interval(function() {
+      $scope.interval = ($scope.interval + 1) % 100;
+    }, 1000);
+
      $http.get('/api/questions').success(function(questionsArray) {
          $scope.questionsArray = questionsArray;
      });
@@ -57,7 +68,6 @@ angular.module('companyCultureApp')
       $scope.right = [];
       for(var x = 0; x < $scope.bottomArr.length; x++) {
         if($scope.bottomArr[x].user === $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[x].user) {
-          console.log("correct");
           $scope.right.push("success");
         }else{
            $scope.right.push("danger");
@@ -71,7 +81,6 @@ angular.module('companyCultureApp')
         delete $scope.blanks[t].user;
          $scope.users[t].user = $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[t].user;
       }
-      console.log($scope.users);
       $scope.users = shuffle($scope.users);
      };
 
