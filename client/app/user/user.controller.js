@@ -1,14 +1,22 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('UserCtrl', function ($scope, $http, $cookies) {
+  .controller('UserCtrl', function ($scope, $http, $cookies, userGroup) {
     // listening for new group created
-    $scope.$on('new group created', function(event) {
-      $http.get('/api/users/getGroups').success(function(data){
-        console.log(data);
-        $scope.currentUser = data;
-      });
-    })
+    // $scope.$on('new group created', function(event) {
+    //   $http.get('/api/users/getGroups').success(function(data){
+    //     console.log(data);
+    //     $scope.currentUser = data;
+    //   });
+    // })
+    $scope.groups = userGroup.groups;
+
+    $scope.$watch('currentUser', function(newval, oldval) {
+      console.log("newval: ", newval);
+      console.log("oldval: ", oldval);
+    });
+
+
     $http.get('/api/users/getGroups').success(function(data){
       console.log(data);
       $scope.currentUser = data;

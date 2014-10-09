@@ -8,6 +8,8 @@
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var Group = require('../api/group/group.model');
+var Question = require('../api/question/question.model');
+var Game = require('../api/game/game.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -72,6 +74,9 @@ User.find({}).remove(function() {
   );
 });
 
+Group.find({}).remove(function() {});
+Question.find({}).remove(function() {});
+Game.find({}).remove(function() {});
 // Group.find({}).remove(function() {
 //   Group.create({
 //   groupName: "tester",

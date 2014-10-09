@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('CreateGroupCtrl', function ($scope, $http, Auth, User) {
+  .controller('CreateGroupCtrl', function ($scope, $http, Auth, User, userGroup) {
     this.newGroup = {
       active: true,
       invited: []
@@ -32,7 +32,8 @@ angular.module('companyCultureApp')
         $scope.groupCreated = data;
 
         // emit the event below so that the parent user controller will listen for the event
-        $scope.$emit('new group created');
+        // $scope.$emit('new group created');
+        userGroup.getUserGroups();
 
         // reset input variables
         self.newGroup = {

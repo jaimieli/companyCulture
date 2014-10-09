@@ -3,8 +3,11 @@
 <div class="col-md-12">
   <div class="container">
     This is the user view.
+    {{currentUser}}
+    <hr>
+    {{currentUser.groups}}
     <h1>Groups You're In</h1>
-    <ul ng-repeat="group in currentUser.groups">
+    <ul ng-repeat="group in groups">
       <li>
         <a ng-href= '/group/{{group._id}}' target="_blank">{{group.groupName}}</a>
       </li>
