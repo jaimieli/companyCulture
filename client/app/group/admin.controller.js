@@ -6,6 +6,7 @@ angular.module('companyCultureApp')
     $scope.currentUser = Auth.getCurrentUser();
     console.log('current user obj: ', $scope.currentUser);
 
+    // adding members to invite
     this.inviteArrField = [];
     this.inviteMemberObj = function() {
       return {
@@ -15,9 +16,11 @@ angular.module('companyCultureApp')
       button: 'Send Invite'
       }
     };
-    this.addMember = function() {
+    this.addMemberField = function() {
       this.inviteArrField.push(new this.inviteMemberObj());
     }
+
+    // sending invitation to member to join group
     this.sendMessage = function(invite) {
       invite.sent = true;
       invite.button = "Invite Sent"
@@ -36,9 +39,17 @@ angular.module('companyCultureApp')
       }
       console.log(message);
       $http.post('/api/messages/sendMessage', message).success(function(data) {
-        $scope.groupData = data.group;
-        console.log('Email Results: ', data.gmail);
-        console.log('$scope.groupData after adding invitee: ', $scope.groupData);
+        // 5 second delay before update
+        $scope.$emit('update group data');
+      })
+    }
+    // removing member from group
+    this.removeMember = function(user) {
+      console.log('delete user: ', user, 'from groupID: ', $scope.groupData._id);
+      $http.post('/api/groups/removeMember/'+$scope.groupData._id, user).success(function(data){
+        console.log('group after deleting user: ', data.group);
+        console.log('user after deleting user from group: ', data.user);
+        $scope.$emit('update group data');
       })
     }
   });

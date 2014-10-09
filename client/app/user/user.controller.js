@@ -10,16 +10,27 @@ angular.module('companyCultureApp')
       });
     })
 
-    $http.get('/api/users/getGroups').success(function(data){
-      console.log(data);
-      $scope.currentUser = data;
-    });
+    // // get currentUser on page load
+    // $http.get('/api/users/getGroups').success(function(data){
+    //   console.log(data);
+    //   $scope.currentUser = data;
+    // });
+
     // if cookieId, then add user to group and update user by adding group to groups
     $scope.cookieId = $cookies.inviteUserToGroup;
     if ($cookies.inviteUserToGroup !== undefined && $cookies.inviteUserToGroup !== 'undefined') {
       console.log('cookies inside if statement should not be undefined: ', $cookies.inviteUserToGroup)
       $http.get('/api/groups/addInvitee/' + $scope.cookieId).success(function(data){
         console.log('after adding invitee to group: ', data);
+        $http.get('/api/users/getGroups').success(function(data){
+          console.log(data);
+          $scope.currentUser = data;
+        });
       })
+    } else {
+      $http.get('/api/users/getGroups').success(function(data){
+        console.log(data);
+        $scope.currentUser = data;
+      });
     }
   });
