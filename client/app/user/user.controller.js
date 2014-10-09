@@ -3,24 +3,16 @@
 angular.module('companyCultureApp')
   .controller('UserCtrl', function ($scope, $http, $cookies, userGroup) {
     // listening for new group created
-    // $scope.$on('new group created', function(event) {
-    //   $http.get('/api/users/getGroups').success(function(data){
-    //     console.log(data);
-    //     $scope.currentUser = data;
-    //   });
-    // })
-    $scope.groups = userGroup.groups;
-
-    $scope.$watch('currentUser', function(newval, oldval) {
-      console.log("newval: ", newval);
-      console.log("oldval: ", oldval);
-    });
-
+    $scope.$on('new group created', function(event) {
+      $http.get('/api/users/getGroups').success(function(data){
+        console.log(data);
+        $scope.currentUser = data;
+      });
+    })
 
     $http.get('/api/users/getGroups').success(function(data){
       console.log(data);
       $scope.currentUser = data;
-      // what does this line do? user db is being changed in the backend how do you get it to change on the front end?
     });
     // if cookieId, then add user to group and update user by adding group to groups
     $scope.cookieId = $cookies.inviteUserToGroup;

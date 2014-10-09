@@ -32,8 +32,7 @@ angular.module('companyCultureApp')
         $scope.groupCreated = data;
 
         // emit the event below so that the parent user controller will listen for the event
-        // $scope.$emit('new group created');
-        userGroup.getUserGroups();
+        $scope.$emit('new group created');
 
         // reset input variables
         self.newGroup = {
