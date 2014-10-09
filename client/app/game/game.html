@@ -60,6 +60,7 @@ Question Type : {{questionsArray[questionsArray.length-1].questionType}}
 <!-- ANSWERS FROM USERS -->
 <div ng-repeat="answer in groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr" class="answerList">{{answer.answer}}</div>
 
+<button class="btn btn-primary" ng-click="reset()">Reset</button>
 
 </div>
 

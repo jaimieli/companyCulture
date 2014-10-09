@@ -5,6 +5,12 @@ angular.module('companyCultureApp')
      $http.get('/api/questions').success(function(questionsArray) {
          $scope.questionsArray = questionsArray;
      });
+
+     var shuffle = function(o) {
+            for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+            return o;
+          };
+
      $http.get('/api/groups').success(function(groupData) {
          $scope.groupData = groupData;
          for(var i = 0; i < groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr.length; i++){
@@ -13,11 +19,6 @@ angular.module('companyCultureApp')
               $scope.blanks.push({answer: groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr[i].answer});
               $scope.bottomArr.push({answer: groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr[i].answer});
           };
-          var shuffle = function(o) {
-            for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-            return o;
-          };
-
           $scope.users = shuffle($scope.users);
        });
 
@@ -64,7 +65,15 @@ angular.module('companyCultureApp')
       }
      }
 
-
+     $scope.reset = function() {
+      for(var t = 0; t < $scope.bottomArr.length; t++) {
+        delete $scope.bottomArr[t].user;
+        delete $scope.blanks[t].user;
+         $scope.users[t].user = $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[t].user;
+      }
+      console.log($scope.users);
+      $scope.users = shuffle($scope.users);
+     };
 
 
 
