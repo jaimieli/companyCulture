@@ -7,16 +7,20 @@ angular.module('companyCultureApp')
      });
      $http.get('/api/groups').success(function(groupData) {
          $scope.groupData = groupData;
-         // console.log("Group Data:", groupData);
-         // console.log("QuestionsArr 0: ", groupData[groupData.length-1].questionsArr[0]);
-         // console.log("QuestionsArr: ", questionsArr);
-     });
+         for(var i = 0; i < groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr.length; i++){
+           var obj = {user: groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr[i].user};
+              $scope.users.push(obj);
+              $scope.answers.push({});
+          };
+            console.log($scope.users);
+            console.log($scope.answers);
+       });
      $scope.random = function() {
       return 0.5 - Math.random();
      };
 
-     $scope.list1 = [{title: 'AngularJS - Drag Me', drag: true}];
-     $scope.list2 = [{}];
+     $scope.users = [];
+     $scope.answers = [];
 
   });
 
