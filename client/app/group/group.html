@@ -3,5 +3,6 @@
 <div class="col-md-12">
   <div class="container">
     This is the group view.
+    <div ng-show="Group.isGroupAdmin === true" ng-include=" 'app/group/admin.html' " ng-controller="AdminCtrl as Admin"></div>
   </div>
 </div>

@@ -8,10 +8,11 @@ angular.module('companyCultureApp')
     }, {
       'title': 'User',
       'link': '/user'
-    }, {
-      'title': 'Group',
-      'link': '/group'
     }
+    // , {
+    //   'title': 'Group',
+    //   'link': '/group'
+    // }
     ];
 
     $scope.isCollapsed = true;
