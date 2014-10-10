@@ -1,0 +1,62 @@
+<button ng-controller="MatchingCtrl" ng-click="open('matchingQuestion.html')">Matching Question</button>
+  <script type="text/ng-template" id="matchingQuestion.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Create A Matching Question</h3>
+    </div>
+    <div class="modal-body">
+      <form name="createMatchingQuestionForm" ng-submit="createMatching()" class="simple-form">
+      Question: <input ng-model="questionText">
+        <input type="submit" value="Create">
+      </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
+
+  <button ng-controller="SortingCtrl" ng-click="open('sortingQuestion.html')">Sorting Question</button>
+  <script type="text/ng-template" id="sortingQuestion.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Create A Sorting Question</h3>
+    </div>
+    <div class="modal-body">
+      <form name="createSortingQuestionForm" ng-submit="createSorting(myOption)" ng-controller="FormController" class="simple-form">
+        <select ng-model="myOption" ng-options="option.type for option in options">
+        </select>
+        <div ng-show="myOption.type === 'would' && myOption.value">
+          <p>Would you rather {{optionA}} or {{ optionB }}?<p>
+          <input ng-model="optionA" placeholder="option A">
+          <input ng-model="optionB" placeholder="option B">
+        </div>
+        <div ng-show="myOption.type === 'have' && myOption.value">
+          Have you ever
+          <input ng-model="questionText">?
+        </div>
+        <div ng-show="myOption.type === 'choose' && myOption.value">
+          <input ng-model="optionA">
+          or
+          <input ng-model="optionB">?
+        </div>
+        <input type="submit" value="Create Question">
+      </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
+
+  <button ng-controller="OrderingCtrl" ng-click="open('orderingQuestion.html')">Ordering Question</button>
+  <script type="text/ng-template" id="orderingQuestion.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Create An Ordering Question</h3>
+    </div>
+    <div class="modal-body">
+      <form name="createOrderingQuestionForm" ng-submit="createOrdering()" class="simple-form">
+        Question: <input ng-model="questionText">
+        <input type="submit" value="Create">
+      </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>

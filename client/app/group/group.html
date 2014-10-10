@@ -5,5 +5,9 @@
     <h1>This is the group view for {{groupData.groupName}}</h1>
     <h4 ng-if="groupData.active === false">{{groupData.groupName}} has been deactivated</h4>
     <div ng-show="Group.isGroupAdmin === true && groupData.active === true" ng-include=" 'app/group/admin.html' " ng-controller="AdminCtrl as Admin"></div>
+
+    <div ng-include=" 'app/group/question.html' "></div>
+    <div ng-include=" 'app/group/createGame.html' "
+
   </div>
 </div>
