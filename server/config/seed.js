@@ -68,12 +68,12 @@ User.find({}).remove(function() {
 Group.find({}).remove(function() {
   Group.create({
     groupName: "tester",
-    users: ["random", "second", "jellybean"],
+    users: ["Mike", "Jaimie", "Summer", "Christian", "Andrew", "Gabe", "Omer", "Justin"],
     questionsArr: [{
-      question: "questionId",
-      answersArr: [{user: "random", answer: "something"}, {user: "second", answer: "anotheranswer"}, {user: "third", answer: "lastanswer"}]
-  }]
-})
+      question: "1",
+      answersArr: [{user: "Mike", answer: "William"}, {user: "Jaimie", answer: "Chloe"}, {user: "Summer", answer: "Michiko"}, {user: "Christian", answer: "Dean"}, {user: "Andrew", answer: "Michael"}, {user: "Gabe", answer: "Laurence"}, {user: "Omer", answer: "Arie"}, {user: "Justin", answer: "Blake"}]
+    }]
+  })
 }, function() {
   console.log("it worked!");
 });
