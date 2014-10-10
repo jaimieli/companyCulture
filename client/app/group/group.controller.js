@@ -12,7 +12,7 @@ angular.module('companyCultureApp')
       console.log('$scope.groupData on groupPage load: ', $scope.groupData);
       if(data.admin === Auth.getCurrentUser()._id) {
         self.isGroupAdmin = true;
-        console.log(self.isGroupAdmin);
+        console.log('admin of the group');
       }
     })
 

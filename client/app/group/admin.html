@@ -1,5 +1,7 @@
-<h1>This is the admin view for {{groupData.groupName}}</h1>
-<button class="btn btn-danger" ng-click="Admin.toggleGroup(Admin.statusButton)">{{Admin.statusButton.text}}</button>
+<h3>This is the admin view for {{groupData.groupName}} nested inside the group view</h3>
+<button class="btn btn-danger" ng-click="Admin.deactivateGroup()">{{Admin.deactivateGroupButtonText}}</button>
+<!-- <br></br> -->
+<!-- <button class="btn btn-danger" ng-click="Admin.deleteGroup()">{{Admin.deleteGroupButtonText}}</button> -->
 <h4>Invite Members</h4>
 <!--   <p>Link: {{inviteLink}}</p> -->
 <button ng-click="Admin.addMemberField()">Add Member</button>
@@ -10,7 +12,6 @@
   <input ng-model="invite.email" required>@gmail.com</input>
   <button ng-disabled="invite.sent===true" ng-click="Admin.sendMessage(invite)">{{invite.button}}</button>
 </div>
-{{Admin.inviteArrField}}
 <h4>Current Users</h4>
 <ul ng-repeat="user in groupData.users">
   <li>

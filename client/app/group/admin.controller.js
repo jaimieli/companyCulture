@@ -1,13 +1,11 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth, User) {
+  .controller('AdminCtrl', function ($scope, $http, Auth, User, $location) {
     $scope.currentUser = Auth.getCurrentUser();
 
     console.log('current user obj: ', $scope.currentUser);
-    this.statusButton = {
-      text: 'Delete Group'
-    }
+
     // adding members to invite
     this.inviteArrField = [];
     this.inviteMemberObj = function() {
@@ -54,21 +52,30 @@ angular.module('companyCultureApp')
         $scope.$emit('update group data');
       })
     }
-    // change group active status to false
-    this.toggleGroup = function(button) {
-      console.log('trying to change group status');
-      var obj = {}
-      if (button.text === 'Delete Group') {
-        button.text = 'Restore Group';
-        obj.active = false;
-      }
-      if (button.text === 'Restore Group') {
-        button.text = 'Delete Group';
-        obj.active = true;
-      }
+    // delete/destroy group
+    // this.deleteGroupButtonText = 'Delete Group';
+    // this.deleteGroup = function() {
+    //   this.deleteGroupButtonText = 'Group Deleted';
+    //   console.log('trying to delete group');
+    //   $http.delete('api/groups/'+$scope.groupData._id).success(function(data){
+    //     console.log('deleted group');
+    //     // update group data
+    //     $scope.$emit('update group data');
+    //     // redirect to user page that lists all the groups the user belongs to
+    //     $location.path('/user');
+    //   });
+    // };
+    // deactivate group 'delete'
+    this.deactivateGroupButtonText = 'Deactivate Group';
+    this.deactivateGroup = function() {
+      console.log('trying to deactivate group');
+      this.deactivateGroupButtonText = 'Group Deactivated';
+      var obj = {};
+      obj.active = false;
       $http.put('api/groups/'+$scope.groupData._id, obj).success(function(data){
         console.log('changed group to inactive: ', data);
         $scope.$emit('update group data')
+        $location.path('/user');
       });
-    };
+    }
   });
