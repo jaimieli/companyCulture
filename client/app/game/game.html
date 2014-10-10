@@ -27,6 +27,7 @@
 <!-- DELETE LATER - ONLY INFORMATIVE FOR US -->
 Question Type : {{questionsArray[questionsArray.length-1].questionType}}
 
+<!-- MATCHING QUESTION -->
   <div ng-if="questionsArray[questionsArray.length-1].questionType==='Match'">
     <p>Match each of your group members to their responses to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span>.</p>
     <!-- BUTTON TO DRAG INTO BLANK BOX -->
@@ -54,21 +55,17 @@ Question Type : {{questionsArray[questionsArray.length-1].questionType}}
 
 
 
-
+<!-- SORTING QUESTION -->
   <div ng-if="questionsArray[questionsArray.length-1].questionType==='Sort'">
     <p>Guess how your group members responded to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span>.</p>
+
+    <!-- SORTING QUESTION - HAVE -->
     <div ng-if="questionsArray[questionsArray.length-1].sortType==='have'">
       <div>Yes</div>
-
-
-
-
-
-
       <div>No</div>
-
-
     </div>
+
+    <!-- SORTING QUESTION - WOULD && CHOOSE -->
     <div ng-if="questionsArray[questionsArray.length-1].sortType==='would' || questionsArray[questionsArray.length-1].sortType==='choose' ">
       <div>{{questionsArray[questionsArray.length-1].questionOption.optionA}}</div>
       <div>{{questionsArray[questionsArray.length-1].questionOption.optionB}}</div>
@@ -79,7 +76,7 @@ Question Type : {{questionsArray[questionsArray.length-1].questionType}}
 
 
 
-
+<!-- ORDERING QUESTION -->
   <div ng-if="questionsArray[questionsArray.length-1].questionType==='Order'">
     <p>Order your group members' responses to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span> from least to greatest.</p>
   </div>
@@ -89,9 +86,7 @@ Question Type : {{questionsArray[questionsArray.length-1].questionType}}
 
 
 
-
-
-
+<!-- CLOSING TOP COL-MD-12 DIV -->
 </div>
 
 
