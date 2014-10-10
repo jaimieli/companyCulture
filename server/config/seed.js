@@ -9,6 +9,8 @@ var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var Group = require('../api/group/group.model');
 var Question = require('../api/question/question.model');
+var Game = require('../api/game/game.model');
+
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -45,7 +47,6 @@ Question.find({}).remove(function(){
   });
 });
 
-
 User.find({}).remove(function() {
   User.create({
     provider: 'local',
@@ -64,6 +65,8 @@ User.find({}).remove(function() {
   );
 });
 
+Game.find({}).remove(function() {});
+
 Group.find({}).remove(function() {
  Group.create({
    groupName: "tester",
@@ -76,6 +79,7 @@ Group.find({}).remove(function() {
 }, function() {
  console.log("it worked!");
 });
+
 // Group.find({}).remove(function() {
 //   Group.create({
 //     groupName: "tester",

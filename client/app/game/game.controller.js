@@ -2,6 +2,11 @@
 
 angular.module('companyCultureApp')
   .controller('GameCtrl', function ($scope, $http, $interval, scoreFactory) {
+
+   $http.get('/api/questions').success(function(questionsArr) {
+       $scope.questionsArr = questionsArr;
+    });
+
     // TIMER
     $scope.score = 0;
     $scope.timerSeconds = 0;
@@ -133,22 +138,3 @@ var AfterGameModalInstanceCtrl = function($scope, $modalInstance, $http, Auth, s
     $modalInstance.dismiss('cancel');
   };
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

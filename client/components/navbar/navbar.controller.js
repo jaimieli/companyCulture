@@ -14,9 +14,6 @@ angular.module('companyCultureApp')
     //   'link': '/group'
     // }
     ,{
-      'title': 'User Profile',
-      'link': '/user'
-    },{
       'title': 'Game',
       'link': '/game'
     }
