@@ -1,5 +1,5 @@
 <h1>This is the admin view for {{groupData.groupName}}</h1>
-<button class="btn btn-danger" ng-click="Admin.removeGroup()">Delete Group</button>
+<button class="btn btn-danger" ng-click="Admin.toggleGroup(Admin.statusButton)">{{Admin.statusButton.text}}</button>
 <h4>Invite Members</h4>
 <!--   <p>Link: {{inviteLink}}</p> -->
 <button ng-click="Admin.addMemberField()">Add Member</button>

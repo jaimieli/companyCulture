@@ -2,10 +2,12 @@
 
 angular.module('companyCultureApp')
   .controller('AdminCtrl', function ($scope, $http, Auth, User) {
-
     $scope.currentUser = Auth.getCurrentUser();
-    console.log('current user obj: ', $scope.currentUser);
 
+    console.log('current user obj: ', $scope.currentUser);
+    this.statusButton = {
+      text: 'Delete Group'
+    }
     // adding members to invite
     this.inviteArrField = [];
     this.inviteMemberObj = function() {
@@ -52,4 +54,21 @@ angular.module('companyCultureApp')
         $scope.$emit('update group data');
       })
     }
+    // change group active status to false
+    this.toggleGroup = function(button) {
+      console.log('trying to change group status');
+      var obj = {}
+      if (button.text === 'Delete Group') {
+        button.text = 'Restore Group';
+        obj.active = false;
+      }
+      if (button.text === 'Restore Group') {
+        button.text = 'Delete Group';
+        obj.active = true;
+      }
+      $http.put('api/groups/'+$scope.groupData._id, obj).success(function(data){
+        console.log('changed group to inactive: ', data);
+        $scope.$emit('update group data')
+      });
+    };
   });
