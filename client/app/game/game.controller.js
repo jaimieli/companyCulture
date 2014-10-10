@@ -2,6 +2,7 @@
 
 angular.module('companyCultureApp')
   .controller('GameCtrl', function ($scope, $http, $interval, scoreFactory) {
+
     // TIMER
     $scope.score = 0;
     $scope.timerSeconds = 0;
@@ -78,8 +79,6 @@ angular.module('companyCultureApp')
       if(correctCounter == $scope.bottomArr.length){
         console.log("got it all");
         $scope.$broadcast('timer-stop');
-
-        //modal pop up with elapsed time and buttons to go to leader boards
       };
      };
      $scope.reset = function() {

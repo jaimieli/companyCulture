@@ -73,6 +73,13 @@ Group.find({}).remove(function() {
       question: "1",
       answersArr: [{user: "Mike", answer: "William"}, {user: "Jaimie", answer: "Chloe"}, {user: "Summer", answer: "Michiko"}, {user: "Christian", answer: "Dean"}, {user: "Andrew", answer: "Michael"}, {user: "Gabe", answer: "Laurence"}, {user: "Omer", answer: "Arie"}, {user: "Justin", answer: "Blake"}]
     }]
+  }, {
+    groupName: "sortTest",
+    users: ["Mike", "Jaimie", "Summer", "Christian", "Andrew", "Gabe", "Omer", "Justin"],
+    questionsArr: [{
+      question: "2",
+      answersArr: [{user: "Mike", answer: "drink tea"}, {user: "Jaimie", answer: "drink coffee"}, {user: "Summer", answer: "drink tea"}, {user: "Christian", answer: "drink tea"}, {user: "Andrew", answer: "drink coffee"}, {user: "Gabe", answer: "drink coffee"}, {user: "Omer", answer: "drink tea"}, {user: "Justin", answer: "drink coffeeƒ"}]
+    }]
   })
 }, function() {
   console.log("it worked!");
