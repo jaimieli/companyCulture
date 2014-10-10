@@ -8,9 +8,17 @@ angular.module('companyCultureApp')
     }, {
       'title': 'User',
       'link': '/user'
-    }, {
-      'title': 'Group',
-      'link': '/group'
+    }
+    // , {
+    //   'title': 'Group',
+    //   'link': '/group'
+    // }
+    ,{
+      'title': 'User Profile',
+      'link': '/user'
+    },{
+      'title': 'Game',
+      'link': '/game'
     }
     ];
 
