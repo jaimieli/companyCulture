@@ -13,6 +13,10 @@ angular.module('companyCultureApp')
     //   'title': 'Group',
     //   'link': '/group'
     // }
+    ,{
+      'title': 'Game',
+      'link': '/game'
+    }
     ];
 
     $scope.isCollapsed = true;

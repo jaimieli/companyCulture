@@ -11,6 +11,7 @@ var Group = require('../api/group/group.model');
 var Question = require('../api/question/question.model');
 var Game = require('../api/game/game.model');
 
+
 Thing.find({}).remove(function() {
   Thing.create({
     name : 'Development Tools',
@@ -33,36 +34,26 @@ Thing.find({}).remove(function() {
   });
 });
 
+Question.find({}).remove(function(){
+  Question.create({
+    questionType:'Sort',
+    questionOption: {optionA: 'This is optionA', optionB: 'This is optionB'}
+  },{
+    questionType: 'Order',
+    questionText: 'This is the text for an order question'
+  },{
+    questionType: 'Match',
+    questionText: 'This is the text for a match question'
+  });
+});
+
 User.find({}).remove(function() {
   User.create({
     provider: 'local',
     name: 'Test User',
     email: 'test@test.com',
     password: 'test'
-  },
-  // {
-  //   provider: 'local',
-  //   name: 'Summer',
-  //   email: 'summer@test.com',
-  //   password: 'summer'
-  // },
-  // {
-  //   provider: 'google',
-  //   name: 'Jaimie Li',
-  //   email: 'jaimieli@gmail.com',
-  //   google : {
-  //       "locale" : "en",
-  //       "picture" : "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
-  //       "family_name" : "Li",
-  //       "given_name" : "Jaimie",
-  //       "name" : "Jaimie Li",
-  //       "verified_email" : true,
-  //       "email" : "jaimieli@gmail.com",
-  //       "id" : "111686876465131664784"
-  //   },
-  //   role: 'admin'
-  // },
-  {
+  },{
     provider: 'local',
     role: 'admin',
     name: 'Admin',
@@ -74,18 +65,30 @@ User.find({}).remove(function() {
   );
 });
 
-Group.find({}).remove(function() {});
-Question.find({}).remove(function() {});
 Game.find({}).remove(function() {});
+
+Group.find({}).remove(function() {
+ Group.create({
+   groupName: "tester",
+   users: ["Mike", "Jaimie", "Summer", "Christian", "Andrew", "Gabe", "Omer", "Justin"],
+   questionsArr: [{
+     question: "1",
+     answersArr: [{user: "Mike", answer: "William"}, {user: "Jaimie", answer: "Chloe"}, {user: "Summer", answer: "Michiko"}, {user: "Christian", answer: "Dean"}, {user: "Andrew", answer: "Michael"}, {user: "Gabe", answer: "Laurence"}, {user: "Omer", answer: "Arie"}, {user: "Justin", answer: "Blake"}]
+   }]
+ })
+}, function() {
+ console.log("it worked!");
+});
+
 // Group.find({}).remove(function() {
 //   Group.create({
-//   groupName: "tester",
-//   users: ["random", "second", "jellybean"],
-//   questionsArr: [{
-//     question: "questionId",
-//     answersArr: [{user: "random", answer: "something"}, {user: "second", answer: "anotheranswer"}, {user: "third", answer: "lastanswer"}]
-//   }]
-// })
-// }, function() {
-//   console.log("it worked!");
+//     groupName: "tester",
+//     users: ["Mike", "Jaimie", "Summer", "Christian", "Andrew", "Gabe", "Omer", "Justin"],
+//     questionsArr: [{
+//       question: "1",
+//       answersArr: [{user: "Mike", answer: "William"}, {user: "Jaimie", answer: "Chloe"}, {user: "Summer", answer: "Michiko"}, {user: "Christian", answer: "Dean"}, {user: "Andrew", answer: "Michael"}, {user: "Gabe", answer: "Laurence"}, {user: "Omer", answer: "Arie"}, {user: "Justin", answer: "Blake"}]
+//     }]
+//   }, function() {
+//     console.log("it worked!");
+//   });
 // });

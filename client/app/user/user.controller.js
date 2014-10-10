@@ -8,7 +8,7 @@ angular.module('companyCultureApp')
         console.log(data);
         $scope.currentUser = data;
       });
-    })
+    });
 
     // // get currentUser on page load
     // $http.get('/api/users/getGroups').success(function(data){
@@ -33,4 +33,17 @@ angular.module('companyCultureApp')
         $scope.currentUser = data;
       });
     }
+
+    var questionsArr = "";
+
+    $http.get('/api/questions').success(function(questionsArr) {
+         $scope.questionsArr = questionsArr;
+         console.log(questionsArr);
+     });
+
+    $scope.userAnswer = function() {
+      console.log("does it get here?");
+      $http.post('/api/groups', { "AnswerSchema.answer": $scope.userAnswer });
+    };
+
   });

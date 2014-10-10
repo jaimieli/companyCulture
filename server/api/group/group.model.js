@@ -21,7 +21,7 @@ var GroupSchema = new Schema({
   users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   questionsArr: [ QuestionsArrSchema ],
   admin: { type: Schema.Types.ObjectId, ref: 'User' },
-  invited: [Schema.Types.Mixed]
+  invited: []
 });
 
 // var AnswerSchema = new Schema({
@@ -40,10 +40,11 @@ var GroupSchema = new Schema({
 //   users: [{ type: String, default: '' }],
 //   questionsArr: [ QuestionsArrSchema ],
 //   admin: { type: Schema.Types.ObjectId, ref: 'User' },
-//   invited: []
+//   invited: [Schema.Types.Mixed]
 // });
 
-
-
-
 module.exports = mongoose.model('Group', GroupSchema);
+
+
+
+
