@@ -2,6 +2,7 @@
 
 angular.module('companyCultureApp')
   .controller('GroupCtrl', function ($scope, $stateParams, $http, Auth) {
+    var self = this;
     $scope.currentUser = Auth.getCurrentUser();
     console.log('$scope.currentUser on groupPage load: ', $scope.currentUser);
     $scope.groupId = $stateParams.id;
@@ -9,6 +10,10 @@ angular.module('companyCultureApp')
     $http.get('/api/groups/'+$scope.groupId).success(function(data){
       $scope.groupData = data;
       console.log('$scope.groupData on groupPage load: ', $scope.groupData);
+      if(data.admin === Auth.getCurrentUser()._id) {
+        self.isGroupAdmin = true;
+        console.log(self.isGroupAdmin);
+      }
     })
 
     // udpates scope.groupdata when a user has been removed from a group
@@ -18,4 +23,5 @@ angular.module('companyCultureApp')
         console.log('$scope.groupData after some change to the group: ', $scope.groupData);
       })
     })
+
   });
