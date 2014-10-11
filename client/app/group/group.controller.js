@@ -30,6 +30,7 @@ angular.module('companyCultureApp')
         console.log('admin of the group');
       }
       checkUserAnsweredQuestion();
+      $rootScope.$emit('groupData is ready', data);
     })
 
     // after a question is answered or created, run the function to update view
@@ -51,6 +52,7 @@ angular.module('companyCultureApp')
         $scope.groupData = data;
         console.log('$scope.groupData after some change to the group: ', $scope.groupData);
         $rootScope.$emit('question answered or created');
+        $rootScope.$emit('groupData is ready', data);
       })
     })
 

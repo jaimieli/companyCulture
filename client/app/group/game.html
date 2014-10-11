@@ -1,0 +1,112 @@
+
+  <h3>This is the game view nested inside the group view</h3>
+  Question Type : {{questionsArr[questionsArr.length-1].questionType}}
+  <div ng-if="questionsArr[questionsArr.length-1].questionType==='Match'">
+    <p>Match each of your group members to their responses to <span style="color:red">{{questionsArr[questionsArr.length-1].questionText}}</span>.</p>
+  </div>
+  <div ng-if="questionsArr[questionsArr.length-1].questionType==='Sort'">
+    <p>Guess how your group members responded to <span style="color:red">{{questionsArr[questionsArr.length-1].questionText}}</span>.</p>
+    <div ng-if="questionsArr[questionsArr.length-1].sortType==='have'">
+      <div>Yes</div>
+      <div>No</div>
+    </div>
+    <div ng-if="questionsArr[questionsArr.length-1].sortType==='would' || questionsArr[questionsArr.length-1].sortType==='choose' ">
+      <div>{{questionsArr[questionsArr.length-1].questionOption.optionA}}</div>
+      <div>{{questionsArr[questionsArr.length-1].questionOption.optionB}}</div>
+    </div>
+  </div>
+  <div ng-if="questionsArr[questionsArr.length-1].questionType==='Order'">
+    <p>Order your group members' responses to <span style="color:red">{{questionsArr[questionsArr.length-1].questionText}}</span> from least to greatest.</p>
+  </div>
+</div>
+
+  <br>
+  <br>
+
+<!-- TIMER -->
+  <timer>
+    <progressbar class="progress-striped active" value="timerSeconds" max="90"></progressbar>
+  </timer>
+
+<!-- MODAL WHEN GAME IS COMPLETED OR TIME IS UP -->
+  <button class="bookmarkBtn" ng-controller="AfterGameModalCtrl" ng-click="open('afterGameContent.html')">Test Button</button>
+    <script type="text/ng-template" id="afterGameContent.html">
+        <div class="modal-header">
+          <h1>Your Score</h1>
+        </div>
+        <div class="modal-body">
+          <div>Time: {{userScore}}</div>
+          <button>Todays Scores</button>
+          <button>All Time Leader Board</button>
+        </div>
+        <div class="modal-footer">
+          <button>Cancel</button>
+        </div>
+    </script>
+
+
+<!-- DELETE LATER - ONLY INFORMATIVE FOR US -->
+Question Type : {{questionsArray[questionsArray.length-1].questionType}}
+
+<!-- MATCHING QUESTION -->
+  <div ng-if="questionsArray[questionsArray.length-1].questionType==='Match'">
+    <p>Match each of your group members to their responses to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span>.</p>
+    <!-- BUTTON TO DRAG INTO BLANK BOX -->
+    <div ng-repeat="item in users" class="top">
+      <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user, $index)'}">
+        <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users"jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user)'}" ng-hide="!item.user">
+          {{item.user}}
+        </div>
+      </div>
+    </div>
+    <br><br><br>
+    <!-- BLANK BOX TO RECEIVE BUTTON -->
+    <div ng-repeat="item in blanks" class="bottom">
+      <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="blanks" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user, $index)'}">
+        <div class="btn btn-{{right[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="blanks" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user)'}" ng-hide="!item.user">
+          {{item.user}}
+        </div>
+      </div>
+    </div>
+    <!-- ANSWERS FROM USERS -->
+    <div ng-repeat="answer in groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr" class="answerList">{{answer.answer}}</div>
+    <button class="btn btn-primary" ng-click="reset()">Reset</button>
+  </div>
+
+
+
+
+<!-- SORTING QUESTION -->
+  <div ng-if="questionsArray[questionsArray.length-1].questionType==='Sort'">
+    <p>Guess how your group members responded to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span>.</p>
+
+    <!-- SORTING QUESTION - HAVE -->
+    <div ng-if="questionsArray[questionsArray.length-1].sortType==='have'">
+      <div>Yes</div>
+      <div>No</div>
+    </div>
+
+    <!-- SORTING QUESTION - WOULD && CHOOSE -->
+    <div ng-if="questionsArray[questionsArray.length-1].sortType==='would' || questionsArray[questionsArray.length-1].sortType==='choose' ">
+      <div>{{questionsArray[questionsArray.length-1].questionOption.optionA}}</div>
+      <div>{{questionsArray[questionsArray.length-1].questionOption.optionB}}</div>
+    </div>
+  </div>
+
+
+
+
+
+<!-- ORDERING QUESTION -->
+  <div ng-if="questionsArray[questionsArray.length-1].questionType==='Order'">
+    <p>Order your group members' responses to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span> from least to greatest.</p>
+  </div>
+
+
+
+
+
+
+
+
+
