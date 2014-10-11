@@ -8,6 +8,11 @@ var QuestionSchema = new Schema({
   groupId: { type: Schema.Types.ObjectId, ref: 'Group' },
   questionType: String,
   questionText: String,
+  sortType: String,
+  questionOption: {
+    optionA: String,
+    optionB: String
+  },
   answersArray: [ {
     user: {type: Schema.Types.ObjectId, ref: 'User'},
     answer: String
