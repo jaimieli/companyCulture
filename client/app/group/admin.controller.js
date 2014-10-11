@@ -144,24 +144,30 @@ angular.module('companyCultureApp')
     $scope.test = function (argument) {
       console.log($scope.Test);
     }
-    $http.post('/api/questions/' + $stateParams.id, questionObj).success(function(data){
-      console.log('group object after adding question: ', data);
-      $rootScope.$emit('update group data');
-    });
   };
 
  //SORTING FORM CONTROLLER
-var FormController = function($scope, $http) {
+var FormController = function($scope, $http, $stateParams) {
  $scope.createSorting = function(sortType) {
     // console.log("is this sorting working?");
+    var groupId = $stateParams.id;
     if (sortType.type === "would") {
-      $http.post('/api/questions', { questionType: 'Sort', sortType: sortType.type, questionText: "Would you rather " + $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}});
+      $http.post('/api/questions/' + groupId, { groupId: groupId, questionType: 'Sort', sortType: sortType.type, questionText: "Would you rather " + $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}}).success(function(data){
+        console.log('group object after adding question: ', data);
+        $rootScope.$emit('update group data');
+      });
     }
     if (sortType.type === "have") {
-      $http.post('/api/questions', { questionType: 'Sort', sortType: sortType.type, questionText: "Have you ever " + $scope.questionText + "?" });
+      $http.post('/api/questions/' + groupId, { groupId: groupId, questionType: 'Sort', sortType: sortType.type, questionText: "Have you ever " + $scope.questionText + "?" }).success(function(data){
+        console.log('group object after adding question: ', data);
+        $rootScope.$emit('update group data');
+      });;
     }
     if (sortType.type === "choose") {
-      $http.post('/api/questions', { questionType: 'Sort', sortType: sortType.type, questionText: $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}});
+      $http.post('/api/questions/' + groupId, { groupId: groupId, questionType: 'Sort', sortType: sortType.type, questionText: $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}}).success(function(data){
+        console.log('group object after adding question: ', data);
+        $rootScope.$emit('update group data');
+      });;
     }
 
   };
@@ -182,18 +188,24 @@ var FormController = function($scope, $http) {
       });
     };
   };
-  var OrderingInstanceCtrl = function ($scope, $modalInstance, $http, $rootScope) {
+  var OrderingInstanceCtrl = function ($scope, $modalInstance, $http, $rootScope, $stateParams) {
+    var groupId = $stateParams.id;
     $scope.ok = function () {
     };
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };
     $scope.createOrdering = function(){
-      $http.post('/api/questions', { questionType: 'Order', questionText: $scope.questionText});
+      var questionObj = {
+        groupId: groupId,
+        questionType: 'Order',
+        questionText: $scope.questionText
+      }
+      $http.post('/api/questions/' + groupId, questionObj).success(function(data){
+        console.log('group object after adding question: ', data);
+        $rootScope.$emit('update group data');
+      });
     };
-    $http.post('/api/questions/' + $stateParams.id, questionObj).success(function(data){
-      console.log('group object after adding question: ', data);
-      $rootScope.$emit('update group data');
-    });
+
   };
 
