@@ -147,7 +147,7 @@ angular.module('companyCultureApp')
   };
 
  //SORTING FORM CONTROLLER
-var FormController = function($scope, $http, $stateParams) {
+var FormController = function($scope, $http, $stateParams, $rootScope) {
  $scope.createSorting = function(sortType) {
     // console.log("is this sorting working?");
     var groupId = $stateParams.id;
