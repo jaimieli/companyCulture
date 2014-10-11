@@ -4,6 +4,22 @@ var _ = require('lodash');
 var Question = require('./question.model');
 var Group = require('../group/group.model')
 
+// Add answer to list of questions
+exports.addAnswer = function(req, res){
+  Question.findById(req.params.id, function(err, question){
+    if(err) { return handleError(res, err); }
+    if(!question) { return res.send(404); }
+    question.answersArray.addToSet(req.body);
+    question.save(function(err, question){
+      if(err){
+        console.log(err);
+        return handleError(res, err);
+      }
+      question.populate('answersArray');
+      return res.json(200, question)
+    })
+  })
+}
 // Get list of questions
 exports.index = function(req, res) {
   Question.find(function (err, questions) {

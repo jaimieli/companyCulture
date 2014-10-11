@@ -4,8 +4,8 @@
 <p>sort type: {{groupData.questionsArr[groupData.questionsArr.length-1].sortType}}</p>
 
 <div ng-if="groupData.questionsArr[groupData.questionsArr.length-1].questionType === 'Match'">
-  <form name="userAnswerMatch" ng-submit="userAnswer()" class="simple-form">
-    <input ng-model="userAnswer" required>
+  <form name="userAnswerMatch" ng-submit="showQuest.userAnswer()" class="simple-form">
+    <input ng-model="showQuest.answer" required>
     <input type="submit" value="Answer">
   </form>
 </div>
@@ -27,8 +27,8 @@
 </div>
 
 <div ng-if="groupData.questionsArr[groupData.questionsArr.length-1].questionType === 'Order'">
-  <form name="userAnswerOrder" class="simple-form">
-    <input ng-model="userAnswer" required>
+  <form name="userAnswerOrder" class="simple-form" ng-submit="showQuest.userAnswer()">
+    <input ng-model="showQuest.answer" required>
     <input type="submit" value="Answer">
   </form>
 </div>

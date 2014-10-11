@@ -5,6 +5,7 @@ var controller = require('./question.controller');
 
 var router = express.Router();
 
+router.post('/:id/addAnswer', controller.addAnswer);
 router.post('/:id', controller.create);
 router.get('/', controller.index);
 router.get('/:id', controller.show);
