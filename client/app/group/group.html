@@ -6,6 +6,6 @@
     <h4 ng-if="groupData.active === false">{{groupData.groupName}} has been deactivated. Return to <a ng-href="/user">User</a></h4>
     <div ng-show="Group.isGroupAdmin === true && groupData.active === true" ng-include=" 'app/group/admin.html' " ng-controller="AdminCtrl as Admin">
     </div>
-    <div ng-include=" 'app/group/showQuestion.html' " ng-controller="ShowQuestionCtrl as showQuest"></div>
+    <div ng-show="showQuestion" ng-include=" 'app/group/showQuestion.html' " ng-controller="ShowQuestionCtrl as showQuest"></div>
   </div>
 </div>

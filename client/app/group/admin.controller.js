@@ -40,6 +40,7 @@ angular.module('companyCultureApp')
       console.log(message);
       $http.post('/api/messages/sendMessage', message).success(function(data) {
         // 5 second delay before update
+        console.log('Email Results: ', data);
         $rootScope.$emit('update group data');
       })
     }
