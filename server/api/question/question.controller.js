@@ -25,7 +25,8 @@ exports.create = function(req, res) {
   Question.create(req.body, function(err, question) {
     if(err) { return handleError(res, err); }
     return res.json(201, question);
-  });
+  })
+  // push question into group.questionsArr
 };
 
 // Updates an existing question in the DB.
