@@ -2,15 +2,16 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-var User = require('../user/user.model');
+var Group = require('../group/group.model')
 
 var QuestionSchema = new Schema({
   groupId: { type: Schema.Types.ObjectId, ref: 'Group' },
-  // User schema groupId
   questionType: String,
-  sortType: String,
   questionText: String,
-  questionOption: {optionA: String, optionB: String}
+  answersArray: [ {
+    user: {type: Schema.Types.ObjectId, ref: 'User'},
+    answer: String
+  }]
 });
 
 module.exports = mongoose.model('Question', QuestionSchema);

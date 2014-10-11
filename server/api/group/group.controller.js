@@ -118,6 +118,7 @@ exports.show = function(req, res) {
   // populate users
   Group.findOne({_id: req.params.id})
     .populate('users')
+    .populate('questionsArr')
     .exec(function(err, results){
       console.log(results);
       res.send(results);

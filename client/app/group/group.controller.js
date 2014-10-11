@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('GroupCtrl', function ($scope, $stateParams, $http, Auth) {
+  .controller('GroupCtrl', function ($scope, $stateParams, $http, Auth, $rootScope) {
     var self = this;
     $scope.currentUser = Auth.getCurrentUser();
     console.log('$scope.currentUser on groupPage load: ', $scope.currentUser);
@@ -17,7 +17,15 @@ angular.module('companyCultureApp')
     })
 
     // udpates scope.groupdata when a user has been removed from a group
-    $scope.$on('update group data', function(event){
+    // $scope.$on('update group data', function(event){
+    //   $http.get('/api/groups/'+$scope.groupId).success(function(data){
+    //     $scope.groupData = data;
+    //     console.log('$scope.groupData after some change to the group: ', $scope.groupData);
+    //   })
+    // })
+
+    // udpates scope.groupdata when a user has been removed from a group
+    $rootScope.$on('update group data', function(event){
       $http.get('/api/groups/'+$scope.groupId).success(function(data){
         $scope.groupData = data;
         console.log('$scope.groupData after some change to the group: ', $scope.groupData);
