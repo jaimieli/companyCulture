@@ -30,11 +30,15 @@ exports.index = function(req, res) {
 
 // Get a single question
 exports.show = function(req, res) {
-  Question.findById(req.params.id, function (err, question) {
-    if(err) { return handleError(res, err); }
-    if(!question) { return res.send(404); }
-    return res.json(question);
-  });
+  Question.findOne({_id: req.params.id})
+    .populate('users')
+    .populate('gameId')
+    .populate('answersArray')
+    .populate('answersArray.user')
+    .exec(function(err, results){
+      console.log(results);
+      res.send(results);
+    })
 };
 
 // Creates a new question in the DB and adds question to group's questionArr

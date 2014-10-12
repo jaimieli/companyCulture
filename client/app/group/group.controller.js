@@ -12,7 +12,6 @@ angular.module('companyCultureApp')
       $scope.showQuestion = true;
       console.log('in checkUserAnsweredQuestion function')
       var currentQuestionAnswersArr = $scope.groupData.questionsArr[$scope.groupData.questionsArr.length - 1].answersArray;
-      console.log('currentQuestionAnswersArr: ', currentQuestionAnswersArr)
       var currentQuestionAnswersArrLen = currentQuestionAnswersArr.length;
       for (var i = 0; i < currentQuestionAnswersArrLen; i++) {
         if(currentQuestionAnswersArr[i].user === $scope.currentUser._id) {
@@ -46,7 +45,7 @@ angular.module('companyCultureApp')
     //   })
     // })
 
-    // udpates scope.groupdata when a user has been removed from a group
+    // updates scope.groupdata when a user has been removed from a group
     $rootScope.$on('update group data', function(event){
       $http.get('/api/groups/'+$scope.groupId).success(function(data){
         $scope.groupData = data;
