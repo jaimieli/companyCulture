@@ -145,20 +145,20 @@ angular.module('companyCultureApp')
             // if($scope.dropped === $scope.sortArrayA[x].user) {
               // console.log($scope.sortArrayA[x].map(function(e){return e.user;}).indexOf($scope.dropped)> -1);
             
-            if($scope.sortArrayA.map(function(e){return e.user;}).indexOf($scope.dropped)> -1){
-              $scope.rightA[index] = "success";
+            if($scope.sortArrayA.map(function(e){return e.user;}).indexOf($scope.sortAnsA[x].user)> -1){
+              $scope.rightA.push("success");
             }
             else{
-              $scope.rightA[index] = "danger";
+              $scope.rightA.push("danger");
             }
         
         }
         for(var x = 0; x < $scope.sortArrayB.length; x++) {
-            if($scope.sortArrayB.map(function(e){return e.user;}).indexOf($scope.dropped)> -1){
-              $scope.rightB[index] = "success";
+            if($scope.sortArrayB.map(function(e){return e.user;}).indexOf($scope.sortAnsB[x].user)> -1){
+              $scope.rightB.push("success");
             }
             else{
-              $scope.rightB[index] = "danger";
+              $scope.rightB.push("danger");
             }
         }
 
