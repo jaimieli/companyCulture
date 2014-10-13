@@ -44,6 +44,11 @@ Question.find({}).remove(function(){
   },{
     questionType: 'Match',
     questionText: 'This is the text for a match question'
+  },{
+    questionType:'Sort',
+    questionOption: {optionA: 'A', optionB: 'B'},
+    questionText: "Would you rather A or B?",
+    sortType: "would"
   });
 });
 
@@ -73,7 +78,8 @@ Group.find({}).remove(function() {
    users: ["Mike", "Jaimie", "Summer", "Christian", "Andrew", "Gabe", "Omer", "Justin"],
    questionsArr: [{
      question: "1",
-     answersArr: [{user: "Mike", answer: "William"}, {user: "Jaimie", answer: "Chloe"}, {user: "Summer", answer: "Michiko"}, {user: "Christian", answer: "Dean"}, {user: "Andrew", answer: "Michael"}, {user: "Gabe", answer: "Laurence"}, {user: "Omer", answer: "Arie"}, {user: "Justin", answer: "Blake"}]
+     // answersArr: [{user: "Mike", answer: "William"}, {user: "Jaimie", answer: "Chloe"}, {user: "Summer", answer: "Michiko"}, {user: "Christian", answer: "Dean"}, {user: "Andrew", answer: "Michael"}, {user: "Gabe", answer: "Laurence"}, {user: "Omer", answer: "Arie"}, {user: "Justin", answer: "Blake"}]
+     answersArr: [{user: "Mike", answer: "A"}, {user: "Jaimie", answer: "A"}, {user: "Summer", answer: "A"}, {user: "Christian", answer: "B"}, {user: "Andrew", answer: "A"}, {user: "Gabe", answer: "B"}, {user: "Omer", answer: "B"}, {user: "Justin", answer: "A"}] 
    }]
  })
 }, function() {

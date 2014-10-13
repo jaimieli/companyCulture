@@ -39,13 +39,42 @@ angular.module('companyCultureApp')
             $scope.bottomArr.push({answer: groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr[i].answer});
         };
         $scope.users = shuffle($scope.users);
+
+        // console.log($scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr.length);
+        // console.log($scope.questionsArr[$scope.questionsArr.length-1].questionOption.optionA);
+          if($scope.questionsArr[$scope.questionsArr.length-1].questionType==="Sort"){
+              for(var q = 0; q < $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr.length; q++){
+                if($scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].answer === $scope.questionsArr[$scope.questionsArr.length-1].questionOption.optionA){
+                  $scope.sortArrayA.push({user: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].user});
+                  $scope.sortAnsA.push({asnwer: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].answer});
+                  $scope.sortAnsA2.push({asnwer: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].answer});
+                }else{
+                  $scope.sortArrayB.push({user: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].user});
+                  $scope.sortAnsB.push({answer: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].answer});
+                  $scope.sortAnsB2.push({asnwer: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].answer});
+                }
+              }
+          }
      });
+
+    
+
+
      $scope.users = [];
      $scope.blanks = [];
      $scope.answers = [];
      $scope.grabbed = "";
      $scope.dropped = "";
      $scope.bottomArr = [];
+     $scope.sortArrayA = [];
+     $scope.sortArrayB = [];
+     $scope.sortAnsA = [];
+     $scope.sortAnsB =[];
+     $scope.sortAnsA2 = [];
+     $scope.sortAnsB2 = [];
+
+
+
      $scope.grabbedItem = function(event, ui, grabbedItem) {
       $scope.grabbed = grabbedItem;
      };
@@ -58,23 +87,78 @@ angular.module('companyCultureApp')
       delete $scope.bottomArr[index].user;
      };
      $scope.checkDiff = function() {
-      for (var i = 0; i < $scope.blanks.length; i++){
-        if($scope.blanks[i].user){
-          $scope.bottomArr[i].user = $scope.blanks[i].user;
-        }else{
-          delete $scope.bottomArr[i].user;
-        };
-      }
-     };
-     $scope.checkAnswer = function(){
-      $scope.right = [];
-      for(var x = 0; x < $scope.bottomArr.length; x++) {
-        if($scope.bottomArr[x].user === $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[x].user) {
-          $scope.right.push("success");
-        }else{
-           $scope.right.push("danger");
+
+      if($scope.questionsArr[$scope.questionsArr.length-1].questionType === "Order" || $scope.questionsArr[$scope.questionsArr.length-1].questionType === "Match" ){
+
+        for (var i = 0; i < $scope.blanks.length; i++){
+          if($scope.blanks[i].user){
+            $scope.bottomArr[i].user = $scope.blanks[i].user;
+          }else{
+            delete $scope.bottomArr[i].user;
+          };
         }
+       } 
+      // else {
+      
+      //   for(var i = 0; i < $scope.sortArrayA.length; i++){
+      //     if($scope.sortAnsA[i].user){
+      //       $scope.sortAnsA2[i].user = $scope.sortAnsA[i].user;
+      //     }else{
+      //       if($scope.sortAnsA2[i].user){
+      //         delete $scope.sortAnsA2[i].user;
+      //       }
+      //     }
+      //   }
+      //   for(var i = 0; i < $scope.sortArrayB.length; i++){
+      //     if($scope.sortAnsB[i].user){
+      //       $scope.sortAnsB2[i].user = $scope.sortAnsB[i].user;
+      //     } else{
+      //       if($scope.sortAnsB2[i].user){
+      //         delete $scope.sortAnsB2[i].user;
+      //       }
+      //     }
+      //   }
+      // }
+
+
+
+     };
+
+
+     $scope.checkAnswer = function(){
+
+      if($scope.questionsArr[$scope.questionsArr.length-1].questionType === "Order" || $scope.questionsArr[$scope.questionsArr.length-1].questionType === "Match" ){
+        $scope.right = [];
+        for(var x = 0; x < $scope.bottomArr.length; x++) {
+          if($scope.bottomArr[x].user === $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[x].user) {
+            $scope.right.push("success");
+          }else{
+             $scope.right.push("danger");
+          }
+        }
+      }else if ($scope.questionsArr[$scope.questionsArr.length-1].questionType === "Sort"){
+        $scope.rightA = [];
+        $scope.rightB = [];
+        for(var x = 0; x < $scope.sortArrayA.length; x++) {
+            if($scope.dropped === $scope.sortArrayA[x].user) {
+              $scope.rightA.push("success");
+            }else{
+               $scope.rightA.push("danger");
+            }
+        
+        }
+        for(var x = 0; x < $scope.sortArrayB.length; x++) {
+            if($scope.dropped === $scope.sortArrayB[x].user) {
+              $scope.rightB.push("success");
+            }else{
+               $scope.rightB.push("danger");
+            }
+        }
+
+
+
       }
+      
       var correctCounter = 0;
       for(var x = 0; x < $scope.bottomArr.length; x++) {
         if($scope.bottomArr[x].user === $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[x].user) {

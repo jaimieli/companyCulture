@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/companyculture-dev'
   },
 
-  seedDB: false
+  seedDB: true
 };
