@@ -13,16 +13,15 @@
 <div ng-if="groupData.questionsArr[groupData.questionsArr.length-1].questionType === 'Sort'">
   <form name="userAnswerSort" class="simple-form">
 
-    <div ng-if="groupData.questionsArr[groupData.questionsArr.length-1].sortType === 'would' || groupData.questionsArr[questionsArr.length-1].sortType === 'choose'">
-      <button>{{groupData.questionsArr[questionsArr.length-1].questionOption.optionA}}</button>
-      <button>{{groupData.questionsArr[questionsArr.length-1].questionOption.optionB}}</button>
+    <div ng-if="groupData.questionsArr[groupData.questionsArr.length-1].sortType === 'would' || groupData.questionsArr[groupData.questionsArr.length-1].sortType === 'choose'">
+      <input type="radio" ng-click="showQuest.userAnswer(groupData.questionsArr[groupData.questionsArr.length-1].questionOption.optionA)">{{groupData.questionsArr[groupData.questionsArr.length-1].questionOption.optionA}}
+      <input type="radio" ng-click="showQuest.userAnswer(groupData.questionsArr[groupData.questionsArr.length-1].questionOption.optionB)">{{groupData.questionsArr[groupData.questionsArr.length-1].questionOption.optionB}}
     </div>
 
     <div ng-if="groupData.questionsArr[groupData.questionsArr.length-1].sortType === 'have'">
-      <button>Yes</button>
-      <button>No</button>
+      <input type="radio" ng-click="showQuest.userAnswer('Yes')">Yes
+      <input type="radio" ng-click="showQuest.userAnswer('No')">No
     </div>
-
   </form>
 </div>
 

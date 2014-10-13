@@ -1,5 +1,6 @@
 
   <h3>This is the game view nested inside the group view</h3>
+  Question Type : {{currentQuestionData.questionType}}
 
 <!-- TIMER -->
   <timer>
@@ -22,17 +23,13 @@
         </div>
     </script>
 
-
-<!-- DELETE LATER - ONLY INFORMATIVE FOR US -->
-Question Type : {{currentQuestionData.questionType}}
-
 <!-- MATCHING QUESTION -->
   <div ng-if="currentQuestionData.questionType==='Match'">
     <p>Match each of your group members to their responses to <span style="color:red">{{currentQuestionData.questionText}}</span>.</p>
     <!-- BUTTON TO DRAG INTO BLANK BOX -->
     <div ng-repeat="item in users" class="top">
       <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
-        <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users"jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
+        <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
           {{item.name}}
         </div>
       </div>
@@ -48,59 +45,138 @@ Question Type : {{currentQuestionData.questionType}}
     </div>
     <!-- ANSWERS FROM USERS -->
     <div ng-repeat="answer in currentQuestionData.answersArray" class="answerList">{{answer.answer}}</div>
-    <button class="btn btn-primary" ng-click="reset()">Reset</button>
   </div>
-
-
-
+<!-- END OF MATCHING QUESTION -->
 
 <!-- SORTING QUESTION -->
   <div ng-if="currentQuestionData.questionType==='Sort'">
-    <p>Guess how your group members responded to <span style="color:red">{{currentQuestionData.questionText}}</span>.</p>
 
-    <!-- SORTING QUESTION - HAVE -->
-    <div ng-if="currentQuestionData.questionType.sortType==='have'">
-      <div>Yes</div>
-      <div>No</div>
-    </div>
+      <p>Guess how your group members responded to <span style="color:red">{{currentQuestionData.questionText}}</span>.</p>
 
-    <!-- SORTING QUESTION - WOULD && CHOOSE -->
-    <div ng-if="currentQuestionData.sortType==='would' || currentQuestionData.sortType==='choose' ">
-      <div>{{currentQuestionData.questionOption.optionA}}</div>
-      <div>{{currentQuestionData.questionOption.optionB}}</div>
+      <!-- SORTING QUESTION - HAVE -->
+      <div ng-if="currentQuestionData.sortType==='have'">
+
+
+        <div ng-repeat="item in users" class="top">
+          <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
+            <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
+            {{item.name}}
+            </div>
+          </div>
+        </div>
+
+
+        <br>
+        <br>
+
+        <div>{{currentQuestionData.questionOption.optionA}}</div>
+        <div ng-repeat="item in sortAnsA" class="bottom">
+          <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="sortAnsA" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
+            <!-- {{rightA[$index]}} -->
+            <div class="btn btn-{{rightA[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsA" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
+              {{item.name}}
+            </div>
+          </div>
+        </div>
+
+
+
+        <br>
+        <br>
+        <div>{{currentQuestionData.questionOption.optionB}}</div>
+        <div ng-repeat="item in sortAnsB" class="bottom">
+          <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="sortAnsB" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
+            <!-- btn btn-{{rightB[$index]}} -->
+            <div class="btn btn-{{rightB[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsB" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
+              {{item.name}}
+            </div>
+          </div>
+        </div>
+
+        <br>
+        <br>
+
+      </div>
+      <!-- END OF SORTING QUESTION - HAVE -->
+
+      <!-- SORTING QUESTION - WOULD && CHOOSE -->
+      <div ng-if="currentQuestionData.sortType==='would' || currentQuestionData.sortType==='choose' ">
+
+        <div ng-repeat="item in users" class="top">
+          <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
+            <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
+            {{item.name}}
+            </div>
+          </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div>{{currentQuestionData.questionOption.optionA}}</div>
+        <div ng-repeat="item in sortAnsA" class="bottom">
+          <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="sortAnsA" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
+            <!-- {{rightA[$index]}} -->
+            <div class="btn btn-{{rightA[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsA" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
+              {{item.name}}
+            </div>
+          </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div>{{currentQuestionData.questionOption.optionB}}</div>
+        <div ng-repeat="item in sortAnsB" class="bottom">
+          <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="sortAnsB" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
+            <!-- btn btn-{{rightB[$index]}} -->
+            <div class="btn btn-{{rightB[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsB" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
+              {{item.name}}
+            </div>
+          </div>
+        </div>
+
+        <br>
+        <br>
+
+  </div>
+  <!-- END OF SORTING QUESTION - WOULD && CHOOSE -->
+</div>
+<!-- END OF ALL SORTING QUESTION -->
+
+
+
+
+
+
+
+<!-- ORDERING QUESTION -->
+<div ng-if="currentQuestionData.questionType==='Order'">
+  <p>Order your group members' responses to <span style="color:red">{{currentQuestionData.questionText}}</span> from least to greatest.</p>
+
+  <!-- BUTTON TO DRAG INTO BLANK BOX -->
+  <div ng-repeat="item in users" class="top">
+    <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
+      <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
+        {{item.name}}
+      </div>
     </div>
   </div>
-
-
-
-
-
-  <!-- ORDERING QUESTION -->
-        <div ng-if="currentQuestionData.questionType==='Order'">
-          <p>Order your group members' responses to <span style="color:red">{{currentQuestionData.questionText}}</span> from least to greatest.</p>
-
-          <!-- BUTTON TO DRAG INTO BLANK BOX -->
-          <div ng-repeat="item in users" class="top">
-            <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
-              <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users"jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-                {{item.name}}
-              </div>
-            </div>
-          </div>
-          <br><br><br>
-          <!-- BLANK BOX TO RECEIVE BUTTON -->
-          <div ng-repeat="item in blanks" class="bottom">
-            <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="blanks" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
-              <div class="btn btn-{{right[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="blanks" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-                {{item.name}}
-              </div>
-            </div>
-          </div>
-          <!-- ANSWERS FROM USERS -->
-          <div ng-repeat="item in bottomArr" class="answerList">{{item.answer}}</div>
-          <button class="btn btn-primary" ng-click="reset()">Reset</button>
-        </div>
+  <br><br><br>
+  <!-- BLANK BOX TO RECEIVE BUTTON -->
+  <div ng-repeat="item in blanks" class="bottom">
+    <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="blanks" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
+      <div class="btn btn-{{right[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="blanks" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
+        {{item.name}}
+      </div>
     </div>
+  </div>
+  <!-- ANSWERS FROM USERS -->
+  <div ng-repeat="item in bottomArr" class="answerList">{{item.answer}}</div>
+</div>
+<!-- END OF ORDERING QUESTION -->
+
+<button class="btn btn-primary" ng-click="reset()">Reset</button>
 
 
 
