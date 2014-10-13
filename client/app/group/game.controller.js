@@ -47,11 +47,25 @@ angular.module('companyCultureApp')
                     answer: $scope.currentQuestionData.answersArray[i].answer,
                     // user: $scope.currentQuestionData.answersArray[i].user
                   });
+                  $scope.correctOrder.push({
+                    answer: $scope.currentQuestionData.answersArray[i].answer,
+                    user: $scope.currentQuestionData.answersArray[i].user
+                  })
               };
             console.log('$scope.users: ', $scope.users)
             console.log('$scope.blanks: ', $scope.blanks)
             console.log('$scope.bottomArr: ', $scope.bottomArr)
+            console.log('$scope.correctOrder: ', $scope.correctOrder)
             $scope.users = shuffle($scope.users);
+
+            // order type only
+            if($scope.currentQuestionData.questionType=== "Order"){
+              console.log("its an order q");
+              $scope.blanks.sort(function(obj1,obj2){return obj1.answer - obj2.answer});
+              $scope.bottomArr.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+              $scope.correctOrder.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+            }
+
           } else {
             console.log('answers array does not have more than one answer');
           }
@@ -64,6 +78,7 @@ angular.module('companyCultureApp')
      $scope.grabbed = "";
      $scope.dropped = "";
      $scope.bottomArr = [];
+     $scope.correctOrder = [];
      $scope.grabbedItem = function(event, ui, grabbedItem) {
       $scope.grabbed = grabbedItem;
      };
@@ -85,27 +100,45 @@ angular.module('companyCultureApp')
       }
      };
      $scope.checkAnswer = function(){
-      $scope.right = [];
-      for(var x = 0; x < $scope.bottomArr.length; x++) {
-        console.log($scope.currentQuestionData.answersArray)
-        if($scope.bottomArr[x].name === $scope.currentQuestionData.answersArray[x].user.name) {
-          $scope.right.push("success");
-        }else{
-           $scope.right.push("danger");
-        }
-      }
       var correctCounter = 0;
-      for(var x = 0; x < $scope.bottomArr.length; x++) {
-        if($scope.bottomArr[x].name === $scope.currentQuestionData.answersArray[x].user.name) {
-          correctCounter++;
+      // check answer for Match
+      if($scope.currentQuestionData.questionType === 'Match') {
+        $scope.right = [];
+        for(var x = 0; x < $scope.bottomArr.length; x++) {
+          console.log($scope.currentQuestionData.answersArray)
+          if($scope.bottomArr[x].name === $scope.currentQuestionData.answersArray[x].user.name) {
+            $scope.right.push("success");
+            correctCounter++;
+          }else{
+             $scope.right.push("danger");
+          }
         }
-      }
-      if(correctCounter == $scope.bottomArr.length){
-        console.log("got it all");
-        $scope.$broadcast('timer-stop');
+        if(correctCounter == $scope.bottomArr.length){
+          console.log("got it all");
+          $scope.$broadcast('timer-stop');
 
-        //modal pop up with elapsed time and buttons to go to leader boards
-      };
+          //modal pop up with elapsed time and buttons to go to leader boards
+        };
+      } else if ($scope.currentQuestionData.questionType === 'Order') {
+        console.log('checking order')
+        $scope.right = [];
+        console.log($scope.correctOrder);
+        for(var x = 0; x < $scope.bottomArr.length; x++) {
+          if($scope.bottomArr[x].name === $scope.correctOrder[x].user.name) {
+            console.log('inside the name if')
+            $scope.right.push("success");
+            correctCounter++;
+          }else{
+             $scope.right.push("danger");
+          }
+        }
+        if(correctCounter == $scope.bottomArr.length){
+            console.log("got it all");
+            $scope.$broadcast('timer-stop');
+
+          //modal pop up with elapsed time and buttons to go to leader boards
+        };
+      }
      };
      $scope.reset = function() {
       console.log('in the reset');
