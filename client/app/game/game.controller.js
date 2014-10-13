@@ -47,11 +47,11 @@ angular.module('companyCultureApp')
                 if($scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].answer === $scope.questionsArr[$scope.questionsArr.length-1].questionOption.optionA){
                   $scope.sortArrayA.push({user: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].user});
                   $scope.sortAnsA.push({asnwer: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].answer});
-                  $scope.sortAnsA2.push({asnwer: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].answer});
+                  // $scope.sortAnsA2.push({asnwer: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].answer});
                 }else{
                   $scope.sortArrayB.push({user: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].user});
                   $scope.sortAnsB.push({answer: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].answer});
-                  $scope.sortAnsB2.push({asnwer: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].answer});
+                  // $scope.sortAnsB2.push({asnwer: $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[q].answer});
                 }
               }
           }
@@ -127,6 +127,7 @@ angular.module('companyCultureApp')
 
 
      $scope.checkAnswer = function(index){
+      var correctCounter = 0;
 
       if($scope.questionsArr[$scope.questionsArr.length-1].questionType === "Order" || $scope.questionsArr[$scope.questionsArr.length-1].questionType === "Match" ){
         $scope.right = [];
@@ -137,6 +138,20 @@ angular.module('companyCultureApp')
              $scope.right.push("danger");
           }
         }
+
+        for(var x = 0; x < $scope.bottomArr.length; x++) {
+          if($scope.bottomArr[x].user === $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[x].user) {
+            correctCounter++;
+          }
+        }
+      if(correctCounter == $scope.bottomArr.length){
+          console.log("got it all");
+          $scope.$broadcast('timer-stop');
+
+        //modal pop up with elapsed time and buttons to go to leader boards
+      };
+
+
       }else if ($scope.questionsArr[$scope.questionsArr.length-1].questionType === "Sort"){
         $scope.rightA = [];
         $scope.rightB = [];
@@ -147,6 +162,7 @@ angular.module('companyCultureApp')
             
             if($scope.sortArrayA.map(function(e){return e.user;}).indexOf($scope.sortAnsA[x].user)> -1){
               $scope.rightA.push("success");
+              correctCounter++;
             }
             else{
               $scope.rightA.push("danger");
@@ -156,28 +172,23 @@ angular.module('companyCultureApp')
         for(var x = 0; x < $scope.sortArrayB.length; x++) {
             if($scope.sortArrayB.map(function(e){return e.user;}).indexOf($scope.sortAnsB[x].user)> -1){
               $scope.rightB.push("success");
+              correctCounter++;
             }
             else{
               $scope.rightB.push("danger");
             }
         }
 
-
+        
+        if(correctCounter === $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr.length){
+          console.log("got it all");
+          $scope.$broadcast('timer-stop');
+        }
 
       }
       
-      var correctCounter = 0;
-      for(var x = 0; x < $scope.bottomArr.length; x++) {
-        if($scope.bottomArr[x].user === $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[x].user) {
-          correctCounter++;
-        }
-      }
-      if(correctCounter == $scope.bottomArr.length){
-        console.log("got it all");
-        $scope.$broadcast('timer-stop');
-
-        //modal pop up with elapsed time and buttons to go to leader boards
-      };
+      
+      
      };
      $scope.reset = function() {
       for(var t = 0; t < $scope.bottomArr.length; t++) {
