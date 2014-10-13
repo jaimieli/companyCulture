@@ -79,9 +79,10 @@ angular.module('companyCultureApp')
       $scope.grabbed = grabbedItem;
      };
      $scope.droppedItem = function(event, ui, droppedItem, index){
+
       $scope.dropped = $scope.grabbed;
       $scope.checkDiff();
-      $scope.checkAnswer();
+      $scope.checkAnswer(index);
      };
      $scope.clearItem = function(event, ui, clearedItem, index) {
       delete $scope.bottomArr[index].user;
@@ -125,7 +126,7 @@ angular.module('companyCultureApp')
      };
 
 
-     $scope.checkAnswer = function(){
+     $scope.checkAnswer = function(index){
 
       if($scope.questionsArr[$scope.questionsArr.length-1].questionType === "Order" || $scope.questionsArr[$scope.questionsArr.length-1].questionType === "Match" ){
         $scope.right = [];
@@ -139,19 +140,25 @@ angular.module('companyCultureApp')
       }else if ($scope.questionsArr[$scope.questionsArr.length-1].questionType === "Sort"){
         $scope.rightA = [];
         $scope.rightB = [];
+       
         for(var x = 0; x < $scope.sortArrayA.length; x++) {
-            if($scope.dropped === $scope.sortArrayA[x].user) {
-              $scope.rightA.push("success");
-            }else{
-               $scope.rightA.push("danger");
+            // if($scope.dropped === $scope.sortArrayA[x].user) {
+              // console.log($scope.sortArrayA[x].map(function(e){return e.user;}).indexOf($scope.dropped)> -1);
+            
+            if($scope.sortArrayA.map(function(e){return e.user;}).indexOf($scope.dropped)> -1){
+              $scope.rightA[index] = "success";
+            }
+            else{
+              $scope.rightA[index] = "danger";
             }
         
         }
         for(var x = 0; x < $scope.sortArrayB.length; x++) {
-            if($scope.dropped === $scope.sortArrayB[x].user) {
-              $scope.rightB.push("success");
-            }else{
-               $scope.rightB.push("danger");
+            if($scope.sortArrayB.map(function(e){return e.user;}).indexOf($scope.dropped)> -1){
+              $scope.rightB[index] = "success";
+            }
+            else{
+              $scope.rightB[index] = "danger";
             }
         }
 

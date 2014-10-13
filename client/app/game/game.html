@@ -105,6 +105,7 @@ Question Type : {{questionsArray[questionsArray.length-1].questionType}}
     <div>{{questionsArray[questionsArray.length-1].questionOption.optionA}}</div>
     <div ng-repeat="item in sortAnsA" class="bottom">
       <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="sortAnsA" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user, $index)'}">
+        <!-- {{rightA[$index]}} -->
         <div class="btn btn-{{rightA[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsA" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user)'}" ng-hide="!item.user">
           {{item.user}}
         </div>
@@ -118,6 +119,7 @@ Question Type : {{questionsArray[questionsArray.length-1].questionType}}
     <div>{{questionsArray[questionsArray.length-1].questionOption.optionB}}</div>
     <div ng-repeat="item in sortAnsB" class="bottom">
       <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="sortAnsB" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user, $index)'}">
+        <!-- btn btn-{{rightB[$index]}} -->
         <div class="btn btn-{{rightB[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsB" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user)'}" ng-hide="!item.user">
           {{item.user}}
         </div>
