@@ -80,6 +80,7 @@ angular.module('companyCultureApp')
       });
     }
   });
+
 // MATCHING CTRL FOR MATCHING QUESTION
   var MatchingCtrl = function ($scope, $modal, $log) {
     $scope.open = function (size) {
@@ -211,4 +212,5 @@ var FormController = function($scope, $http, $stateParams, $rootScope) {
     };
 
   };
+
 
