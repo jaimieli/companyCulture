@@ -47,11 +47,41 @@ angular.module('companyCultureApp')
                     answer: $scope.currentQuestionData.answersArray[i].answer,
                     // user: $scope.currentQuestionData.answersArray[i].user
                   });
+                  $scope.correctOrder.push({
+                    answer: $scope.currentQuestionData.answersArray[i].answer,
+                    user: $scope.currentQuestionData.answersArray[i].user
+                  })
               };
             console.log('$scope.users: ', $scope.users)
             console.log('$scope.blanks: ', $scope.blanks)
             console.log('$scope.bottomArr: ', $scope.bottomArr)
+            console.log('$scope.correctOrder: ', $scope.correctOrder)
             $scope.users = shuffle($scope.users);
+
+            // order type only
+            if($scope.currentQuestionData.questionType=== "Order"){
+              console.log("its an order q");
+              $scope.blanks.sort(function(obj1,obj2){return obj1.answer - obj2.answer});
+              $scope.bottomArr.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+              $scope.correctOrder.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+            }
+
+            // sort type only
+            if($scope.currentQuestionData.questionType==="Sort"){
+              console.log('sort type');
+                for(var q = 0; q < $scope.currentQuestionData.answersArray.length; q++){
+                  if($scope.currentQuestionData.answersArray[q].answer === $scope.currentQuestionData.questionOption.optionA){
+                    $scope.sortArrayA.push({user: $scope.currentQuestionData.answersArray[q].user.name});
+                    $scope.sortAnsA.push({answer: $scope.currentQuestionData.answersArray[q].answer});
+                  }else{
+                    $scope.sortArrayB.push({user: $scope.currentQuestionData.answersArray[q].user.name});
+                    $scope.sortAnsB.push({answer: $scope.currentQuestionData.answersArray[q].answer});
+                  }
+                }
+            }
+            console.log('$scope.sortArrayA: ', $scope.sortArrayA);
+            console.log('$scope.sortAnsA: ', $scope.sortAnsA);
+
           } else {
             console.log('answers array does not have more than one answer');
           }
@@ -64,6 +94,12 @@ angular.module('companyCultureApp')
      $scope.grabbed = "";
      $scope.dropped = "";
      $scope.bottomArr = [];
+     $scope.correctOrder = [];
+     $scope.sortArrayA = [];
+     $scope.sortArrayB = [];
+     $scope.sortAnsB = [];
+     $scope.sortAnsA = [];
+
      $scope.grabbedItem = function(event, ui, grabbedItem) {
       $scope.grabbed = grabbedItem;
      };
@@ -85,34 +121,76 @@ angular.module('companyCultureApp')
       }
      };
      $scope.checkAnswer = function(){
-      $scope.right = [];
-      for(var x = 0; x < $scope.bottomArr.length; x++) {
-        console.log($scope.currentQuestionData.answersArray)
-        if($scope.bottomArr[x].name === $scope.currentQuestionData.answersArray[x].user.name) {
-          $scope.right.push("success");
-        }else{
-           $scope.right.push("danger");
-        }
-      }
       var correctCounter = 0;
-      for(var x = 0; x < $scope.bottomArr.length; x++) {
-        if($scope.bottomArr[x].name === $scope.currentQuestionData.answersArray[x].user.name) {
-          correctCounter++;
+      // check answer for Match
+      if($scope.currentQuestionData.questionType === 'Match') {
+        $scope.right = [];
+        for(var x = 0; x < $scope.bottomArr.length; x++) {
+          console.log($scope.currentQuestionData.answersArray)
+          if($scope.bottomArr[x].name === $scope.currentQuestionData.answersArray[x].user.name) {
+            $scope.right.push("success");
+            correctCounter++;
+          }else{
+             $scope.right.push("danger");
+          }
+        }
+        if(correctCounter == $scope.bottomArr.length){
+          console.log("got it all");
+          $scope.$broadcast('timer-stop');
+          //modal pop up with elapsed time and buttons to go to leader boards
+        };
+      } else if ($scope.currentQuestionData.questionType === 'Order') {
+        $scope.right = [];
+        console.log($scope.correctOrder);
+        for(var x = 0; x < $scope.bottomArr.length; x++) {
+          if($scope.bottomArr[x].name === $scope.correctOrder[x].user.name) {
+            $scope.right.push("success");
+            correctCounter++;
+          }else{
+             $scope.right.push("danger");
+          }
+        }
+        if(correctCounter == $scope.bottomArr.length){
+            console.log("got it all");
+            $scope.$broadcast('timer-stop');
+            //modal pop up with elapsed time and buttons to go to leader boards
+        };
+      } else if ($scope.currentQuestionData.questionType === "Sort"){
+        $scope.rightA = [];
+        $scope.rightB = [];
+
+        for(var x = 0; x < $scope.sortArrayA.length; x++) {
+            console.log('$scope.sortArray[x]: ', $scope.sortArrayA[x])
+            console.log('$scope.sortAnsA[x]: ', $scope.sortAnsA[x])
+            if($scope.sortArrayA.map(function(e){return e.user;}).indexOf($scope.sortAnsA[x].name)> -1){
+              $scope.rightA.push("success");
+              correctCounter++;
+            }
+            else{
+              $scope.rightA.push("danger");
+            }
+        }
+        for(var x = 0; x < $scope.sortArrayB.length; x++) {
+            if($scope.sortArrayB.map(function(e){return e.user;}).indexOf($scope.sortAnsB[x].name)> -1){
+              $scope.rightB.push("success");
+              correctCounter++;
+            }
+            else{
+              $scope.rightB.push("danger");
+            }
+        }
+        if(correctCounter === $scope.currentQuestionData.answersArray.length){
+          console.log("got it all");
+          $scope.$broadcast('timer-stop');
         }
       }
-      if(correctCounter == $scope.bottomArr.length){
-        console.log("got it all");
-        $scope.$broadcast('timer-stop');
-
-        //modal pop up with elapsed time and buttons to go to leader boards
-      };
      };
      $scope.reset = function() {
       console.log('in the reset');
       for(var t = 0; t < $scope.bottomArr.length; t++) {
-        delete $scope.bottomArr[t].user;
-        delete $scope.blanks[t].user;
-         $scope.users[t].user = $scope.currentQuestionData.answersArray[t].user;
+        delete $scope.bottomArr[t].name;
+        delete $scope.blanks[t].name;
+         $scope.users[t] = $scope.currentQuestionData.answersArray[t].user;
       }
       $scope.users = shuffle($scope.users);
     };

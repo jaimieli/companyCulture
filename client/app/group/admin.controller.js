@@ -152,15 +152,37 @@ angular.module('companyCultureApp')
 var FormController = function($scope, $http, $stateParams, $rootScope) {
  $scope.createSorting = function(sortType) {
     // console.log("is this sorting working?");
+    console.log('$scope.optionA: ', $scope.optionA);
+    console.log('$scope.optionB: ', $scope.optionB);
     var groupId = $stateParams.id;
     if (sortType.type === "would") {
-      $http.post('/api/questions/' + groupId, { active: true, groupId: groupId, questionType: 'Sort', sortType: sortType.type, questionText: "Would you rather " + $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}}).success(function(data){
+      $http.post('/api/questions/' + groupId, {
+        active: true,
+        groupId: groupId,
+        questionType: 'Sort',
+        sortType: sortType.type,
+        questionText: "Would you rather " + $scope.optionA + " or " + $scope.optionB + "?",
+        questionOption: {
+          optionA: $scope.optionA,
+          optionB: $scope.optionB
+          }
+        }).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
       });
     }
     if (sortType.type === "have") {
-      $http.post('/api/questions/' + groupId, { active: true, groupId: groupId, questionType: 'Sort', sortType: sortType.type, questionText: "Have you ever " + $scope.questionText + "?" }).success(function(data){
+      $http.post('/api/questions/' + groupId, {
+        active: true,
+        groupId: groupId,
+        questionType: 'Sort',
+        sortType: sortType.type,
+        questionText: "Have you ever " + $scope.questionText + "?",
+        questionOption: {
+          optionA: 'Yes',
+          optionB: 'No'
+          }
+      }).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
       });;

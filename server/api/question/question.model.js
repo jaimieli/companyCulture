@@ -17,7 +17,8 @@ var QuestionSchema = new Schema({
   },
   answersArray: [ {
     user: {type: Schema.Types.ObjectId, ref: 'User'},
-    answer: String
+    answer: String,
+    completed: Boolean
   }]
 });
 
