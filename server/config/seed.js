@@ -49,6 +49,11 @@ Question.find({}).remove(function(){
     questionOption: {optionA: 'A', optionB: 'B'},
     questionText: "Would you rather A or B?",
     sortType: "would"
+  },{
+    questionType:'Sort',
+    questionOption: {optionA: 'Yes', optionB: 'No'},
+    questionText: "Have you ever?",
+    sortType: "have"
   });
 });
 
@@ -79,7 +84,7 @@ Group.find({}).remove(function() {
    questionsArr: [{
      question: "1",
      // answersArr: [{user: "Mike", answer: "William"}, {user: "Jaimie", answer: "Chloe"}, {user: "Summer", answer: "Michiko"}, {user: "Christian", answer: "Dean"}, {user: "Andrew", answer: "Michael"}, {user: "Gabe", answer: "Laurence"}, {user: "Omer", answer: "Arie"}, {user: "Justin", answer: "Blake"}]
-     answersArr: [{user: "Mike", answer: "A"}, {user: "Jaimie", answer: "A"}, {user: "Summer", answer: "A"}, {user: "Christian", answer: "B"}, {user: "Andrew", answer: "A"}, {user: "Gabe", answer: "B"}, {user: "Omer", answer: "B"}, {user: "Justin", answer: "A"}] 
+     answersArr: [{user: "Mike", answer: "No"}, {user: "Jaimie", answer: "Yes"}, {user: "Summer", answer: "Yes"}, {user: "Christian", answer: "No"}, {user: "Andrew", answer: "No"}, {user: "Gabe", answer: "No"}, {user: "Omer", answer: "Yes"}, {user: "Justin", answer: "No"}] 
    }]
  })
 }, function() {

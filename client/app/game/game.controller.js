@@ -58,8 +58,6 @@ angular.module('companyCultureApp')
      });
 
     
-
-
      $scope.users = [];
      $scope.blanks = [];
      $scope.answers = [];
@@ -70,10 +68,8 @@ angular.module('companyCultureApp')
      $scope.sortArrayB = [];
      $scope.sortAnsA = [];
      $scope.sortAnsB =[];
-     $scope.sortAnsA2 = [];
-     $scope.sortAnsB2 = [];
-
-
+     // $scope.sortAnsA2 = [];
+     // $scope.sortAnsB2 = [];
 
      $scope.grabbedItem = function(event, ui, grabbedItem) {
       $scope.grabbed = grabbedItem;
@@ -138,19 +134,17 @@ angular.module('companyCultureApp')
              $scope.right.push("danger");
           }
         }
-
         for(var x = 0; x < $scope.bottomArr.length; x++) {
           if($scope.bottomArr[x].user === $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[x].user) {
             correctCounter++;
           }
         }
-      if(correctCounter == $scope.bottomArr.length){
-          console.log("got it all");
-          $scope.$broadcast('timer-stop');
+        if(correctCounter == $scope.bottomArr.length){
+            console.log("got it all");
+            $scope.$broadcast('timer-stop');
 
-        //modal pop up with elapsed time and buttons to go to leader boards
-      };
-
+          //modal pop up with elapsed time and buttons to go to leader boards
+        };
 
       }else if ($scope.questionsArr[$scope.questionsArr.length-1].questionType === "Sort"){
         $scope.rightA = [];
@@ -158,16 +152,14 @@ angular.module('companyCultureApp')
        
         for(var x = 0; x < $scope.sortArrayA.length; x++) {
             // if($scope.dropped === $scope.sortArrayA[x].user) {
-              // console.log($scope.sortArrayA[x].map(function(e){return e.user;}).indexOf($scope.dropped)> -1);
-            
+              // console.log($scope.sortArrayA[x].map(function(e){return e.user;}).indexOf($scope.dropped)> -1);   
             if($scope.sortArrayA.map(function(e){return e.user;}).indexOf($scope.sortAnsA[x].user)> -1){
               $scope.rightA.push("success");
               correctCounter++;
             }
             else{
               $scope.rightA.push("danger");
-            }
-        
+            }      
         }
         for(var x = 0; x < $scope.sortArrayB.length; x++) {
             if($scope.sortArrayB.map(function(e){return e.user;}).indexOf($scope.sortAnsB[x].user)> -1){
@@ -177,18 +169,12 @@ angular.module('companyCultureApp')
             else{
               $scope.rightB.push("danger");
             }
-        }
-
-        
+        }   
         if(correctCounter === $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr.length){
           console.log("got it all");
           $scope.$broadcast('timer-stop');
         }
-
-      }
-      
-      
-      
+      }     
      };
      $scope.reset = function() {
       for(var t = 0; t < $scope.bottomArr.length; t++) {
