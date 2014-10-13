@@ -41,11 +41,11 @@ angular.module('companyCultureApp')
                   $scope.users.push($scope.currentQuestionData.answersArray[i].user);
                   $scope.blanks.push( {
                     answer: $scope.currentQuestionData.answersArray[i].answer,
-                    user: $scope.currentQuestionData.answersArray[i].user
+                    // user: $scope.currentQuestionData.answersArray[i].user
                     });
                   $scope.bottomArr.push({
                     answer: $scope.currentQuestionData.answersArray[i].answer,
-                    user: $scope.currentQuestionData.answersArray[i].user
+                    // user: $scope.currentQuestionData.answersArray[i].user
                   });
               };
             console.log('$scope.users: ', $scope.users)
@@ -72,22 +72,23 @@ angular.module('companyCultureApp')
       $scope.checkDiff();
       $scope.checkAnswer();
      };
-     $scope.clearItem = function(event, ui, clearedItem, index) {
-      delete $scope.bottomArr[index].user.name;
-     };
+     // $scope.clearItem = function(event, ui, clearedItem, index) {
+     //  delete $scope.bottomArr[index].user.name;
+     // };
      $scope.checkDiff = function() {
       for (var i = 0; i < $scope.blanks.length; i++){
-        if($scope.blanks[i].user){
-          $scope.bottomArr[i].user.name = $scope.blanks[i].user.name;
+        if($scope.blanks[i].name){
+          $scope.bottomArr[i].name = $scope.blanks[i].name;
         }else{
-          delete $scope.bottomArr[i].user;
+          delete $scope.bottomArr[i].name;
         };
       }
      };
      $scope.checkAnswer = function(){
       $scope.right = [];
       for(var x = 0; x < $scope.bottomArr.length; x++) {
-        if($scope.bottomArr[x].user === $scope.currentQuestionData.answersArray[x].user) {
+        console.log($scope.currentQuestionData.answersArray)
+        if($scope.bottomArr[x].name === $scope.currentQuestionData.answersArray[x].user.name) {
           $scope.right.push("success");
         }else{
            $scope.right.push("danger");
@@ -95,7 +96,7 @@ angular.module('companyCultureApp')
       }
       var correctCounter = 0;
       for(var x = 0; x < $scope.bottomArr.length; x++) {
-        if($scope.bottomArr[x].user === $scope.currentQuestionData.answersArray[x].user) {
+        if($scope.bottomArr[x].name === $scope.currentQuestionData.answersArray[x].user.name) {
           correctCounter++;
         }
       }
@@ -107,6 +108,7 @@ angular.module('companyCultureApp')
       };
      };
      $scope.reset = function() {
+      console.log('in the reset');
       for(var t = 0; t < $scope.bottomArr.length; t++) {
         delete $scope.bottomArr[t].user;
         delete $scope.blanks[t].user;

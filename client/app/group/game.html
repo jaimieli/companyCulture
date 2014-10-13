@@ -53,18 +53,18 @@ Question Type : {{currentQuestionData.questionType}}
     <p>Match each of your group members to their responses to <span style="color:red">{{currentQuestionData.questionText}}</span>.</p>
     <!-- BUTTON TO DRAG INTO BLANK BOX -->
     <div ng-repeat="item in users" class="top">
-      <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user.name, $index)'}">
-        <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users"jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user.name)'}" ng-hide="!item.user.name">
-          {{item.user.name}}
+      <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
+        <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users"jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
+          {{item.name}}
         </div>
       </div>
     </div>
     <br><br><br>
     <!-- BLANK BOX TO RECEIVE BUTTON -->
     <div ng-repeat="item in blanks" class="bottom">
-      <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="blanks" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user.name, $index)'}">
-        <div class="btn btn-{{right[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="blanks" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user.name)'}" ng-hide="!item.user.name">
-          {{item.user.name}}
+      <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="blanks" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user, $index)'}">
+        <div class="btn btn-{{right[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="blanks" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user)'}" ng-hide="!item.name">
+          {{item.name}}
         </div>
       </div>
     </div>
