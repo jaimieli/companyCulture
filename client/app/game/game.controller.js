@@ -37,8 +37,23 @@ angular.module('companyCultureApp')
             $scope.users.push(obj);
             $scope.blanks.push({answer: groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr[i].answer});
             $scope.bottomArr.push({answer: groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr[i].answer});
+            $scope.correctOrder.push({user: groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr[i].user, answer: groupData[groupData.length-1].questionsArr[groupData[groupData.length-1].questionsArr.length-1].answersArr[i].answer});
         };
         $scope.users = shuffle($scope.users);
+
+        if($scope.questionsArr[$scope.questionsArr.length-1].questionType=== "Order"){
+          console.log("its an order q");
+          $scope.blanks.sort(function(obj1,obj2){return obj1.answer - obj2.answer});
+          $scope.bottomArr.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+          $scope.correctOrder.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+
+          // $scope.sortedOrderAns = [];
+          // for (var answer in $scope.blanks){
+          //   $scope.sortedOrderAns.push([answer, $scope.blanks[answer]]);
+          //   $scope.sortedOrderAns.sort(function(a, b) {return a[1] - b[1]});
+          // }
+        }
+
 
         // console.log($scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr.length);
         // console.log($scope.questionsArr[$scope.questionsArr.length-1].questionOption.optionA);
@@ -68,6 +83,7 @@ angular.module('companyCultureApp')
      $scope.sortArrayB = [];
      $scope.sortAnsA = [];
      $scope.sortAnsB =[];
+     $scope.correctOrder = [];
      // $scope.sortAnsA2 = [];
      // $scope.sortAnsB2 = [];
 
@@ -125,7 +141,7 @@ angular.module('companyCultureApp')
      $scope.checkAnswer = function(index){
       var correctCounter = 0;
 
-      if($scope.questionsArr[$scope.questionsArr.length-1].questionType === "Order" || $scope.questionsArr[$scope.questionsArr.length-1].questionType === "Match" ){
+      if($scope.questionsArr[$scope.questionsArr.length-1].questionType === "Match" ){
         $scope.right = [];
         for(var x = 0; x < $scope.bottomArr.length; x++) {
           if($scope.bottomArr[x].user === $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[x].user) {
@@ -139,6 +155,29 @@ angular.module('companyCultureApp')
             correctCounter++;
           }
         }
+        if(correctCounter == $scope.bottomArr.length){
+            console.log("got it all");
+            $scope.$broadcast('timer-stop');
+
+          //modal pop up with elapsed time and buttons to go to leader boards
+        };
+
+      }else if($scope.questionsArr[$scope.questionsArr.length-1].questionType === "Order" ){
+        $scope.right = [];
+        console.log($scope.correctOrder);
+        for(var x = 0; x < $scope.bottomArr.length; x++) {
+          if($scope.bottomArr[x].user === $scope.correctOrder[x].user) {
+            $scope.right.push("success");
+            correctCounter++;
+          }else{
+             $scope.right.push("danger");
+          }
+        }
+        // for(var x = 0; x < $scope.bottomArr.length; x++) {
+        //   if($scope.bottomArr[x].user === $scope.groupData[$scope.groupData.length-1].questionsArr[$scope.groupData[$scope.groupData.length-1].questionsArr.length-1].answersArr[x].user) {
+        //     correctCounter++;
+        //   }
+        // }
         if(correctCounter == $scope.bottomArr.length){
             console.log("got it all");
             $scope.$broadcast('timer-stop');

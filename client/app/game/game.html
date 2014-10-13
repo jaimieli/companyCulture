@@ -182,8 +182,30 @@ Question Type : {{questionsArray[questionsArray.length-1].questionType}}
 
 
 <!-- ORDERING QUESTION -->
-  <div ng-if="questionsArray[questionsArray.length-1].questionType==='Order'">
-    <p>Order your group members' responses to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span> from least to greatest.</p>
+      <div ng-if="questionsArray[questionsArray.length-1].questionType==='Order'">
+        <p>Order your group members' responses to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span> from least to greatest.</p>
+
+        <!-- BUTTON TO DRAG INTO BLANK BOX -->
+        <div ng-repeat="item in users" class="top">
+          <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user, $index)'}">
+            <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users"jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user)'}" ng-hide="!item.user">
+              {{item.user}}
+            </div>
+          </div>
+        </div>
+        <br><br><br>
+        <!-- BLANK BOX TO RECEIVE BUTTON -->
+        <div ng-repeat="item in blanks" class="bottom">
+          <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="blanks" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user, $index)'}">
+            <div class="btn btn-{{right[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="blanks" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user)'}" ng-hide="!item.user">
+              {{item.user}}
+            </div>
+          </div>
+        </div>
+        <!-- ANSWERS FROM USERS -->
+        <div ng-repeat="item in bottomArr" class="answerList">{{item.answer}}</div>
+        <button class="btn btn-primary" ng-click="reset()">Reset</button>
+      </div>
   </div>
 
 

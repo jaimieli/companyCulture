@@ -54,6 +54,9 @@ Question.find({}).remove(function(){
     questionOption: {optionA: 'Yes', optionB: 'No'},
     questionText: "Have you ever?",
     sortType: "have"
+  },{
+    questionType:'Order',
+    questionText: "Order this",
   });
 });
 
@@ -84,7 +87,7 @@ Group.find({}).remove(function() {
    questionsArr: [{
      question: "1",
      // answersArr: [{user: "Mike", answer: "William"}, {user: "Jaimie", answer: "Chloe"}, {user: "Summer", answer: "Michiko"}, {user: "Christian", answer: "Dean"}, {user: "Andrew", answer: "Michael"}, {user: "Gabe", answer: "Laurence"}, {user: "Omer", answer: "Arie"}, {user: "Justin", answer: "Blake"}]
-     answersArr: [{user: "Mike", answer: "No"}, {user: "Jaimie", answer: "Yes"}, {user: "Summer", answer: "Yes"}, {user: "Christian", answer: "No"}, {user: "Andrew", answer: "No"}, {user: "Gabe", answer: "No"}, {user: "Omer", answer: "Yes"}, {user: "Justin", answer: "No"}] 
+     answersArr: [{user: "Mike", answer: "50"}, {user: "Jaimie", answer: "60"}, {user: "Summer", answer: "30"}, {user: "Christian", answer: "20"}, {user: "Andrew", answer: "10"}, {user: "Gabe", answer: "5"}, {user: "Omer", answer: "100"}, {user: "Justin", answer: "90"}] 
    }]
  })
 }, function() {
