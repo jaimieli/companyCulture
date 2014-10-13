@@ -120,12 +120,10 @@ angular.module('companyCultureApp')
           //modal pop up with elapsed time and buttons to go to leader boards
         };
       } else if ($scope.currentQuestionData.questionType === 'Order') {
-        console.log('checking order')
         $scope.right = [];
         console.log($scope.correctOrder);
         for(var x = 0; x < $scope.bottomArr.length; x++) {
           if($scope.bottomArr[x].name === $scope.correctOrder[x].user.name) {
-            console.log('inside the name if')
             $scope.right.push("success");
             correctCounter++;
           }else{
@@ -143,9 +141,9 @@ angular.module('companyCultureApp')
      $scope.reset = function() {
       console.log('in the reset');
       for(var t = 0; t < $scope.bottomArr.length; t++) {
-        delete $scope.bottomArr[t].user;
-        delete $scope.blanks[t].user;
-         $scope.users[t].user = $scope.currentQuestionData.answersArray[t].user;
+        delete $scope.bottomArr[t].name;
+        delete $scope.blanks[t].name;
+         $scope.users[t] = $scope.currentQuestionData.answersArray[t].user;
       }
       $scope.users = shuffle($scope.users);
     };

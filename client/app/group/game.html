@@ -1,27 +1,5 @@
 
   <h3>This is the game view nested inside the group view</h3>
-  Question Type : {{currentQuestionData.questionType}}
-  <div ng-if="currentQuestionData.questionType==='Match'">
-    <p>Match each of your group members to their responses to <span style="color:red">{{currentQuestionData.questionText}}</span>.</p>
-  </div>
-  <div ng-if="currentQuestionData.questionType==='Sort'">
-    <p>Guess how your group members responded to <span style="color:red">{{currentQuestionData.questionText}}</span>.</p>
-    <div ng-if="currentQuestionData.sortType==='have'">
-      <div>Yes</div>
-      <div>No</div>
-    </div>
-    <div ng-if="currentQuestionData.sortType==='would' || currentQuestionData.sortType==='choose' ">
-      <div>{{currentQuestionData.questionOption.optionA}}</div>
-      <div>{{currentQuestionData.questionOption.optionB}}</div>
-    </div>
-  </div>
-  <div ng-if="currentQuestionData.questionType==='Order'">
-    <p>Order your group members' responses to <span style="color:red">{{currentQuestionData.questionText}}</span> from least to greatest.</p>
-  </div>
-</div>
-
-  <br>
-  <br>
 
 <!-- TIMER -->
   <timer>
