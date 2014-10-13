@@ -20,6 +20,32 @@ exports.addAnswer = function(req, res){
     })
   })
 }
+
+// user completed game
+exports.userCompleted = function(req, res){
+  console.log('req.params: ', req.params);
+  console.log('req.user: ', req.user);
+  Question.findById(req.params.id, function(err, question){
+    if(err) { return handleError(res, err); }
+    if(!question) { return res.send(404); }
+    var len = question.answersArray.length;
+    for (var i = 0; i < len; i++) {
+      if (question.answersArray[i].user.toString() === req.user._id.toString()) {
+        console.log('found user');
+        question.answersArray[i].completed = true;
+        break;
+      }
+    }
+    question.save(function(err, question){
+      if(err){
+        console.log(err);
+        return handleError(res, err);
+      }
+      question.populate('answersArray');
+      return res.json(200, question)
+    })
+  })
+}
 // Get list of questions
 exports.index = function(req, res) {
   Question.find(function (err, questions) {
