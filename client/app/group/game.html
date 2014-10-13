@@ -30,7 +30,9 @@
     <div ng-repeat="item in users" class="top">
       <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
         <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-          {{item.name}}
+        <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
+        <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
+
         </div>
       </div>
     </div>
@@ -39,7 +41,10 @@
     <div ng-repeat="item in blanks" class="bottom">
       <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="blanks" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user, $index)'}">
         <div class="btn btn-{{right[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="blanks" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user)'}" ng-hide="!item.name">
-          {{item.name}}
+
+          <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
+        <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
+
         </div>
       </div>
     </div>
