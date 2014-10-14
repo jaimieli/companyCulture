@@ -37,6 +37,7 @@ angular.module('companyCultureApp')
     $http.get('/api/groups/'+$scope.groupId).success(function(data){
       $scope.groupData = data;
       console.log('$scope.groupData on groupPage load: ', $scope.groupData);
+      $rootScope.$emit('groupData ready', data);
       // if there's a question
       if(data.questionsArr.length > 0) {
         var currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;
@@ -69,6 +70,26 @@ angular.module('companyCultureApp')
     //     console.log('$scope.groupData after some change to the group: ', $scope.groupData);
     //   })
     // })
+    // function for email when new question is created
+    // $scope.newQuestionMessage = function() {
+    //   console.log('trying to notify users of a new question');
+    //   var len = $scope.groupData.users.length;
+    //   for (var i = 0; i < len; i++) {
+    //     var subject = 'New QUESTION has been posted to Group ' + $scope.groupData.groupName;
+    //     var body = '<p><a href="http://localhost:9000/login">Login</a> to answer the question!</p>';
+    //     var message = {
+    //       userId: "me",
+    //       message: {
+    //         to: $scope.groupData.users[i].email,
+    //         subjectLine: subject,
+    //         bodyOfEmail: body
+    //       }
+    //     }
+    //     $http.post('/api/messages/sendMessage', message).success(function(data) {
+    //       console.log('Email Results after creating a question: ', data.gmail);
+    //     })
+    //   }
+    // }
 
     // updates scope.groupdata + scope.currentQuestionData
     $rootScope.$on('update group data', function(event){
@@ -76,6 +97,7 @@ angular.module('companyCultureApp')
         $scope.groupData = data;
         var currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;
         console.log('$scope.groupData after some change to the group: ', $scope.groupData);
+        $rootScope.$emit('groupData ready', data);
         $http.get('/api/questions/' + currentQuestionId).success(function(data){
           $scope.currentQuestionData = data;
           $rootScope.$emit('question answered or created');

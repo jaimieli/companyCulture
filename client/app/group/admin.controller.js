@@ -5,7 +5,7 @@ angular.module('companyCultureApp')
     $scope.currentUser = Auth.getCurrentUser();
 
     console.log('current user obj: ', $scope.currentUser);
-    //
+      //
     this.sendGame = function() {
       console.log('trying to send game')
       // set activeGame --> true on question object
@@ -16,7 +16,7 @@ angular.module('companyCultureApp')
       // send email out to all group users to notify them that there's a new game
       var len = $scope.groupData.users.length;
       for (var i = 0; i < len; i++) {
-        var subject = 'New Game Has Been Posted to Group' + $scope.groupData.groupName;
+        var subject = 'New Game Has Been Posted to Group ' + $scope.groupData.groupName;
         var body = '<p><a href="http://localhost:9000/login">Login</a> to play!</p>'
         var message = {
           userId: "me",
@@ -137,7 +137,8 @@ angular.module('companyCultureApp')
       });
     };
   };
-  var MatchingInstanceCtrl = function ($rootScope, $scope, $modalInstance, $http, $stateParams) {
+  var MatchingInstanceCtrl = function ($rootScope, $scope, $modalInstance, $http, $stateParams, newQuestionMessage) {
+
     $scope.ok = function () {
     };
     $scope.cancel = function () {
@@ -155,6 +156,9 @@ angular.module('companyCultureApp')
       $http.post('/api/questions/' + $stateParams.id, questionObj).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
+        $rootScope.$on('groupData ready', function(event, data){
+          newQuestionMessage.sendNewQuestionMessage(data);
+        })
       });
     };
   };
@@ -192,7 +196,7 @@ angular.module('companyCultureApp')
   };
 
  //SORTING FORM CONTROLLER
-var FormController = function($scope, $http, $stateParams, $rootScope) {
+var FormController = function($scope, $http, $stateParams, $rootScope, newQuestionMessage) {
  $scope.createSorting = function(sortType) {
     // console.log("is this sorting working?");
     console.log('$scope.optionA: ', $scope.optionA);
@@ -213,6 +217,9 @@ var FormController = function($scope, $http, $stateParams, $rootScope) {
         }).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
+        $rootScope.$on('groupData ready', function(event, data){
+          newQuestionMessage.sendNewQuestionMessage(data);
+        })
       });
     }
     if (sortType.type === "have") {
@@ -230,12 +237,18 @@ var FormController = function($scope, $http, $stateParams, $rootScope) {
       }).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
+        $rootScope.$on('groupData ready', function(event, data){
+          newQuestionMessage.sendNewQuestionMessage(data);
+        })
       });;
     }
     if (sortType.type === "choose") {
       $http.post('/api/questions/' + groupId, { active: true, groupId: groupId, questionType: 'Sort', sortType: sortType.type, questionText: $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}, activeGame: false}).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
+        $rootScope.$on('groupData ready', function(event, data){
+          newQuestionMessage.sendNewQuestionMessage(data);
+        })
       });;
     }
 
@@ -257,7 +270,7 @@ var FormController = function($scope, $http, $stateParams, $rootScope) {
       });
     };
   };
-  var OrderingInstanceCtrl = function ($scope, $modalInstance, $http, $rootScope, $stateParams) {
+  var OrderingInstanceCtrl = function ($scope, $modalInstance, $http, $rootScope, $stateParams, newQuestionMessage) {
     var groupId = $stateParams.id;
     $scope.ok = function () {
     };
@@ -275,6 +288,9 @@ var FormController = function($scope, $http, $stateParams, $rootScope) {
       $http.post('/api/questions/' + groupId, questionObj).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
+        $rootScope.$on('groupData ready', function(event, data){
+          newQuestionMessage.sendNewQuestionMessage(data);
+        })
       });
     };
 

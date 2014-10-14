@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('GameController', function ($scope, $http, $interval, scoreFactory, $rootScope) {
+  .controller('GameController', function ($scope, $http, $interval, scoreFactory, $rootScope, $modal, $log) {
 
     // TIMER
     $scope.score = 0;
@@ -154,6 +154,7 @@ angular.module('companyCultureApp')
           $scope.$broadcast('timer-stop');
           //modal pop up with elapsed time and buttons to go to leader boards
           $scope.userAnswered();
+          $scope.open('afterGameContent.html');
         };
       } else if ($scope.currentQuestionData.questionType === 'Order') {
         $scope.right = [];
@@ -171,6 +172,7 @@ angular.module('companyCultureApp')
             $scope.$broadcast('timer-stop');
             //modal pop up with elapsed time and buttons to go to leader boards
             $scope.userAnswered();
+            $scope.open('afterGameContent.html');
         };
       } else if ($scope.currentQuestionData.questionType === "Sort"){
         $scope.rightA = [];
@@ -200,19 +202,42 @@ angular.module('companyCultureApp')
           console.log("got it all");
           $scope.$broadcast('timer-stop');
           $scope.userAnswered();
+          $scope.open('afterGameContent.html');
         }
       }
-     };
-     $scope.reset = function() {
-      console.log('in the reset');
-      for(var t = 0; t < $scope.bottomArr.length; t++) {
-        delete $scope.bottomArr[t].name;
-        delete $scope.blanks[t].name;
-         $scope.users[t] = $scope.currentQuestionData.answersArray[t].user;
-      }
-      $scope.users = shuffle($scope.users);
     };
-  })
+
+      $scope.reset = function() {
+       console.log('in the reset');
+       for(var t = 0; t < $scope.bottomArr.length; t++) {
+         delete $scope.bottomArr[t].name;
+         delete $scope.blanks[t].name;
+          $scope.users[t] = $scope.currentQuestionData.answersArray[t].user;
+        }
+       $scope.users = shuffle($scope.users);
+      };
+
+     $scope.open = function (templateUrl) {
+      var modalInstance = $modal.open({
+          templateUrl: 'afterGameContent.html',
+          controller: 'AfterGameModalInstanceCtrl',
+          resolve: {
+            currentUserId: function() {
+              return $scope.userId;
+            },
+            currentItemId: function() {
+              return $scope.itemId;
+            }
+          }
+        });
+      modalInstance.result.then(function (selectedItem) {
+        $scope.selected = selectedItem;
+        }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+        });
+     }
+})
+
 .factory('scoreFactory', function() {
   var score;
   return {
@@ -223,35 +248,42 @@ angular.module('companyCultureApp')
       return score;
     }
   }
-});
-
-//AFTER TIME IN GAME IS UP OR GAME IS COMPLETED MODAL
-var AfterGameModalCtrl = function ($scope, $modal, $log, Auth) {
-  $scope.open = function (templateUrl) {
-    var modalInstance = $modal.open({
-      templateUrl: 'afterGameContent.html',
-      controller: 'AfterGameModalInstanceCtrl',
-      resolve: {
-        currentUserId: function() {
-          return $scope.userId;
-        },
-        currentItemId: function() {
-          return $scope.itemId;
-        }
-      }
-    });
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
-  };
-};
-var AfterGameModalInstanceCtrl = function($scope, $modalInstance, $http, Auth, scoreFactory) {
+}).controller('AfterGameModalInstanceCtrl', function($scope, $modalInstance, $http, Auth, scoreFactory) {
   $scope.userScore = scoreFactory.getScore();
   $scope.ok = function () {
   };
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
-};
+})
+
+// //AFTER TIME IN GAME IS UP OR GAME IS COMPLETED MODAL
+// var AfterGameModalCtrl = function ($scope, $modal, $log, Auth) {
+//   $scope.open = function (templateUrl) {
+//     var modalInstance = $modal.open({
+//       templateUrl: 'afterGameContent.html',
+//       controller: 'AfterGameModalInstanceCtrl',
+//       resolve: {
+//         currentUserId: function() {
+//           return $scope.userId;
+//         },
+//         currentItemId: function() {
+//           return $scope.itemId;
+//         }
+//       }
+//     });
+//     modalInstance.result.then(function (selectedItem) {
+//       $scope.selected = selectedItem;
+//     }, function () {
+//       $log.info('Modal dismissed at: ' + new Date());
+//     });
+//   };
+// };
+// var AfterGameModalInstanceCtrl = function($scope, $modalInstance, $http, Auth, scoreFactory) {
+//   $scope.userScore = scoreFactory.getScore();
+//   $scope.ok = function () {
+//   };
+//   $scope.cancel = function () {
+//     $modalInstance.dismiss('cancel');
+//   };
+// };
