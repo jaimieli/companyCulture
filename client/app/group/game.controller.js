@@ -181,8 +181,8 @@ angular.module('companyCultureApp')
         $scope.rightB = [];
 
         for(var x = 0; x < $scope.sortArrayA.length; x++) {
-            console.log('$scope.sortArray[x]: ', $scope.sortArrayA[x])
-            console.log('$scope.sortAnsA[x]: ', $scope.sortAnsA[x])
+            // console.log('$scope.sortArray[x]: ', $scope.sortArrayA[x])
+            // console.log('$scope.sortAnsA[x]: ', $scope.sortAnsA[x])
             if($scope.sortArrayA.map(function(e){return e.user;}).indexOf($scope.sortAnsA[x].name)> -1){
               $scope.rightA.push("success");
               correctCounter++;
@@ -207,18 +207,30 @@ angular.module('companyCultureApp')
           $scope.open('afterGameContent.html');
         }
       }
-    };
-
-
-      $scope.reset = function() {
-       console.log('in the reset');
-       for(var t = 0; t < $scope.bottomArr.length; t++) {
-         delete $scope.bottomArr[t].name;
-         delete $scope.blanks[t].name;
-          $scope.users[t] = $scope.currentQuestionData.answersArray[t].user;
+     };
+     $scope.reset = function() {
+      console.log('in the reset');
+      for(var t = 0; t < $scope.bottomArr.length; t++) {
+        delete $scope.bottomArr[t].name;
+        delete $scope.blanks[t].name;
+         $scope.users[t] = $scope.currentQuestionData.answersArray[t].user;
+      }
+      if($scope.currentQuestionData.questionType === "Sort"){
+        $scope.sortAnsA = [];
+        $scope.sortAnsB = [];
+        for(var q = 0; q < $scope.currentQuestionData.answersArray.length; q++){
+          if($scope.currentQuestionData.answersArray[q].answer === $scope.currentQuestionData.questionOption.optionA){        
+            $scope.sortAnsA.push({answer: $scope.currentQuestionData.answersArray[q].answer});
+          }else{
+            
+            $scope.sortAnsB.push({answer: $scope.currentQuestionData.answersArray[q].answer});
+          }
         }
-       $scope.users = shuffle($scope.users);
-      };
+        $scope.sortArrayA = shuffle($scope.sortArrayA);
+        $scope.sortArrayB = shuffle($scope.sortArrayB);
+      }
+      $scope.users = shuffle($scope.users);
+    };
 
      $scope.open = function (templateUrl) {
       var modalInstance = $modal.open({
