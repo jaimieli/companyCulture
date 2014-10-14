@@ -3,9 +3,6 @@
 angular.module('companyCultureApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
-      'title': 'Home',
-      'link': '/'
-    }, {
       'title': 'User',
       'link': '/user'
     }
