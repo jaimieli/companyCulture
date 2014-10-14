@@ -26,7 +26,7 @@ angular.module('companyCultureApp')
           '<div style="border: 1px solid #eee; top: -20px; width: 450px; display: block; margin-left: auto; margin-right: auto; font-family: Lato; font-weight: 300;">' +
             '<p style="padding-top: 10px; padding-right: 25px; padding-left: 25px; line-height: 22px; text-align: justify;"><span style="font-weight: 500;">' +
             $scope.currentUser.name +
-            '</span>has posted a new game to <span style="font-weight: 500;">' +
+            '</span> has posted a new game to <span style="font-weight: 500;">' +
             $scope.groupData.groupName +
             '</span>! Check it out to see how well you know your team members!</p>' +
             '<a href="' +
@@ -75,7 +75,9 @@ angular.module('companyCultureApp')
         '</div>' +
         '<div style="border: 1px solid #eee; top: -20px; width: 450px; display: block; margin-left: auto; margin-right: auto; font-family: Lato; font-weight: 300;">' +
           '<p style="padding-top: 10px; padding-right: 25px; padding-left: 25px; line-height: 22px; text-align: justify;">Flock is a fun way to build company culture. <span style="font-weight: 500">' + $scope.currentUser.name +
-          '</span> is signed up and a member of <span style="font-weight: 500">' + $scope.+groupData.groupName '</span> and would love for you to join too!</p>' +
+          '</span> is signed up and a member of <span style="font-weight: 500">' +
+          $scope.groupData.groupName +
+          '</span> and would love for you to join too!</p>' +
           '<a href="' +
           link +
           '" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #70CC7E; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Join</a>' +

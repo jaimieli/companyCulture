@@ -7,7 +7,7 @@ angular.module('companyCultureApp')
         console.log('groupData in newQuestionMessage factory: ', groupData);
         var len = groupData.users.length;
         for (var i = 0; i < len; i++) {
-          var subject = $scope.currentUser.name ' Has Posted a New Question To ' + groupData.groupName + "!";
+          var subject = $scope.currentUser.name + ' Has Posted a New Question To ' + groupData.groupName + "!";
           var body =
           '<div style="text-align: center;">' +
             '<div>' +
