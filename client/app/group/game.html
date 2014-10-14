@@ -30,125 +30,114 @@
     <div ng-repeat="item in users" class="top">
       <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
         <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-          {{item.name}}
+        <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
+        <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
         </div>
       </div>
     </div>
     <br><br><br>
+
     <!-- BLANK BOX TO RECEIVE BUTTON -->
     <div ng-repeat="item in blanks" class="bottom">
       <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="blanks" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user, $index)'}">
         <div class="btn btn-{{right[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="blanks" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user)'}" ng-hide="!item.name">
-          {{item.name}}
+        <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
+        <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
         </div>
       </div>
     </div>
+
     <!-- ANSWERS FROM USERS -->
     <div ng-repeat="answer in currentQuestionData.answersArray" class="answerList">{{answer.answer}}</div>
   </div>
+
 <!-- END OF MATCHING QUESTION -->
 
 <!-- SORTING QUESTION -->
   <div ng-if="currentQuestionData.questionType==='Sort'">
-
       <p>Guess how your group members responded to <span style="color:red">{{currentQuestionData.questionText}}</span>.</p>
 
       <!-- SORTING QUESTION - HAVE -->
       <div ng-if="currentQuestionData.sortType==='have'">
-
-
         <div ng-repeat="item in users" class="top">
           <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
             <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-            {{item.name}}
+            <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
+            <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
             </div>
           </div>
         </div>
-
-
         <br>
         <br>
-
         <div>{{currentQuestionData.questionOption.optionA}}</div>
         <div ng-repeat="item in sortAnsA" class="bottom">
           <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="sortAnsA" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
             <!-- {{rightA[$index]}} -->
             <div class="btn btn-{{rightA[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsA" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-              {{item.name}}
+              <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
+              <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
             </div>
           </div>
         </div>
-
-
-
         <br>
         <br>
         <div>{{currentQuestionData.questionOption.optionB}}</div>
         <div ng-repeat="item in sortAnsB" class="bottom">
           <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="sortAnsB" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
+
             <!-- btn btn-{{rightB[$index]}} -->
             <div class="btn btn-{{rightB[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsB" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-              {{item.name}}
+              <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
+              <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
             </div>
           </div>
         </div>
-
         <br>
         <br>
-
       </div>
       <!-- END OF SORTING QUESTION - HAVE -->
 
       <!-- SORTING QUESTION - WOULD && CHOOSE -->
       <div ng-if="currentQuestionData.sortType==='would' || currentQuestionData.sortType==='choose' ">
-
         <div ng-repeat="item in users" class="top">
           <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
             <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-            {{item.name}}
+            <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
+            <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
             </div>
           </div>
         </div>
-
         <br>
         <br>
-
         <div>{{currentQuestionData.questionOption.optionA}}</div>
         <div ng-repeat="item in sortAnsA" class="bottom">
           <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="sortAnsA" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
             <!-- {{rightA[$index]}} -->
             <div class="btn btn-{{rightA[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsA" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-              {{item.name}}
+              <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
+              <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
             </div>
           </div>
         </div>
-
         <br>
         <br>
-
         <div>{{currentQuestionData.questionOption.optionB}}</div>
         <div ng-repeat="item in sortAnsB" class="bottom">
           <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="sortAnsB" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
+
             <!-- btn btn-{{rightB[$index]}} -->
             <div class="btn btn-{{rightB[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsB" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-              {{item.name}}
+              <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
+              <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
             </div>
           </div>
         </div>
-
         <br>
         <br>
-
   </div>
   <!-- END OF SORTING QUESTION - WOULD && CHOOSE -->
 </div>
 <!-- END OF ALL SORTING QUESTION -->
-
-
-
-
-
-
 
 <!-- ORDERING QUESTION -->
 <div ng-if="currentQuestionData.questionType==='Order'">
@@ -158,19 +147,23 @@
   <div ng-repeat="item in users" class="top">
     <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
       <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-        {{item.name}}
+        <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
+        <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
       </div>
     </div>
   </div>
   <br><br><br>
+
   <!-- BLANK BOX TO RECEIVE BUTTON -->
   <div ng-repeat="item in blanks" class="bottom">
     <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="blanks" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
       <div class="btn btn-{{right[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="blanks" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-        {{item.name}}
+        <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
+        <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
       </div>
     </div>
   </div>
+
   <!-- ANSWERS FROM USERS -->
   <div ng-repeat="item in bottomArr" class="answerList">{{item.answer}}</div>
 </div>
