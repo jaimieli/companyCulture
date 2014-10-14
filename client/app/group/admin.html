@@ -26,6 +26,7 @@
     {{invite.name}}: {{invite.email}}@gmail.com
   </li>
 </ul>
+
 <div ng-if="currentQuestionData.active && !currentQuestionData.activeGame">
   <h4 >Current Question Status</h4>
   <p>Active? {{currentQuestionData.active}}</p>
@@ -41,7 +42,7 @@
   <h4>Current Game Status</h4>
   <p>Active? {{currentQuestionData.activeGame}}</p>
   <p ng-if="currentQuestionData.active && currentQuestionData.answersArray.length < 2">Encourage users to respond to the question - need at least two responses to send out the game</p>
-  <button ng-if="currentQuestionData.active && currentQuestionData.answersArray.length > 1"ng-click="Admin.sendGame()">{{Admin.sendGameButtonText}}</button>
+  <button ng-if="currentQuestionData.active && currentQuestionData.answersArray.length > 1"ng-click="Admin.sendGame()" ng-disabled="currentQuestionData.activeGame">{{Admin.sendGameButtonText}}</button>
 </div>
 
 <!-- should only show create a question if there are no active questions or games -->
