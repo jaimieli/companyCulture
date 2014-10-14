@@ -237,7 +237,7 @@ angular.module('companyCultureApp')
   $scope.ok = function () {
   };
   $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
+    $modalInstance.dismiss('cancel'); 
   };
 });
 
