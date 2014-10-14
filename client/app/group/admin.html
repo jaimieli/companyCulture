@@ -50,12 +50,10 @@
     <div class="modal-body">
       <form name="createMatchingQuestionForm" ng-submit="createMatching()" class="simple-form">
       Question: <input ng-model="questionText">
-        <input type="submit" value="Create">
+        <input type="submit" ng-click="cancel()" value="Create">
       </form>
     </div>
-    <div class="modal-footer">
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-    </div>
+   
   </script>
 
   <button ng-controller="SortingCtrl" ng-click="open('sortingQuestion.html')">Sorting Question</button>
@@ -81,11 +79,8 @@
           or
           <input ng-model="optionB">?
         </div>
-        <input type="submit" value="Create Question">
+        <input type="submit" ng-click="cancel()" value="Create Question">
       </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
     </div>
   </script>
 
@@ -97,11 +92,8 @@
     <div class="modal-body">
       <form name="createOrderingQuestionForm" ng-submit="createOrdering()" class="simple-form">
         Question: <input ng-model="questionText">
-        <input type="submit" value="Create">
+        <input type="submit" ng-click="cancel()" value="Create">
       </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
     </div>
   </script>
 </div>

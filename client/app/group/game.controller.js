@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('GameController', function ($scope, $http, $interval, scoreFactory, $rootScope, $modal, $log) {
-
+.controller('GameController', function ($scope, $http, $interval, scoreFactory, $rootScope, $modal, $log) {
     // TIMER
     $scope.score = 0;
     $scope.timerSeconds = 0;
@@ -152,6 +151,8 @@ angular.module('companyCultureApp')
         if(correctCounter == $scope.bottomArr.length){
           console.log("got it all");
           $scope.$broadcast('timer-stop');
+          $scope.open('afterGameContent.html');
+
           //modal pop up with elapsed time and buttons to go to leader boards
           $scope.userAnswered();
           $scope.open('afterGameContent.html');
@@ -170,6 +171,7 @@ angular.module('companyCultureApp')
         if(correctCounter == $scope.bottomArr.length){
             console.log("got it all");
             $scope.$broadcast('timer-stop');
+            $scope.open('afterGameContent.html');
             //modal pop up with elapsed time and buttons to go to leader boards
             $scope.userAnswered();
             $scope.open('afterGameContent.html');
@@ -206,6 +208,7 @@ angular.module('companyCultureApp')
         }
       }
     };
+
 
       $scope.reset = function() {
        console.log('in the reset');
@@ -253,37 +256,10 @@ angular.module('companyCultureApp')
   $scope.ok = function () {
   };
   $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
+    $modalInstance.dismiss('cancel'); 
   };
-})
 
-// //AFTER TIME IN GAME IS UP OR GAME IS COMPLETED MODAL
-// var AfterGameModalCtrl = function ($scope, $modal, $log, Auth) {
-//   $scope.open = function (templateUrl) {
-//     var modalInstance = $modal.open({
-//       templateUrl: 'afterGameContent.html',
-//       controller: 'AfterGameModalInstanceCtrl',
-//       resolve: {
-//         currentUserId: function() {
-//           return $scope.userId;
-//         },
-//         currentItemId: function() {
-//           return $scope.itemId;
-//         }
-//       }
-//     });
-//     modalInstance.result.then(function (selectedItem) {
-//       $scope.selected = selectedItem;
-//     }, function () {
-//       $log.info('Modal dismissed at: ' + new Date());
-//     });
-//   };
-// };
-// var AfterGameModalInstanceCtrl = function($scope, $modalInstance, $http, Auth, scoreFactory) {
-//   $scope.userScore = scoreFactory.getScore();
-//   $scope.ok = function () {
-//   };
-//   $scope.cancel = function () {
-//     $modalInstance.dismiss('cancel');
-//   };
-// };
+});
+
+
+
