@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-.controller('GameController', function ($scope, $http, $interval, scoreFactory, $rootScope, $modal, $log) {
+.controller('GameController', function ($scope, $http, $interval, scoreFactory, $rootScope, $modal, $log, Auth) {
     // TIMER
     $scope.score = 0;
     $scope.timerSeconds = 0;
@@ -14,6 +14,23 @@ angular.module('companyCultureApp')
     }, 1000);
     $scope.$on('timer-stopped', function (event, data){
       scoreFactory.setScore(Math.floor(data.millis/1000));
+      $scope.userScore = scoreFactory.getScore();
+      // save current game score
+      console.log('Auth.getCurrentUser()._id: ', Auth.getCurrentUser()._id);
+      console.log('$scope.userScore: ', $scope.userScore);
+      var userObjToUpdate = {};
+      // update current gameTime score
+      userObjToUpdate.gameTime = $scope.userScore;
+      // if current gameTime score is better than existing bestTime, update
+      var currentBestTime = Auth.getCurrentUser().bestTime;
+      if((currentBestTime ===null) || ($scope.userScore < currentBestTime)) {
+        console.log('updating best time');
+        userObjToUpdate.bestTime = $scope.userScore;
+      }
+      $http.put('/api/users/' + Auth.getCurrentUser()._id, userObjToUpdate).success(function(data){
+        console.log('user obj after saving score: ', data);
+      })
+      // compare current game score to best time and update if it's necessary
     });
 
     // REQUESTS FOR DATA FROM SEED
@@ -219,10 +236,10 @@ angular.module('companyCultureApp')
         $scope.sortAnsA = [];
         $scope.sortAnsB = [];
         for(var q = 0; q < $scope.currentQuestionData.answersArray.length; q++){
-          if($scope.currentQuestionData.answersArray[q].answer === $scope.currentQuestionData.questionOption.optionA){        
+          if($scope.currentQuestionData.answersArray[q].answer === $scope.currentQuestionData.questionOption.optionA){
             $scope.sortAnsA.push({answer: $scope.currentQuestionData.answersArray[q].answer});
           }else{
-            
+
             $scope.sortAnsB.push({answer: $scope.currentQuestionData.answersArray[q].answer});
           }
         }
@@ -263,12 +280,13 @@ angular.module('companyCultureApp')
       return score;
     }
   }
-}).controller('AfterGameModalInstanceCtrl', function($scope, $modalInstance, $http, Auth, scoreFactory) {
+})
+.controller('AfterGameModalInstanceCtrl', function($scope, $modalInstance, $http, Auth, scoreFactory) {
   $scope.userScore = scoreFactory.getScore();
   $scope.ok = function () {
   };
   $scope.cancel = function () {
-    $modalInstance.dismiss('cancel'); 
+    $modalInstance.dismiss('cancel');
   };
 
 });
