@@ -1,18 +1,31 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $rootScope) {
+  .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $rootScope, $timeout) {
     $scope.currentUser = Auth.getCurrentUser();
 
     console.log('current user obj: ', $scope.currentUser);
       //
+    this.sendGameButtonText = 'Send Game';
     this.sendGame = function() {
       console.log('trying to send game')
+      this.sendGameButtonText = 'Game Sent'
       // set activeGame --> true on question object
       $http.put('/api/questions/' + $scope.currentQuestionData._id, {activeGame: true}).success(function(data){
         console.log('question obj after game is set to active: ', data);
         $rootScope.$emit('update group data');
-      })
+          // after 10 sec set activeGame: false && active: false
+          // to set timeout to 24 hours, set delay to 86400000
+          $timeout(function() {
+            $http.put('/api/questions/' + $scope.currentQuestionData._id, {
+              active: false,
+              activeGame: false
+            }).success(function(data){
+              console.log('question obj after game is timeout: ', data);
+              $rootScope.$emit('update group data');
+            })
+          }, 10000)
+        })
       // send email out to all group users to notify them that there's a new game
       var len = $scope.groupData.users.length;
       for (var i = 0; i < len; i++) {
@@ -152,7 +165,25 @@ angular.module('companyCultureApp')
         }
       });
     }
-  });
+  })
+  // .filter('excludeAdmin', function() {
+  //   console.log('in excludeAdmin');
+  //   return function(items) {
+  //     return items;
+  //   }
+    // return function(users){
+    //   console.log('in excludeAdmin filter function')
+    //   var filtered = [];
+    //   for (var i = 0; i < users.length; i++) {
+    //     console.log('user: ', users[i].toString());
+    //     console.log('admin: ', $scope.groupData.admin.toString())
+    //     if (users[i]._id.toString() === $scope.groupData.admin.toString()) {
+    //       filtered.push(users[i]);
+    //     }
+    //   }
+    //   return filtered;
+    // }
+  // });
 // MATCHING CTRL FOR MATCHING QUESTION
   var MatchingCtrl = function ($scope, $modal, $log) {
     $scope.open = function (size) {

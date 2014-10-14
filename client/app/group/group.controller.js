@@ -40,6 +40,8 @@ angular.module('companyCultureApp')
       $rootScope.$emit('groupData ready', data);
       // if there's a question
       if(data.questionsArr.length > 0) {
+        $scope.questionsExist = true;
+        console.log('$scope.questionsExist: ', $scope.questionsExist)
         var currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;
         console.log('currentQuestionId: ', currentQuestionId);
         $http.get('/api/questions/' + currentQuestionId).success(function(data){
@@ -49,7 +51,8 @@ angular.module('companyCultureApp')
           $rootScope.$emit('data is ready', data);
         })
       } else {
-        console.log('there are no questions');
+        $scope.questionsExist = false;
+        console.log('$scope.questionsExist: ', $scope.questionsExist)
       }
       // determine if the user is the admin of the group
       if(data.admin === Auth.getCurrentUser()._id) {
@@ -58,39 +61,6 @@ angular.module('companyCultureApp')
       }
     })
 
-    // after a question is answered or created, run the function to update view
-    $rootScope.$on('question answered or created', function(event){
-      checkUserAnsweredQuestion();
-    })
-
-    // udpates scope.groupdata when a user has been removed from a group
-    // $scope.$on('update group data', function(event){
-    //   $http.get('/api/groups/'+$scope.groupId).success(function(data){
-    //     $scope.groupData = data;
-    //     console.log('$scope.groupData after some change to the group: ', $scope.groupData);
-    //   })
-    // })
-    // function for email when new question is created
-    // $scope.newQuestionMessage = function() {
-    //   console.log('trying to notify users of a new question');
-    //   var len = $scope.groupData.users.length;
-    //   for (var i = 0; i < len; i++) {
-    //     var subject = 'New QUESTION has been posted to Group ' + $scope.groupData.groupName;
-    //     var body = '<p><a href="http://localhost:9000/login">Login</a> to answer the question!</p>';
-    //     var message = {
-    //       userId: "me",
-    //       message: {
-    //         to: $scope.groupData.users[i].email,
-    //         subjectLine: subject,
-    //         bodyOfEmail: body
-    //       }
-    //     }
-    //     $http.post('/api/messages/sendMessage', message).success(function(data) {
-    //       console.log('Email Results after creating a question: ', data.gmail);
-    //     })
-    //   }
-    // }
-
     // updates scope.groupdata + scope.currentQuestionData
     $rootScope.$on('update group data', function(event){
       $http.get('/api/groups/'+$scope.groupId).success(function(data){
@@ -98,13 +68,21 @@ angular.module('companyCultureApp')
         var currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;
         console.log('$scope.groupData after some change to the group: ', $scope.groupData);
         $rootScope.$emit('groupData ready', data);
-        $http.get('/api/questions/' + currentQuestionId).success(function(data){
-          $scope.currentQuestionData = data;
-          $rootScope.$emit('question answered or created');
-          checkUserCompletedGame();
-          $rootScope.$emit('data is ready', data);
-        })
-      })
-    })
-
+        if(data.questionsArr.length > 0) {
+          $scope.questionsExist = true;
+          console.log('$scope.questionsExist: ', $scope.questionsExist)
+          var currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;
+          console.log('currentQuestionId: ', currentQuestionId);
+          $http.get('/api/questions/' + currentQuestionId).success(function(data){
+            $scope.currentQuestionData = data;
+            checkUserAnsweredQuestion();
+            checkUserCompletedGame();
+            $rootScope.$emit('data is ready', data);
+          })
+        } else {
+          $scope.questionsExist = false;
+          console.log('$scope.questionsExist: ', $scope.questionsExist)
+        }
+      });
+    });
   });
