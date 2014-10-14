@@ -22,6 +22,11 @@ h2 {
   text-align: center;
 }
 
+.iconSec {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
 .workingBullet {
   text-align: center;
 }
@@ -31,9 +36,39 @@ h2 {
 }
 
 .exampleSec img {
-  margin-top: 60px;
-  margin-bottom: 60px;
+  margin-top: 70px;
+  margin-bottom: 70px;
   margin-left: auto;
   margin-right: auto;
   display: block;
 }
+
+.testimonialSec {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.testimonialSec p {
+  text-align: center;
+}
+
+.signupSec {
+  background-color: #eee;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.signupSec button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer {
+  background-color: #545454;
+  height: 150px;
+}
+
+
+
+
