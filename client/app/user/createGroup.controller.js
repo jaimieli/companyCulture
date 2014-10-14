@@ -42,9 +42,10 @@ angular.module('companyCultureApp')
 
         // creating the message for each initially invited member
         var len = data.invited.length;
+        console.log('$scope.groupCreated: ', $scope.groupCreated);
         console.log('$scope.currentUser: ', $scope.currentUser);
         for (var i = 0; i < len; i++) {
-          var subject = data.invited[i].name + ' has invited you to join Flock!';
+          var subject = data.invited[i].name + ' Has Invited You To Join Flock!';
           var link = 'http://localhost:9000/login?cookie=' + data._id;
           var body =
           '<div style="text-align: center;">' +
@@ -52,8 +53,14 @@ angular.module('companyCultureApp')
               '<h1 style="background-color: #70CC7E; color: #fff; text-align: center; padding-top: 10px; padding-bottom: 10px; font-family: Lato; font-weight: 300; font-size: 40px; width: 450px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 0px;">Flock</h1>' +
             '</div>' +
             '<div style="border: 1px solid #eee; top: -20px; width: 450px; display: block; margin-left: auto; margin-right: auto; font-family: Lato; font-weight: 300;">' +
-              '<p style="padding-top: 10px; padding-right: 25px; padding-left: 25px; line-height: 22px; text-align: justify;">Flock is a fun way to build company culture. ' + $scope.currentUser.name + ' just signed up and would love for you to join too!</p>' +
-              '<a href="' + link + '" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #70CC7E; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Join</a>' +
+              '<p style="padding-top: 10px; padding-right: 25px; padding-left: 25px; line-height: 22px; text-align: justify;">Flock is a fun way to build company culture. <span style="font-weight: 500;">' +
+              $scope.currentUser.name +
+              '</span> just signed up as a member of <span style="font-weight: 500;">' +
+              $scope.groupCreated.groupName +
+              '</span> and would love for you to join too!</p>' +
+              '<a href="' +
+              link +
+              '" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #70CC7E; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Join</a>' +
             '</div>' +
           '</div>';
           var message = {
