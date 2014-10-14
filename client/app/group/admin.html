@@ -13,7 +13,8 @@
   <button ng-disabled="invite.sent===true" ng-click="Admin.sendMessage(invite)">{{invite.button}}</button>
 </div>
 <h4>Current Users</h4>
-<ul ng-repeat="user in groupData.users">
+<!-- hide the first user bc the first user is the admin and cannot be deleted -->
+<ul ng-repeat="user in groupData.users" ng-show="!$first">
   <li>
     {{user.name}}: {{user.email}}
     <button class="btn btn-warning" ng-click="Admin.removeMember(user)">Remove Member</button>
