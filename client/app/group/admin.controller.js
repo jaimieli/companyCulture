@@ -62,8 +62,6 @@ angular.module('companyCultureApp')
           '<a href="' + link + '" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #70CC7E; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Join</a>' +
         '</div>' +
       '</div>';
-
->>>>>>> master
       var message = {
         userId: "me",
         message: {
