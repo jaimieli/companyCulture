@@ -3,7 +3,7 @@
 angular.module('companyCultureApp')
   .controller('LoginCtrl', function ($scope, Auth, $location, $window, $cookies) {
     console.log($location.search());
-    $cookies.inviteUserToGroup = $location.search().cookie;
+    $cookies.inviteUserToGroup = $location.search().g;
     $scope.user = {};
     $scope.errors = {};
 

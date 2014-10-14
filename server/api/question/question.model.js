@@ -19,7 +19,8 @@ var QuestionSchema = new Schema({
     user: {type: Schema.Types.ObjectId, ref: 'User'},
     answer: String,
     completed: Boolean
-  }]
+  }],
+  activeGame: Boolean
 });
 
 module.exports = mongoose.model('Question', QuestionSchema);
