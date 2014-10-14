@@ -1,11 +1,65 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $rootScope) {
+  .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $rootScope, $timeout) {
     $scope.currentUser = Auth.getCurrentUser();
 
     console.log('current user obj: ', $scope.currentUser);
-
+      //
+    this.sendGameButtonText = 'Send Game';
+    this.sendGame = function() {
+      console.log('trying to send game')
+      this.sendGameButtonText = 'Game Sent'
+      // set activeGame --> true on question object
+      $http.put('/api/questions/' + $scope.currentQuestionData._id, {activeGame: true}).success(function(data){
+        console.log('question obj after game is set to active: ', data);
+        $rootScope.$emit('update group data');
+          // after 10 sec set activeGame: false && active: false
+          // to set timeout to 24 hours, set delay to 86400000
+          $timeout(function() {
+            $http.put('/api/questions/' + $scope.currentQuestionData._id, {
+              active: false,
+              activeGame: false
+            }).success(function(data){
+              console.log('question obj after game is timeout: ', data);
+              $rootScope.$emit('update group data');
+            })
+          }, 10000)
+        })
+      // send email out to all group users to notify them that there's a new game
+      var len = $scope.groupData.users.length;
+      for (var i = 0; i < len; i++) {
+        var subject = $scope.currentUser.name + ' Has Posted A New Game To ' + $scope.groupData.groupName + '!';
+        var link = 'http://localhost:9000/login?cookie=' + $scope.groupId;
+        var body =
+        '<div style="text-align: center;">' +
+          '<div>' +
+            '<h1 style="background-color: #70CC7E; color: #fff; text-align: center; padding-top: 10px; padding-bottom: 10px; font-family: Lato; font-weight: 300; font-size: 40px; width: 450px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 0px;">Flock</h1>' +
+          '</div>' +
+          '<div style="border: 1px solid #eee; top: -20px; width: 450px; display: block; margin-left: auto; margin-right: auto; font-family: Lato; font-weight: 300;">' +
+            '<p style="padding-top: 10px; padding-right: 25px; padding-left: 25px; line-height: 22px; text-align: justify;"><span style="font-weight: 500;">' +
+            $scope.currentUser.name +
+            '</span> has posted a new game to <span style="font-weight: 500;">' +
+            $scope.groupData.groupName +
+            '</span>! Check it out to see how well you know your team members!</p>' +
+            '<a href="' +
+            link +
+            '" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #70CC7E; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Play</a>' +
+          '</div>' +
+        '</div>';
+        var message = {
+          userId: "me",
+          message: {
+            to: $scope.groupData.users[i].email,
+            subjectLine: subject,
+            bodyOfEmail: body
+          }
+        }
+        $http.post('/api/messages/sendMessage', message).success(function(data) {
+          console.log('Email Results after sending game: ', data.gmail);
+        })
+      }
+    }
     // adding members to invite
     this.inviteArrField = [];
     this.inviteMemberObj = function() {
@@ -21,12 +75,27 @@ angular.module('companyCultureApp')
     }
 
     // sending invitation to member to join group
+    console.log("$scope.currentUser: ", $scope.currentUser);
     this.sendMessage = function(invite) {
       invite.sent = true;
       invite.button = "Invite Sent"
-      var subject = invite.name + ', Join Company Culture Group: ' + $scope.groupData.groupName;
+      var subject = $scope.currentUser.name + ' Has Invited You To Join Flock!';
       var link = 'http://localhost:9000/login?cookie=' + $scope.groupId;
-      var body = '<p>Join this group by clicking <a href="' + link + '">here.</a></p>';
+      var body =
+      '<div style="text-align: center;">' +
+        '<div>' +
+          '<h1 style="background-color: #70CC7E; color: #fff; text-align: center; padding-top: 10px; padding-bottom: 10px; font-family: Lato; font-weight: 300; font-size: 40px; width: 450px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 0px;">Flock</h1>' +
+        '</div>' +
+        '<div style="border: 1px solid #eee; top: -20px; width: 450px; display: block; margin-left: auto; margin-right: auto; font-family: Lato; font-weight: 300;">' +
+          '<p style="padding-top: 10px; padding-right: 25px; padding-left: 25px; line-height: 22px; text-align: justify;">Flock is a fun way to build company culture. <span style="font-weight: 500">' + $scope.currentUser.name +
+          '</span> is signed up and a member of <span style="font-weight: 500">' +
+          $scope.groupData.groupName +
+          '</span> and would love for you to join too!</p>' +
+          '<a href="' +
+          link +
+          '" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #70CC7E; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Join</a>' +
+        '</div>' +
+      '</div>';
       var message = {
         userId: "me",
         message: {
@@ -77,9 +146,44 @@ angular.module('companyCultureApp')
         console.log('changed group to inactive: ', data);
         $rootScope.$emit('update group data')
         $location.path('/user');
+        // send email out to all group users to notify them that their group has been deactivated
+        var len = $scope.groupData.users.length;
+        for (var i = 0; i < len; i++) {
+          var subject = $scope.groupData.groupName + ' group has been deactivated';
+          var body = '<p><a href="http://localhost:9000/login">Login</a> to make your own group and invite your friends!</p>'
+          var message = {
+            userId: "me",
+            message: {
+              to: $scope.groupData.users[i].email,
+              subjectLine: subject,
+              bodyOfEmail: body
+            }
+          }
+          $http.post('/api/messages/sendMessage', message).success(function(data) {
+            console.log('Email Results after deactivating group: ', data.gmail);
+          })
+        }
       });
     }
-  });
+  })
+  // .filter('excludeAdmin', function() {
+  //   console.log('in excludeAdmin');
+  //   return function(items) {
+  //     return items;
+  //   }
+    // return function(users){
+    //   console.log('in excludeAdmin filter function')
+    //   var filtered = [];
+    //   for (var i = 0; i < users.length; i++) {
+    //     console.log('user: ', users[i].toString());
+    //     console.log('admin: ', $scope.groupData.admin.toString())
+    //     if (users[i]._id.toString() === $scope.groupData.admin.toString()) {
+    //       filtered.push(users[i]);
+    //     }
+    //   }
+    //   return filtered;
+    // }
+  // });
 // MATCHING CTRL FOR MATCHING QUESTION
   var MatchingCtrl = function ($scope, $modal, $log) {
     $scope.open = function (size) {
@@ -95,7 +199,8 @@ angular.module('companyCultureApp')
       });
     };
   };
-  var MatchingInstanceCtrl = function ($rootScope, $scope, $modalInstance, $http, $stateParams) {
+  var MatchingInstanceCtrl = function ($rootScope, $scope, $modalInstance, $http, $stateParams, newQuestionMessage) {
+
     $scope.ok = function () {
     };
     $scope.cancel = function () {
@@ -106,12 +211,16 @@ angular.module('companyCultureApp')
         active: true,
         groupId: $stateParams.id,
         questionType: 'Match',
-        questionText: $scope.questionText
+        questionText: $scope.questionText,
+        activeGame: false
       }
       console.log('questionObj: ', questionObj);
       $http.post('/api/questions/' + $stateParams.id, questionObj).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
+        $rootScope.$on('groupData ready', function(event, data){
+          newQuestionMessage.sendNewQuestionMessage(data);
+        })
       });
     };
   };
@@ -149,7 +258,7 @@ angular.module('companyCultureApp')
   };
 
  //SORTING FORM CONTROLLER
-var FormController = function($scope, $http, $stateParams, $rootScope) {
+var FormController = function($scope, $http, $stateParams, $rootScope, newQuestionMessage) {
  $scope.createSorting = function(sortType) {
     // console.log("is this sorting working?");
     console.log('$scope.optionA: ', $scope.optionA);
@@ -165,10 +274,14 @@ var FormController = function($scope, $http, $stateParams, $rootScope) {
         questionOption: {
           optionA: $scope.optionA,
           optionB: $scope.optionB
-          }
+          },
+        activeGame: false
         }).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
+        $rootScope.$on('groupData ready', function(event, data){
+          newQuestionMessage.sendNewQuestionMessage(data);
+        })
       });
     }
     if (sortType.type === "have") {
@@ -181,16 +294,23 @@ var FormController = function($scope, $http, $stateParams, $rootScope) {
         questionOption: {
           optionA: 'Yes',
           optionB: 'No'
-          }
+          },
+        activeGame: false
       }).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
+        $rootScope.$on('groupData ready', function(event, data){
+          newQuestionMessage.sendNewQuestionMessage(data);
+        })
       });;
     }
     if (sortType.type === "choose") {
-      $http.post('/api/questions/' + groupId, { active: true, groupId: groupId, questionType: 'Sort', sortType: sortType.type, questionText: $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}}).success(function(data){
+      $http.post('/api/questions/' + groupId, { active: true, groupId: groupId, questionType: 'Sort', sortType: sortType.type, questionText: $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}, activeGame: false}).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
+        $rootScope.$on('groupData ready', function(event, data){
+          newQuestionMessage.sendNewQuestionMessage(data);
+        })
       });;
     }
 
@@ -212,7 +332,7 @@ var FormController = function($scope, $http, $stateParams, $rootScope) {
       });
     };
   };
-  var OrderingInstanceCtrl = function ($scope, $modalInstance, $http, $rootScope, $stateParams) {
+  var OrderingInstanceCtrl = function ($scope, $modalInstance, $http, $rootScope, $stateParams, newQuestionMessage) {
     var groupId = $stateParams.id;
     $scope.ok = function () {
     };
@@ -224,11 +344,15 @@ var FormController = function($scope, $http, $stateParams, $rootScope) {
         active: true,
         groupId: groupId,
         questionType: 'Order',
-        questionText: $scope.questionText
+        questionText: $scope.questionText,
+        activeGame: false
       }
       $http.post('/api/questions/' + groupId, questionObj).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
+        $rootScope.$on('groupData ready', function(event, data){
+          newQuestionMessage.sendNewQuestionMessage(data);
+        })
       });
     };
 

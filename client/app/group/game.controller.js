@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('GameController', function ($scope, $http, $interval, scoreFactory, $log, $modal, $rootScope) {
-
+.controller('GameController', function ($scope, $http, $interval, scoreFactory, $rootScope, $modal, $log) {
     // TIMER
     $scope.score = 0;
     $scope.timerSeconds = 0;
@@ -27,65 +26,72 @@ angular.module('companyCultureApp')
     };
 
     // when the group data is retrieved on load, execute this function
-    $rootScope.$on('groupData is ready', function(event, data){
-      console.log('in game controller after groupData is ready')
-      var groupData = data;
-      console.log('groupData in game controller: ', groupData);
-      var currentQuestionId = groupData.questionsArr[groupData.questionsArr.length - 1]._id;
-      // get current question data with all the relevant info populated
-      $http.get('/api/questions/' + currentQuestionId).success(function(data) {
-          $scope.currentQuestionData = data;
-          console.log('$scope.currentQuestionData: ', $scope.currentQuestionData);
-          if ($scope.currentQuestionData.answersArray.length > 1) {
-             for(var i = 0; i < $scope.currentQuestionData.answersArray.length; i++){
-                  $scope.users.push($scope.currentQuestionData.answersArray[i].user);
-                  $scope.blanks.push( {
-                    answer: $scope.currentQuestionData.answersArray[i].answer,
-                    // user: $scope.currentQuestionData.answersArray[i].user
-                    });
-                  $scope.bottomArr.push({
-                    answer: $scope.currentQuestionData.answersArray[i].answer,
-                    // user: $scope.currentQuestionData.answersArray[i].user
-                  });
-                  $scope.correctOrder.push({
-                    answer: $scope.currentQuestionData.answersArray[i].answer,
-                    user: $scope.currentQuestionData.answersArray[i].user
-                  })
-              };
-            console.log('$scope.users: ', $scope.users)
-            console.log('$scope.blanks: ', $scope.blanks)
-            console.log('$scope.bottomArr: ', $scope.bottomArr)
-            console.log('$scope.correctOrder: ', $scope.correctOrder)
-            $scope.users = shuffle($scope.users);
+    $rootScope.$on('data is ready', function(event, data){
+      // reset all the variables
+      $scope.users = [];
+      $scope.blanks = [];
+      $scope.answers = [];
+      $scope.grabbed = "";
+      $scope.dropped = "";
+      $scope.bottomArr = [];
+      $scope.correctOrder = [];
+      $scope.sortArrayA = [];
+      $scope.sortArrayB = [];
+      $scope.sortAnsB = [];
+      $scope.sortAnsA = [];
+      console.log('in game controller after data is ready')
+      $scope.currentQuestionData = data;
+      console.log('$scope.currentQuestionData in game controller ', $scope.currentQuestionData);
+      if ($scope.currentQuestionData.answersArray.length > 1) {
+         for(var i = 0; i < $scope.currentQuestionData.answersArray.length; i++){
+              $scope.users.push($scope.currentQuestionData.answersArray[i].user);
+              $scope.blanks.push( {
+                answer: $scope.currentQuestionData.answersArray[i].answer,
+                // user: $scope.currentQuestionData.answersArray[i].user
+                });
+              $scope.bottomArr.push({
+                answer: $scope.currentQuestionData.answersArray[i].answer,
+                // user: $scope.currentQuestionData.answersArray[i].user
+              });
+              $scope.correctOrder.push({
+                answer: $scope.currentQuestionData.answersArray[i].answer,
+                user: $scope.currentQuestionData.answersArray[i].user
+              })
+          };
+        console.log('$scope.users: ', $scope.users)
+        console.log('$scope.blanks: ', $scope.blanks)
+        console.log('$scope.bottomArr: ', $scope.bottomArr)
+        console.log('$scope.correctOrder: ', $scope.correctOrder)
+        $scope.users = shuffle($scope.users);
 
-            // order type only
-            if($scope.currentQuestionData.questionType=== "Order"){
-              console.log("its an order q");
-              $scope.blanks.sort(function(obj1,obj2){return obj1.answer - obj2.answer});
-              $scope.bottomArr.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
-              $scope.correctOrder.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+        // order type only
+        if($scope.currentQuestionData.questionType=== "Order"){
+          console.log("its an order q");
+          $scope.blanks.sort(function(obj1,obj2){return obj1.answer - obj2.answer});
+          $scope.bottomArr.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+          $scope.correctOrder.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+        }
+
+        // sort type only
+        if($scope.currentQuestionData.questionType==="Sort"){
+          console.log('sort type');
+            for(var q = 0; q < $scope.currentQuestionData.answersArray.length; q++){
+              if($scope.currentQuestionData.answersArray[q].answer === $scope.currentQuestionData.questionOption.optionA){
+                $scope.sortArrayA.push({user: $scope.currentQuestionData.answersArray[q].user.name});
+                $scope.sortAnsA.push({answer: $scope.currentQuestionData.answersArray[q].answer});
+              }else{
+                $scope.sortArrayB.push({user: $scope.currentQuestionData.answersArray[q].user.name});
+                $scope.sortAnsB.push({answer: $scope.currentQuestionData.answersArray[q].answer});
+              }
             }
+        }
+        console.log('$scope.sortArrayA: ', $scope.sortArrayA);
+        console.log('$scope.sortAnsA: ', $scope.sortAnsA);
 
-            // sort type only
-            if($scope.currentQuestionData.questionType==="Sort"){
-              console.log('sort type');
-                for(var q = 0; q < $scope.currentQuestionData.answersArray.length; q++){
-                  if($scope.currentQuestionData.answersArray[q].answer === $scope.currentQuestionData.questionOption.optionA){
-                    $scope.sortArrayA.push({user: $scope.currentQuestionData.answersArray[q].user.name});
-                    $scope.sortAnsA.push({answer: $scope.currentQuestionData.answersArray[q].answer});
-                  }else{
-                    $scope.sortArrayB.push({user: $scope.currentQuestionData.answersArray[q].user.name});
-                    $scope.sortAnsB.push({answer: $scope.currentQuestionData.answersArray[q].answer});
-                  }
-                }
-            }
-            console.log('$scope.sortArrayA: ', $scope.sortArrayA);
-            console.log('$scope.sortAnsA: ', $scope.sortAnsA);
+      } else {
+        console.log('answers array does not have more than one answer');
+      }
 
-          } else {
-            console.log('answers array does not have more than one answer');
-          }
-       });
     })
 
      $scope.users = [];
@@ -120,6 +126,14 @@ angular.module('companyCultureApp')
         };
       }
      };
+     $scope.userAnswered = function(){
+      var currentQuestionId = $scope.groupData.questionsArr[$scope.groupData.questionsArr.length - 1]._id;
+      $http.get('/api/questions/' + currentQuestionId + '/userCompleted').success(function(data){
+        console.log('question obj after user plays game: ', data);
+        // Don't update scope variables until after modal pops up, etc
+        // $rootScope.$emit('update group data')
+      })
+     }
      $scope.checkAnswer = function(){
       var correctCounter = 0;
       // check answer for Match
@@ -140,6 +154,8 @@ angular.module('companyCultureApp')
           $scope.open('afterGameContent.html');
 
           //modal pop up with elapsed time and buttons to go to leader boards
+          $scope.userAnswered();
+          $scope.open('afterGameContent.html');
         };
       } else if ($scope.currentQuestionData.questionType === 'Order') {
         $scope.right = [];
@@ -157,6 +173,8 @@ angular.module('companyCultureApp')
             $scope.$broadcast('timer-stop');
             $scope.open('afterGameContent.html');
             //modal pop up with elapsed time and buttons to go to leader boards
+            $scope.userAnswered();
+            $scope.open('afterGameContent.html');
         };
       } else if ($scope.currentQuestionData.questionType === "Sort"){
         $scope.rightA = [];
@@ -185,6 +203,7 @@ angular.module('companyCultureApp')
         if(correctCounter === $scope.currentQuestionData.answersArray.length){
           console.log("got it all");
           $scope.$broadcast('timer-stop');
+          $scope.userAnswered();
           $scope.open('afterGameContent.html');
         }
       }
@@ -213,29 +232,27 @@ angular.module('companyCultureApp')
       $scope.users = shuffle($scope.users);
     };
 
-
-      $scope.open = function (templateUrl) {
-          var modalInstance = $modal.open({
-            templateUrl: 'afterGameContent.html',
-            controller: 'AfterGameModalInstanceCtrl',
-            resolve: {
-              currentUserId: function() {
-
-                return $scope.userId;
-              },
-              currentItemId: function() {
-                return $scope.itemId;
-              }
+     $scope.open = function (templateUrl) {
+      var modalInstance = $modal.open({
+          templateUrl: 'afterGameContent.html',
+          controller: 'AfterGameModalInstanceCtrl',
+          resolve: {
+            currentUserId: function() {
+              return $scope.userId;
+            },
+            currentItemId: function() {
+              return $scope.itemId;
             }
-          });
-          modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
-          }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
-          });
-        };
+          }
+        });
+      modalInstance.result.then(function (selectedItem) {
+        $scope.selected = selectedItem;
+        }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+        });
+     }
+})
 
-  })
 .factory('scoreFactory', function() {
   var score;
   return {
@@ -253,36 +270,8 @@ angular.module('companyCultureApp')
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel'); 
   };
+
 });
 
-//AFTER TIME IN GAME IS UP OR GAME IS COMPLETED MODAL
-// var AfterGameModalCtrl = function ($scope, $modal, $log, Auth) {
-//   $scope.open = function (templateUrl) {
-//     var modalInstance = $modal.open({
-//       templateUrl: 'afterGameContent.html',
-//       controller: 'AfterGameModalInstanceCtrl',
-//       resolve: {
-//         currentUserId: function() {
 
-//           return $scope.userId;
-//         },
-//         currentItemId: function() {
-//           return $scope.itemId;
-//         }
-//       }
-//     });
-//     modalInstance.result.then(function (selectedItem) {
-//       $scope.selected = selectedItem;
-//     }, function () {
-//       $log.info('Modal dismissed at: ' + new Date());
-//     });
-//   };
-// };
-// var AfterGameModalInstanceCtrl = function($scope, $modalInstance, $http, Auth, scoreFactory) {
-//   $scope.userScore = scoreFactory.getScore();
-//   $scope.ok = function () {
-//   };
-//   $scope.cancel = function () {
-//     $modalInstance.dismiss('cancel');
-//   };
-// };
+

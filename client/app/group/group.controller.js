@@ -20,39 +20,69 @@ angular.module('companyCultureApp')
         }
       }
     }
+    var checkUserCompletedGame = function(){
+      console.log('checking if user completed game');
+      $scope.showGame = true;
+      var len = $scope.currentQuestionData.answersArray.length;
+      for (var i = 0; i < len; i++) {
+        if ($scope.currentQuestionData.answersArray[i].user._id === $scope.currentUser._id) {
+          if($scope.currentQuestionData.answersArray[i].completed === true) {
+            console.log('already completed most recent game');
+            $scope.showGame = false;
+            return;
+          }
+        }
+      }
+    }
     $http.get('/api/groups/'+$scope.groupId).success(function(data){
       $scope.groupData = data;
       console.log('$scope.groupData on groupPage load: ', $scope.groupData);
+      $rootScope.$emit('groupData ready', data);
+      // if there's a question
+      if(data.questionsArr.length > 0) {
+        $scope.questionsExist = true;
+        console.log('$scope.questionsExist: ', $scope.questionsExist)
+        var currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;
+        console.log('currentQuestionId: ', currentQuestionId);
+        $http.get('/api/questions/' + currentQuestionId).success(function(data){
+          $scope.currentQuestionData = data;
+          checkUserAnsweredQuestion();
+          checkUserCompletedGame();
+          $rootScope.$emit('data is ready', data);
+        })
+      } else {
+        $scope.questionsExist = false;
+        console.log('$scope.questionsExist: ', $scope.questionsExist)
+      }
       // determine if the user is the admin of the group
       if(data.admin === Auth.getCurrentUser()._id) {
         self.isGroupAdmin = true;
         console.log('admin of the group');
       }
-      checkUserAnsweredQuestion();
-      $rootScope.$emit('groupData is ready', data);
     })
 
-    // after a question is answered or created, run the function to update view
-    $rootScope.$on('question answered or created', function(event){
-      checkUserAnsweredQuestion();
-    })
-
-    // udpates scope.groupdata when a user has been removed from a group
-    // $scope.$on('update group data', function(event){
-    //   $http.get('/api/groups/'+$scope.groupId).success(function(data){
-    //     $scope.groupData = data;
-    //     console.log('$scope.groupData after some change to the group: ', $scope.groupData);
-    //   })
-    // })
-
-    // updates scope.groupdata when a user has been removed from a group
+    // updates scope.groupdata + scope.currentQuestionData
     $rootScope.$on('update group data', function(event){
       $http.get('/api/groups/'+$scope.groupId).success(function(data){
         $scope.groupData = data;
+        var currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;
         console.log('$scope.groupData after some change to the group: ', $scope.groupData);
-        $rootScope.$emit('question answered or created');
-        $rootScope.$emit('groupData is ready', data);
-      })
-    })
-
+        $rootScope.$emit('groupData ready', data);
+        if(data.questionsArr.length > 0) {
+          $scope.questionsExist = true;
+          console.log('$scope.questionsExist: ', $scope.questionsExist)
+          var currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;
+          console.log('currentQuestionId: ', currentQuestionId);
+          $http.get('/api/questions/' + currentQuestionId).success(function(data){
+            $scope.currentQuestionData = data;
+            checkUserAnsweredQuestion();
+            checkUserCompletedGame();
+            $rootScope.$emit('data is ready', data);
+          })
+        } else {
+          $scope.questionsExist = false;
+          console.log('$scope.questionsExist: ', $scope.questionsExist)
+        }
+      });
+    });
   });
