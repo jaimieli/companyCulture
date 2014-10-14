@@ -19,7 +19,6 @@
     <p>Order your group members' responses to <span style="color:red">{{questionsArr[questionsArr.length-1].questionText}}</span> from least to greatest.</p>
   </div>
 </div>
-
   <br>
   <br>
 
@@ -43,7 +42,6 @@
           <button>Cancel</button>
         </div>
     </script>
-
 
 <!-- DELETE LATER - ONLY INFORMATIVE FOR US -->
 Question Type : {{questionsArray[questionsArray.length-1].questionType}}
@@ -73,9 +71,6 @@ Question Type : {{questionsArray[questionsArray.length-1].questionType}}
     <button class="btn btn-primary" ng-click="reset()">Reset</button>
   </div>
 
-
-
-
 <!-- SORTING QUESTION -->
   <div ng-if="questionsArray[questionsArray.length-1].questionType==='Sort'">
     <p>Guess how your group members responded to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span>.</p>
@@ -93,19 +88,10 @@ Question Type : {{questionsArray[questionsArray.length-1].questionType}}
     </div>
   </div>
 
-
-
-
-
 <!-- ORDERING QUESTION -->
   <div ng-if="questionsArray[questionsArray.length-1].questionType==='Order'">
     <p>Order your group members' responses to <span style="color:red">{{questionsArray[questionsArray.length-1].questionText}}</span> from least to greatest.</p>
   </div>
-
-
-
-
-
 
 <!-- CLOSING TOP COL-MD-12 DIV -->
 </div>
