@@ -39,8 +39,9 @@ angular.module('companyCultureApp')
       console.log('$scope.groupData on groupPage load: ', $scope.groupData);
       // if there's a question
       if(data.questionsArr.length > 0) {
-        $scope.currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;
-        $http.get('/api/questions/' + $scope.currentQuestionId).success(function(data){
+        var currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;
+        console.log('currentQuestionId: ', currentQuestionId);
+        $http.get('/api/questions/' + currentQuestionId).success(function(data){
           $scope.currentQuestionData = data;
           checkUserAnsweredQuestion();
           checkUserCompletedGame();
@@ -73,8 +74,9 @@ angular.module('companyCultureApp')
     $rootScope.$on('update group data', function(event){
       $http.get('/api/groups/'+$scope.groupId).success(function(data){
         $scope.groupData = data;
+        var currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;
         console.log('$scope.groupData after some change to the group: ', $scope.groupData);
-        $http.get('/api/questions/' + $scope.currentQuestionId).success(function(data){
+        $http.get('/api/questions/' + currentQuestionId).success(function(data){
           $scope.currentQuestionData = data;
           $rootScope.$emit('question answered or created');
           checkUserCompletedGame();

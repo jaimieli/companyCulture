@@ -44,7 +44,7 @@ angular.module('companyCultureApp')
         var len = data.invited.length;
         for (var i = 0; i < len; i++) {
           var subject = data.invited[i].name + ', Join Company Culture Group: ' + data.groupName;
-          var link = 'http://localhost:9000/login?cookie=' + data._id;
+          var link = 'http://localhost:9000/login?g=' + data._id;
           var body = '<p>Join this group by clicking <a href="' + link + '">here.</a></p>';
           var message = {
             userId: "me",
@@ -56,7 +56,7 @@ angular.module('companyCultureApp')
             groupId: data._id,
           }
           $http.post('/api/messages/sendMessage', message).success(function(data) {
-            console.log('Email Results: ', data.gmail);
+            console.log('Email Results after creating group: ', data.gmail);
           })
         }
       });

@@ -5,7 +5,32 @@ angular.module('companyCultureApp')
     $scope.currentUser = Auth.getCurrentUser();
 
     console.log('current user obj: ', $scope.currentUser);
-
+    //
+    this.sendGame = function() {
+      console.log('trying to send game')
+      // set activeGame --> true on question object
+      $http.put('/api/questions/' + $scope.currentQuestionData._id, {activeGame: true}).success(function(data){
+        console.log('question obj after game is set to active: ', data);
+        $rootScope.$emit('update group data');
+      })
+      // send email out to all group users to notify them that there's a new game
+      var len = $scope.groupData.users.length;
+      for (var i = 0; i < len; i++) {
+        var subject = 'New Game Has Been Posted to Group' + $scope.groupData.groupName;
+        var body = '<p><a href="http://localhost:9000/login">Login</a> to play!</p>'
+        var message = {
+          userId: "me",
+          message: {
+            to: $scope.groupData.users[i].email,
+            subjectLine: subject,
+            bodyOfEmail: body
+          }
+        }
+        $http.post('/api/messages/sendMessage', message).success(function(data) {
+          console.log('Email Results after sending game: ', data.gmail);
+        })
+      }
+    }
     // adding members to invite
     this.inviteArrField = [];
     this.inviteMemberObj = function() {
@@ -25,7 +50,7 @@ angular.module('companyCultureApp')
       invite.sent = true;
       invite.button = "Invite Sent"
       var subject = invite.name + ', Join Company Culture Group: ' + $scope.groupData.groupName;
-      var link = 'http://localhost:9000/login?cookie=' + $scope.groupId;
+      var link = 'http://localhost:9000/login?g=' + $scope.groupId;
       var body = '<p>Join this group by clicking <a href="' + link + '">here.</a></p>';
       var message = {
         userId: "me",
@@ -77,6 +102,23 @@ angular.module('companyCultureApp')
         console.log('changed group to inactive: ', data);
         $rootScope.$emit('update group data')
         $location.path('/user');
+        // send email out to all group users to notify them that their group has been deactivated
+        var len = $scope.groupData.users.length;
+        for (var i = 0; i < len; i++) {
+          var subject = $scope.groupData.groupName + ' group has been deactivated';
+          var body = '<p><a href="http://localhost:9000/login">Login</a> to make your own group and invite your friends!</p>'
+          var message = {
+            userId: "me",
+            message: {
+              to: $scope.groupData.users[i].email,
+              subjectLine: subject,
+              bodyOfEmail: body
+            }
+          }
+          $http.post('/api/messages/sendMessage', message).success(function(data) {
+            console.log('Email Results after deactivating group: ', data.gmail);
+          })
+        }
       });
     }
   });
@@ -106,7 +148,8 @@ angular.module('companyCultureApp')
         active: true,
         groupId: $stateParams.id,
         questionType: 'Match',
-        questionText: $scope.questionText
+        questionText: $scope.questionText,
+        activeGame: false
       }
       console.log('questionObj: ', questionObj);
       $http.post('/api/questions/' + $stateParams.id, questionObj).success(function(data){
@@ -165,7 +208,8 @@ var FormController = function($scope, $http, $stateParams, $rootScope) {
         questionOption: {
           optionA: $scope.optionA,
           optionB: $scope.optionB
-          }
+          },
+        activeGame: false
         }).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
@@ -181,14 +225,15 @@ var FormController = function($scope, $http, $stateParams, $rootScope) {
         questionOption: {
           optionA: 'Yes',
           optionB: 'No'
-          }
+          },
+        activeGame: false
       }).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
       });;
     }
     if (sortType.type === "choose") {
-      $http.post('/api/questions/' + groupId, { active: true, groupId: groupId, questionType: 'Sort', sortType: sortType.type, questionText: $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}}).success(function(data){
+      $http.post('/api/questions/' + groupId, { active: true, groupId: groupId, questionType: 'Sort', sortType: sortType.type, questionText: $scope.optionA + " or " + $scope.optionB + "?", questionOption: {optionA: $scope.optionA, optionB: $scope.optionB}, activeGame: false}).success(function(data){
         console.log('group object after adding question: ', data);
         $rootScope.$emit('update group data');
       });;
@@ -224,7 +269,8 @@ var FormController = function($scope, $http, $stateParams, $rootScope) {
         active: true,
         groupId: groupId,
         questionType: 'Order',
-        questionText: $scope.questionText
+        questionText: $scope.questionText,
+        activeGame: false
       }
       $http.post('/api/questions/' + groupId, questionObj).success(function(data){
         console.log('group object after adding question: ', data);

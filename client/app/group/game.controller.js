@@ -28,6 +28,18 @@ angular.module('companyCultureApp')
 
     // when the group data is retrieved on load, execute this function
     $rootScope.$on('data is ready', function(event, data){
+      // reset all the variables
+      $scope.users = [];
+      $scope.blanks = [];
+      $scope.answers = [];
+      $scope.grabbed = "";
+      $scope.dropped = "";
+      $scope.bottomArr = [];
+      $scope.correctOrder = [];
+      $scope.sortArrayA = [];
+      $scope.sortArrayB = [];
+      $scope.sortAnsB = [];
+      $scope.sortAnsA = [];
       console.log('in game controller after data is ready')
       $scope.currentQuestionData = data;
       console.log('$scope.currentQuestionData in game controller ', $scope.currentQuestionData);
