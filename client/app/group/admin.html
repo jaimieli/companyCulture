@@ -17,7 +17,7 @@
   <li>
     {{user.name}}: {{user.email}}
     <button ng-if="user._id !== groupData.admin" class="btn btn-warning" ng-click="Admin.removeMember(user)">Remove Member</button>
-    <button ng-if="user._id === groupData.admin" class="btn" >Admin - Cannot Remove</button>
+    <button ng-if="user._id === groupData.admin" class="btn" disabled>Admin - Cannot Remove</button>
   </li>
 </ul>
 <h4>Invited but Unconfirmed</h4>
