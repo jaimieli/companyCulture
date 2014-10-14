@@ -1,18 +1,30 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $rootScope) {
+  .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $rootScope, $timeout) {
     $scope.currentUser = Auth.getCurrentUser();
 
     console.log('current user obj: ', $scope.currentUser);
       //
+    this.sendGameButtonText = 'Send Game';
     this.sendGame = function() {
       console.log('trying to send game')
+      this.sendGameButtonText = 'Game Sent'
       // set activeGame --> true on question object
       $http.put('/api/questions/' + $scope.currentQuestionData._id, {activeGame: true}).success(function(data){
         console.log('question obj after game is set to active: ', data);
         $rootScope.$emit('update group data');
-      })
+          // after 10 sec set activeGame: false && active: false
+          $timeout(function() {
+            $http.put('/api/questions/' + $scope.currentQuestionData._id, {
+              active: false,
+              activeGame: false
+            }).success(function(data){
+              console.log('question obj after game is timeout: ', data);
+              $rootScope.$emit('update group data');
+            })
+          }, 10000)
+        })
       // send email out to all group users to notify them that there's a new game
       var len = $scope.groupData.users.length;
       for (var i = 0; i < len; i++) {
