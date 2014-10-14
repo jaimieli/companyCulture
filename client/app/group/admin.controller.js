@@ -24,9 +24,9 @@ angular.module('companyCultureApp')
     this.sendMessage = function(invite) {
       invite.sent = true;
       invite.button = "Invite Sent"
-      var subject = invite.name + ', Join Company Culture Group: ' + $scope.groupData.groupName;
+      var subject = invite.name + ' has invited you to join Flock!';
       var link = 'http://localhost:9000/login?cookie=' + $scope.groupId;
-      var body = '<p>Join this group by clicking <a href="' + link + '">here.</a></p>';
+      var body = '<p>Flock is a fun way to build company culture. ' + invite.name + ' just signed up and would love for you to join too! <a href="' + link + '">Join Here</a></p>';
       var message = {
         userId: "me",
         message: {
