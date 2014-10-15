@@ -19,9 +19,7 @@ var UserSchema = new Schema({
   google: {},
   github: {},
   groups: [ {type: Schema.Types.ObjectId, ref: 'Group'} ],
-  groupsAdmin: [ {type: Schema.Types.ObjectId, ref: 'Group'} ],
-  gameTime: { type: Number, default: null },
-  bestTime: { type: Number, default: null}
+  groupsAdmin: [ {type: Schema.Types.ObjectId, ref: 'Group'} ]
 });
 
 /**
