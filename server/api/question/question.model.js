@@ -18,7 +18,8 @@ var QuestionSchema = new Schema({
   answersArray: [ {
     user: {type: Schema.Types.ObjectId, ref: 'User'},
     answer: String,
-    completed: Boolean
+    completed: Boolean,
+    gameTime: { type: Number, default: null }
   }],
   activeGame: Boolean
 });
