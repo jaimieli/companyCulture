@@ -4,10 +4,34 @@ var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var exec = require('child_process').exec;
 
 var validationError = function(res, err) {
   return res.json(422, err);
 };
+
+exports.validateEmails = function (req, res) {
+  console.log('in validateEmails backend');
+  console.log('req.body: ', req.body)
+  console.log('split array: ', req.body.email.split('@'));
+  var emailHost = req.body.email.split('@')[1];
+  console.log('emailHost: ', emailHost);
+  var result = {};
+  result.email = req.body.email;
+  exec('host -t mx ' + emailHost, function(error, stdout, stderr) {
+    if (error !== null) {
+        console.log('exec error: ' + error);
+    }
+    console.log('stdout: ' + stdout);
+    console.log('typeof stdout: ', typeof stdout);
+    if (stdout.toLowerCase().indexOf('google.com') !== -1) {
+      result.valid = true;
+    } else {
+      result.valid = false;
+    }
+    res.send(200, result);
+  });
+}
 
 
 exports.getGroups = function(req, res) {
