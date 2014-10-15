@@ -7,6 +7,7 @@ angular.module('companyCultureApp')
 
     // currentQuestion data
     $rootScope.$on('data is ready', function(event, data){
+      console.log('data is ready in leaderboard controller');
       $scope.currentQuestionData = data;
       console.log('$scope.currentQuestionData in leaderboard: ', $scope.currentQuestionData);
       // get gameTimes for all users who have completed the game

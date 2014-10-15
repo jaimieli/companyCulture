@@ -4,6 +4,32 @@ var _ = require('lodash');
 var Question = require('./question.model');
 var Group = require('../group/group.model')
 
+// save user score
+exports.saveScore = function(req, res){
+  Question.findById(req.params.id, function(err, question){
+    console.log('req.body: ', req.body);
+    console.log('req.params: ', req.params);
+    console.log('req.user: ', req.user);
+    if(err) { return handleError(res, err); }
+    if(!question) { return res.send(404); }
+    var len = question.answersArray.length;
+    for (var i = 0; i < len; i++) {
+      if (question.answersArray[i].user.toString() === req.user._id.toString()) {
+        console.log('found user');
+        question.answersArray[i].gameTime = req.body.score;
+        break;
+      }
+    }
+    question.save(function(err, question){
+      if(err){
+        console.log(err);
+        return handleError(res, err);
+      }
+      question.populate('answersArray');
+      return res.json(200, question)
+    })
+  })
+}
 // Add answer to list of questions
 exports.addAnswer = function(req, res){
   Question.findById(req.params.id, function(err, question){

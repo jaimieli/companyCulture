@@ -16,21 +16,27 @@ angular.module('companyCultureApp')
       scoreFactory.setScore(Math.floor(data.millis/1000));
       $scope.userScore = scoreFactory.getScore();
       // save current game score
-      console.log('Auth.getCurrentUser()._id: ', Auth.getCurrentUser()._id);
-      console.log('$scope.userScore: ', $scope.userScore);
-      var userObjToUpdate = {};
+      // console.log('Auth.getCurrentUser()._id: ', Auth.getCurrentUser()._id);
+      // console.log('$scope.userScore: ', $scope.userScore);
+      // var userObjToUpdate = {};
       // update current gameTime score
-      userObjToUpdate.gameTime = $scope.userScore;
+      // userObjToUpdate.gameTime = $scope.userScore;
       // if current gameTime score is better than existing bestTime, update
-      var currentBestTime = Auth.getCurrentUser().bestTime;
-      if((currentBestTime ===null) || ($scope.userScore < currentBestTime)) {
-        console.log('updating best time');
-        userObjToUpdate.bestTime = $scope.userScore;
-      }
-      $http.put('/api/users/' + Auth.getCurrentUser()._id, userObjToUpdate).success(function(data){
-        console.log('user obj after saving score: ', data);
-      })
+      // var currentBestTime = Auth.getCurrentUser().bestTime;
+      // if((currentBestTime ===null) || ($scope.userScore < currentBestTime)) {
+      //   console.log('updating best time');
+      //   userObjToUpdate.bestTime = $scope.userScore;
+      // }
+      // $http.put('/api/users/' + Auth.getCurrentUser()._id, userObjToUpdate).success(function(data){
+      //   console.log('user obj after saving score: ', data);
+      //   $rootScope.$emith('update group data')
+      // })
       // compare current game score to best time and update if it's necessary
+      // save current game score
+      $http.post('/api/questions/' + $scope.currentQuestionData._id + '/saveScore', {score: $scope.userScore}).success(function(data){
+        console.log('data after saving score: ', data);
+        $rootScope.$emit('update group data');
+      })
     });
 
     // REQUESTS FOR DATA FROM SEED
