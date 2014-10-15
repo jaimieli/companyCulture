@@ -80,11 +80,13 @@ angular.module('companyCultureApp')
           };
 
           // creating the message for each initially invited member
-          var len = data.invited.length;
-          console.log('$scope.groupCreated: ', $scope.groupCreated);
-          console.log('$scope.currentUser: ', $scope.currentUser);
-          for (var i = 0; i < len; i++) {
-            var subject = data.invited[i].name + ' Has Invited You To Join Flock!';
+
+          // var len = data.invited.length;
+          // console.log('$scope.groupCreated: ', $scope.groupCreated);
+          // console.log('$scope.currentUser: ', $scope.currentUser);
+          // for (var i = 0; i < len; i++) {
+          var sendEmail = function(person, callback) {
+            var subject = person.name + ' Has Invited You To Join Flock!';
             var link = 'http://localhost:9000/login?cookie=' + data._id;
             var body =
             '<div style="text-align: center;">' +
@@ -105,23 +107,28 @@ angular.module('companyCultureApp')
             var message = {
               userId: "me",
               message: {
-                to: data.invited[i].email,
+                to: person.email,
                 subjectLine: subject,
                 bodyOfEmail: body
               },
               groupId: data._id,
             }
             $http.post('/api/messages/sendMessage', message).success(function(data) {
-              console.log('Email Results after creating group: ', data.gmail);
+              console.log('Email result after creating group and sending one email: ', data.gmail);
+              callback();
             })
           }
-          done(null, 'done creating group and sending message');
+          // }
+          var doneEmailing = function(err) {
+            if (err) console.log(err)
+            done(null, 'done creating group and sending message');
+          }
+          async.each(data.invited, sendEmail, doneEmailing);
         });
       }
 
       var doneTasks = function(err, results) {
-        console.log('results: ', results);
-        console.log('end of async series');
+        console.log('end of async -- results: ', results);
       }
 
       async.series([validateAll, createGroupAndEmail], doneTasks);
