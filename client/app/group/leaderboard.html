@@ -1,0 +1,7 @@
+<h3>This is the leaderboard view</h3>
+<h4>Times for Current Game</h4>
+<ul ng-repeat="answer in currentQuestionData.answersArray">
+  <li ng-if="answer.gameTime">
+    {{answer.user.name}}: {{answer.gameTime}}
+  </li>
+</ul>
