@@ -2,3 +2,29 @@
   color: red;
   display: inline-block;
 }
+
+.groupHeader {
+  font-family: Lato;
+  font-weight: 300;
+  text-align: center;
+}
+
+.groupList {
+  list-style-type: none;
+}
+
+.groupItem {
+  border: 1px solid #dbdbda;
+  padding: 10px;
+  border-radius: 4px;
+  color: #545454;
+  font-family: Lato;
+  font-size: 16px;
+  float: left;
+  margin: 5px;
+}
+
+.groupItem:hover {
+  text-decoration: none;
+  color: #52B3E6;
+}
