@@ -15,7 +15,18 @@ angular.module('companyCultureApp')
     $scope.$on('timer-stopped', function (event, data){
       scoreFactory.setScore(Math.floor(data.millis/1000));
       $scope.userScore = scoreFactory.getScore();
-      // compare current game score to best time in group and update if it's necessary
+      var bestTime;
+      var usersArr = $scope.groupData.users;
+      for (var i = 0; i < usersArr.length; i++) {
+        if(usersArr[i].user._id === $scope.currentUser._id) {
+          console.log('found user checking best time')
+          bestTime = usersArr[i].bestTime;
+        }
+      }
+      // if best time is null or the currentScore is better than best time, we need to update
+      if(!bestTime || $scope.userScore < bestTime) {
+        console.log('make call to back end to update bestTime in group obj');
+      }
       // save current game score
       $http.post('/api/questions/' + $scope.currentQuestionData._id + '/saveScore', {score: $scope.userScore}).success(function(data){
         console.log('data after saving score: ', data);
@@ -129,14 +140,7 @@ angular.module('companyCultureApp')
         };
       }
      };
-     $scope.userAnswered = function(){
-      var currentQuestionId = $scope.groupData.questionsArr[$scope.groupData.questionsArr.length - 1]._id;
-      $http.get('/api/questions/' + currentQuestionId + '/userCompleted').success(function(data){
-        console.log('question obj after user plays game: ', data);
-        // Don't update scope variables until after modal pops up, etc
-        // $rootScope.$emit('update group data')
-      })
-     }
+
      $scope.checkAnswer = function(){
       var correctCounter = 0;
       // check answer for Match
@@ -157,7 +161,6 @@ angular.module('companyCultureApp')
           $scope.open('afterGameContent.html');
 
           //modal pop up with elapsed time and buttons to go to leader boards
-          $scope.userAnswered();
           $scope.open('afterGameContent.html');
         };
       } else if ($scope.currentQuestionData.questionType === 'Order') {
@@ -176,7 +179,7 @@ angular.module('companyCultureApp')
             $scope.$broadcast('timer-stop');
             $scope.open('afterGameContent.html');
             //modal pop up with elapsed time and buttons to go to leader boards
-            $scope.userAnswered();
+
             $scope.open('afterGameContent.html');
         };
       } else if ($scope.currentQuestionData.questionType === "Sort"){
@@ -267,8 +270,13 @@ angular.module('companyCultureApp')
     }
   }
 })
-.controller('AfterGameModalInstanceCtrl', function($scope, $modalInstance, $http, Auth, scoreFactory) {
+.controller('AfterGameModalInstanceCtrl', function($scope, $modalInstance, $http, Auth, scoreFactory, $rootScope) {
   $scope.userScore = scoreFactory.getScore();
+  $scope.showLeaderboard = function() {
+    console.log('trying to show leadderboard');
+    $modalInstance.dismiss('cancel');
+    $rootScope.$emit('show leaderboard');
+  }
   $scope.ok = function () {
   };
   $scope.cancel = function () {

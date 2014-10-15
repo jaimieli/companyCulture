@@ -8,6 +8,6 @@
     </div>
     <div ng-show="showQuestion" ng-include=" 'app/group/showQuestion.html' " ng-controller="ShowQuestionCtrl as showQuest"></div>
     <div ng-show="showGame && currentQuestionData.activeGame && currentQuestionData.active" ng-include=" 'app/group/game.html' " ng-controller=" GameController "></div>
-    <div ng-include=" 'app/group/leaderboard.html' " ng-controller=" LeaderboardController as Leader "></div>
+    <div ng-show="showLeaderboard && !showGame" ng-include=" 'app/group/leaderboard.html' " ng-controller=" LeaderboardController as Leader "></div>
   </div>
 </div>

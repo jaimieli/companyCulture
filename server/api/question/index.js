@@ -6,7 +6,6 @@ var auth = require('../../auth/auth.service');
 
 var router = express.Router();
 
-router.get('/:id/userCompleted', auth.isAuthenticated(), controller.userCompleted);
 router.post('/:id/saveScore', auth.isAuthenticated(), controller.saveScore);
 router.post('/:id/addAnswer', controller.addAnswer);
 router.post('/:id', controller.create);

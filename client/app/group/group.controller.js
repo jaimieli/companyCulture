@@ -2,6 +2,12 @@
 
 angular.module('companyCultureApp')
   .controller('GroupCtrl', function ($scope, $stateParams, $http, Auth, $rootScope) {
+    $scope.showLeaderboard = false;
+    $rootScope.$on('show leaderboard',function(event){
+      console.log('catching show leaderboard')
+      $scope.showLeaderboard = true;
+      console.log('$scope.showLeaderboard in group: ', $scope.showLeaderboard);
+    })
     var self = this;
     $scope.currentUser = Auth.getCurrentUser();
     console.log('$scope.currentUser on groupPage load: ', $scope.currentUser);
