@@ -62,7 +62,6 @@ angular.module('companyCultureApp')
             }
           }
           done(null, 'done validating')
-        }
 
 
         }
