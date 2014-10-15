@@ -13,6 +13,9 @@ angular.module('companyCultureApp')
     ,{
       'title': 'Game',
       'link': '/game'
+    },{
+      'title': 'Create group',
+      'link': '/create'
     }
     ];
 

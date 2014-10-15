@@ -1,7 +1,15 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('CreateGroupCtrl', function ($scope, $http, Auth, User, userGroup) {
+  .controller('CreateGroupCtrl', function ($scope, $http, Auth, User, userGroup, $rootScope) {
+    // $scope.$on('currentUser', function(event, data) {
+    //   console.log('catching rootscope emit')
+    //   $scope.currentUser = data;
+    //   console.log('$scope.currentUser inside the on event: ', $scope.currentUser);
+    // });
+    $scope.currentUser = Auth.getCurrentUser();
+    console.log('$scope.currentUser in create a group: ', $scope.currentUser);
+
     this.newGroup = {
       active: true,
       invited: []
