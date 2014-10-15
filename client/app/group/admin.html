@@ -10,6 +10,7 @@
   <input ng-model="invite.name" required></input>
   <label>Email Address: </label>
   <input ng-model="invite.email" required></input>
+  <p ng-show="!invite.validity">*You must enter a valid gmail email.</p>
   <button ng-disabled="invite.sent===true" ng-click="Admin.sendMessage(invite)">{{invite.button}}</button>
 </div>
 <h4>Current Group Members</h4>

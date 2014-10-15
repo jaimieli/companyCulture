@@ -29,8 +29,8 @@ angular.module('companyCultureApp')
       })
     } else {
       $http.get('/api/users/getGroups').success(function(data){
-        console.log(data);
         $scope.currentUser = data;
+        console.log('$scope.currentUser in User: ', $scope.currentUser);
       });
     }
 
@@ -38,7 +38,6 @@ angular.module('companyCultureApp')
 
     $http.get('/api/questions').success(function(questionsArr) {
          $scope.questionsArr = questionsArr;
-         console.log(questionsArr);
      });
 
     $scope.userAnswer = function() {
