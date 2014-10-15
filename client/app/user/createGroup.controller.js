@@ -1,11 +1,10 @@
 'use strict';
 
 angular.module('companyCultureApp')
-
- 
   .controller('CreateGroupCtrl', function ($scope, $http, Auth, User, userGroup, async, $rootScope) {
     $scope.currentUser = Auth.getCurrentUser();
     console.log('$scope.currentUser in create a group: ', $scope.currentUser);
+
     this.newGroup = {
       active: true,
       invited: []
@@ -63,6 +62,9 @@ angular.module('companyCultureApp')
             }
           }
           done(null, 'done validating')
+        }
+
+
         }
 
         async.each(group.invited, validateEmail, doneValidating);

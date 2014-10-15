@@ -29,7 +29,9 @@ angular.module('companyCultureApp')
       })
     } else {
       $http.get('/api/users/getGroups').success(function(data){
+
         console.log('currentUser without token: ', data);
+
         $scope.currentUser = data;
         console.log('$scope.currentUser in User: ', $scope.currentUser);
       });
