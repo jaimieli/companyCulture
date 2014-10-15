@@ -65,10 +65,10 @@ angular.module('companyCultureApp')
     $rootScope.$on('update group data', function(event){
       $http.get('/api/groups/'+$scope.groupId).success(function(data){
         $scope.groupData = data;
-        var currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;
         console.log('$scope.groupData after some change to the group: ', $scope.groupData);
         $rootScope.$emit('groupData ready', data);
         if(data.questionsArr.length > 0) {
+          var currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;
           $scope.questionsExist = true;
           console.log('$scope.questionsExist: ', $scope.questionsExist)
           var currentQuestionId = data.questionsArr[data.questionsArr.length - 1]._id;

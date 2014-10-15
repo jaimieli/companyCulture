@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('UserCtrl', function ($scope, $http, $cookies, userGroup) {
+  .controller('UserCtrl', function ($scope, $http, $cookies, userGroup, $rootScope) {
     // listening for new group created
     $scope.$on('new group created', function(event) {
       $http.get('/api/users/getGroups').success(function(data){
@@ -16,22 +16,26 @@ angular.module('companyCultureApp')
       $http.get('/api/groups/addInvitee/' + $scope.cookieId).success(function(data){
         console.log('after adding invitee to group: ', data);
         $http.get('/api/users/getGroups').success(function(data){
-          console.log(data);
+          console.log('currentUser with token: ', data);
           $scope.currentUser = data;
         });
       })
     } else {
       $http.get('/api/users/getGroups').success(function(data){
-        console.log(data);
+
+        console.log('currentUser without token: ', data);
+
         $scope.currentUser = data;
+        console.log('$scope.currentUser in User: ', $scope.currentUser);
       });
     }
 
     var questionsArr = "";
 
+
+
     $http.get('/api/questions').success(function(questionsArr) {
          $scope.questionsArr = questionsArr;
-         console.log(questionsArr);
      });
 
     $scope.userAnswer = function() {
@@ -40,3 +44,4 @@ angular.module('companyCultureApp')
     };
 
   });
+ 
