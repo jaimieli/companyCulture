@@ -1,0 +1,13 @@
+<h3>This is the leaderboard view</h3>
+<h4>Times for Current Game</h4>
+<ul ng-repeat="answer in currentQuestionData.answersArray">
+  <li ng-if="answer.completed">
+    {{answer.user.name}}: {{answer.user.gameTime}}
+  </li>
+</ul>
+<h4>Best Times (click to see People's Best Times)</h4>
+<ul ng-repeat="answer in currentQuestionData.answersArray">
+  <li>
+    {{answer.user.name}}: {{answer.user.bestTime}}
+  </li>
+</ul>
