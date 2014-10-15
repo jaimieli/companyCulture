@@ -15,23 +15,7 @@ angular.module('companyCultureApp')
     $scope.$on('timer-stopped', function (event, data){
       scoreFactory.setScore(Math.floor(data.millis/1000));
       $scope.userScore = scoreFactory.getScore();
-      // save current game score
-      // console.log('Auth.getCurrentUser()._id: ', Auth.getCurrentUser()._id);
-      // console.log('$scope.userScore: ', $scope.userScore);
-      // var userObjToUpdate = {};
-      // update current gameTime score
-      // userObjToUpdate.gameTime = $scope.userScore;
-      // if current gameTime score is better than existing bestTime, update
-      // var currentBestTime = Auth.getCurrentUser().bestTime;
-      // if((currentBestTime ===null) || ($scope.userScore < currentBestTime)) {
-      //   console.log('updating best time');
-      //   userObjToUpdate.bestTime = $scope.userScore;
-      // }
-      // $http.put('/api/users/' + Auth.getCurrentUser()._id, userObjToUpdate).success(function(data){
-      //   console.log('user obj after saving score: ', data);
-      //   $rootScope.$emith('update group data')
-      // })
-      // compare current game score to best time and update if it's necessary
+      // compare current game score to best time in group and update if it's necessary
       // save current game score
       $http.post('/api/questions/' + $scope.currentQuestionData._id + '/saveScore', {score: $scope.userScore}).success(function(data){
         console.log('data after saving score: ', data);
@@ -39,10 +23,6 @@ angular.module('companyCultureApp')
       })
     });
 
-    // REQUESTS FOR DATA FROM SEED
-    // $http.get('/api/questions').success(function(questionsArray) {
-    //   $scope.questionsArray = questionsArray;
-    // });
     var shuffle = function(o) {
       for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
       return o;
