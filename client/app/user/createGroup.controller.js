@@ -86,7 +86,7 @@ angular.module('companyCultureApp')
           // console.log('$scope.currentUser: ', $scope.currentUser);
           // for (var i = 0; i < len; i++) {
           var sendEmail = function(person, callback) {
-            var subject = person.name + ' Has Invited You To Join Flock!';
+            var subject = $scope.currentUser.name + ' Has Invited You To Join Flock!';
             var link = 'http://localhost:9000/login?cookie=' + data._id;
             var body =
             '<div style="text-align: center;">' +
