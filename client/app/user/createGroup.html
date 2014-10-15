@@ -1,20 +1,29 @@
 <div class="col-md-12" ng-controller="CreateGroupCtrl as Create">
   <div class="container">
     <h1>Create a Group</h1>
-    <div ng-form="memberForm">
-      <label>Group Name: </label><input ng-model="Create.newGroup.groupName" required />
+
+    <form name="memberForm" ng-submit="Create.newGroup.invited.length > 1 && memberForm.$valid && Create.createGroup(Create.newGroup)" novalidate>
+      <label>Group Name:</label>
+      <input ng-model="Create.newGroup.groupName" name="groupName" required/>
+      <p class="groupNameError" ng-show="memberForm.groupName.$error.required">*A group name is required.</p>
       <br></br>
-      <label>Members:</label>
-      <button ng-click="Create.addMember()">Add Member</button>
+
+      <button ng-click="Create.addMember($event)">Add Member</button>
+      <p>Members:</p>
       <div ng-repeat="invite in Create.newGroup.invited">
         <label>Name: </label>
-        <input ng-model="invite.name" required/>
+        <input name="formName" ng-model="invite.name" required/>
         <label>Email Address: </label>
-        <input ng-model="invite.email" required>@gmail.com
+        <input name="formEmail" ng-model="invite.email" required>
+        {{invite.validity}}
+        <p ng-show="!invite.validity && memberForm.formEmail.$dirty && memberForm.$valid">*You must enter a valid gmail email.</p>
         <button class="btn btn-xs btn-danger" ng-click="Create.deleteMember($index)">Delete</button>
       </div>
-    </div>
-    <button ng-click="Create.createGroup(Create.newGroup)">Submit New Group</button>
+      <p ng-show="Create.newGroup.invited.length < 2">*You need at least two members</p>
+      <p ng-show="memberForm"></p>
+
+      <input type="submit" value="Create New Group">
+    </form>
 
 
     <h4>Group Created</h4>
