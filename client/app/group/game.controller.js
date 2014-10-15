@@ -23,14 +23,18 @@ angular.module('companyCultureApp')
           bestTime = usersArr[i].bestTime;
         }
       }
-      // if best time is null or the currentScore is better than best time, we need to update
-      if(!bestTime || $scope.userScore < bestTime) {
-        console.log('make call to back end to update bestTime in group obj');
-      }
+
       // save current game score
       $http.post('/api/questions/' + $scope.currentQuestionData._id + '/saveScore', {score: $scope.userScore}).success(function(data){
         console.log('data after saving score: ', data);
-        $rootScope.$emit('update group data');
+        // if best time is null or the currentScore is better than best time, we need to update
+        if(!bestTime || $scope.userScore < bestTime) {
+          console.log('make call to back end to update bestTime in group obj');
+          $http.post('/api/groups/' + $scope.groupData._id + '/updateBestTime', {score: $scope.userScore}).success(function(data){
+            console.log('group data after updating best time: ', data);
+            $rootScope.$emit('update group data');
+          })
+        }
       })
     });
 

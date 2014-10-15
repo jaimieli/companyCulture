@@ -5,6 +5,25 @@ var Group = require('./group.model');
 var User = require('../user/user.model')
 var async = require('async');
 
+// Update best time
+exports.updateBestTime = function(req, res) {
+  console.log('req.user: ', req.user);
+  console.log('req.params: ', req.params);
+  Group.findById(req.params.id, function(err, group){
+    var len = group.users.length;
+    for (var i = 0; i < len; i++) {
+      if(group.users[i].user.toString() === req.user._id.toString()) {
+        console.log('found user to update best time');
+        group.users[i].bestTime = req.body.score;
+        break;
+      }
+    }
+    group.save(function(err){
+      if(err) { return handleError(res, err); }
+      res.send(200, group);
+    })
+  })
+}
 // Remove User and Update Group
 exports.removeMember = function(req, res){
   var userToRemove = req.body;

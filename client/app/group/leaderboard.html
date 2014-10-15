@@ -5,3 +5,7 @@
     {{answer.user.name}}: {{answer.gameTime}}
   </li>
 </ul>
+<h4>Best Times in Group</h4>
+<ul ng-repeat="person in groupData.users">
+  <li ng-if="person.bestTime">{{person.user.name}}: {{person.bestTime}}</li>
+</ul>
