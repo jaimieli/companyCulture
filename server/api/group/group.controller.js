@@ -79,7 +79,7 @@ exports.addInvitee = function(req, res) {
       }
       console.log('group.invited outside loop: ', group.invited);
       // add user to group object
-      group.users.addToSet(req.user._id);
+      group.users.addToSet({user: req.user._id});
       // save group
       group.save(function (err) {
         if (err) { return handleError(res, err); }
@@ -117,7 +117,7 @@ exports.index = function(req, res) {
 exports.show = function(req, res) {
   // populate users
   Group.findOne({_id: req.params.id})
-    .populate('users')
+    .populate('users.user')
     .populate('questionsArr')
     .exec(function(err, results){
       console.log(results);
@@ -136,7 +136,10 @@ exports.create = function(req, res) {
   console.log('req.user before: ', req.user);
 
   Group.create(req.body, function(err, group) {
-    if(err) { return handleError(res, err); }
+    if(err) {
+      console.log(err);
+      return handleError(res, err);
+    }
     req.user.groups.addToSet(group._id);
     req.user.groupsAdmin.addToSet(group._id);
     req.user.save(function(err, user){

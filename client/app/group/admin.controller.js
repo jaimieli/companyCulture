@@ -50,7 +50,7 @@ angular.module('companyCultureApp')
         var message = {
           userId: "me",
           message: {
-            to: $scope.groupData.users[i].email,
+            to: $scope.groupData.users[i].user.email,
             subjectLine: subject,
             bodyOfEmail: body
           }
@@ -166,7 +166,7 @@ angular.module('companyCultureApp')
           var message = {
             userId: "me",
             message: {
-              to: $scope.groupData.users[i].email,
+              to: $scope.groupData.users[i].user.email,
               subjectLine: subject,
               bodyOfEmail: body
             }

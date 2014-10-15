@@ -29,7 +29,9 @@ angular.module('companyCultureApp')
       console.log('group obj: ', group);
       console.log('# of invited members: ', this.countMembers)
       group.admin = $scope.currentUser._id;
-      group.users = [$scope.currentUser._id];
+      group.users = [{
+        user: $scope.currentUser._id
+        }];
       // if (this.countMembers < 2 || group.groupName === undefined) {
       //   return alert('You need to submit a groupName and invite at least 2 members.')
       // }
@@ -71,8 +73,9 @@ angular.module('companyCultureApp')
       }
 
       var createGroupAndEmail = function(done) {
+        console.log('group object in createGroupEmail beginning: ', group);
         $http.post('/api/groups', group).success(function(data){
-          console.log(data);
+          console.log('groupCreated data: ', data);
           $scope.groupCreated = data;
 
           // emit the event below so that the parent user controller will listen for the event
