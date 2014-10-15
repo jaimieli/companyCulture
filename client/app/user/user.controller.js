@@ -31,6 +31,7 @@ angular.module('companyCultureApp')
       $http.get('/api/users/getGroups').success(function(data){
         console.log('currentUser without token: ', data);
         $scope.currentUser = data;
+        console.log('$scope.currentUser in User: ', $scope.currentUser);
       });
     }
 
@@ -40,7 +41,6 @@ angular.module('companyCultureApp')
 
     $http.get('/api/questions').success(function(questionsArr) {
          $scope.questionsArr = questionsArr;
-         console.log(questionsArr);
      });
 
     $scope.userAnswer = function() {

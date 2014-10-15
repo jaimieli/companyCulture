@@ -9,7 +9,8 @@
   <label>Name: </label>
   <input ng-model="invite.name" required></input>
   <label>Email Address: </label>
-  <input ng-model="invite.email" required>@gmail.com</input>
+  <input ng-model="invite.email" required></input>
+  <p ng-show="!invite.validity">*You must enter a valid gmail email.</p>
   <button ng-disabled="invite.sent===true" ng-click="Admin.sendMessage(invite)">{{invite.button}}</button>
 </div>
 <h4>Current Group Members</h4>
@@ -23,7 +24,7 @@
 <h4>Invited but Unconfirmed</h4>
 <ul ng-repeat="invite in groupData.invited track by $index">
   <li ng-if="invite">
-    {{invite.name}}: {{invite.email}}@gmail.com
+    {{invite.name}}: {{invite.email}}
   </li>
 </ul>
 

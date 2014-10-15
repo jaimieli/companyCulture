@@ -72,7 +72,7 @@ exports.addInvitee = function(req, res) {
       var len = group.invited.length;
       for (var i = 0; i < len; i++) {
         if (group.invited[i] !== null) {
-          if(req.user.email === group.invited[i].email + '@gmail.com'){
+          if(req.user.email === group.invited[i].email){
             group.invited.set(i, undefined);
           }
         }

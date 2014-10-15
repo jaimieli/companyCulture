@@ -24,7 +24,7 @@ angular.module('companyCultureApp')
               console.log('question obj after game is timeout: ', data);
               $rootScope.$emit('update group data');
             })
-          }, 10000)
+          }, 500000)
         })
       // send email out to all group users to notify them that there's a new game
       var len = $scope.groupData.users.length;
@@ -76,41 +76,53 @@ angular.module('companyCultureApp')
 
     // sending invitation to member to join group
     console.log("$scope.currentUser: ", $scope.currentUser);
+    var self = this;
     this.sendMessage = function(invite) {
-      invite.sent = true;
-      invite.button = "Invite Sent"
-      var subject = $scope.currentUser.name + ' Has Invited You To Join Flock!';
-      var link = 'http://localhost:9000/login?cookie=' + $scope.groupId;
-      var body =
-      '<div style="text-align: center;">' +
-        '<div>' +
-          '<h1 style="background-color: #70CC7E; color: #fff; text-align: center; padding-top: 10px; padding-bottom: 10px; font-family: Lato; font-weight: 300; font-size: 40px; width: 450px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 0px;">Flock</h1>' +
-        '</div>' +
-        '<div style="border: 1px solid #eee; top: -20px; width: 450px; display: block; margin-left: auto; margin-right: auto; font-family: Lato; font-weight: 300;">' +
-          '<p style="padding-top: 10px; padding-right: 25px; padding-left: 25px; line-height: 22px; text-align: justify;">Flock is a fun way to build company culture. <span style="font-weight: 500">' + $scope.currentUser.name +
-          '</span> is signed up and a member of <span style="font-weight: 500">' +
-          $scope.groupData.groupName +
-          '</span> and would love for you to join too!</p>' +
-          '<a href="' +
-          link +
-          '" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #70CC7E; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Join</a>' +
-        '</div>' +
-      '</div>';
-      var message = {
-        userId: "me",
-        message: {
-          to: invite.email + '@gmail.com',
-          subjectLine: subject,
-          bodyOfEmail: body
-        },
-        groupId: $scope.groupId,
-        invite: invite
-      }
-      console.log(message);
-      $http.post('/api/messages/sendMessage', message).success(function(data) {
-        // 5 second delay before update
-        console.log('Email Results: ', data);
-        $rootScope.$emit('update group data');
+      $http.post('/api/users/validateEmails', invite).success(function(data){
+        if (data.valid) {
+          invite.validity = true;
+          console.log('self.inviteArrField after validity: ', self.inviteArrField)
+          invite.sent = true;
+          invite.button = "Invite Sent";
+          console.log('$scope.currentUser: ', $scope.currentUser);
+          var subject = $scope.currentUser.name + ' Has Invited You To Join Flock!';
+          var link = 'http://localhost:9000/login?cookie=' + $scope.groupId;
+          var body =
+          '<div style="text-align: center;">' +
+            '<div>' +
+              '<h1 style="background-color: #70CC7E; color: #fff; text-align: center; padding-top: 10px; padding-bottom: 10px; font-family: Lato; font-weight: 300; font-size: 40px; width: 450px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 0px;">Flock</h1>' +
+            '</div>' +
+            '<div style="border: 1px solid #eee; top: -20px; width: 450px; display: block; margin-left: auto; margin-right: auto; font-family: Lato; font-weight: 300;">' +
+              '<p style="padding-top: 10px; padding-right: 25px; padding-left: 25px; line-height: 22px; text-align: justify;">Flock is a fun way to build company culture. <span style="font-weight: 500">' + $scope.currentUser.name +
+              '</span> is signed up and a member of <span style="font-weight: 500">' +
+              $scope.groupData.groupName +
+              '</span> and would love for you to join too!</p>' +
+              '<a href="' +
+              link +
+              '" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #70CC7E; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Join</a>' +
+            '</div>' +
+          '</div>';
+          var message = {
+            userId: "me",
+            message: {
+              to: invite.email,
+              subjectLine: subject,
+              bodyOfEmail: body
+            },
+            groupId: $scope.groupId,
+            invite: invite
+          }
+          console.log(message);
+          $http.post('/api/messages/sendMessage', message).success(function(data) {
+            // 5 second delay before update
+            console.log('Email Results: ', data);
+            $rootScope.$emit('update group data');
+          })
+        } else {
+          invite.validity = false;
+          console.log('self.inviteArrField after validity: ', self.inviteArrField);
+          return;
+        }
       })
     }
     // removing member from group
