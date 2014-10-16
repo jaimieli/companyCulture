@@ -28,6 +28,8 @@ angular.module('companyCultureApp')
       return o;
     };
 
+    
+
     // when the group data is retrieved on load, execute this function
     $rootScope.$on('data is ready', function(event, data){
       // reset all the variables
@@ -42,58 +44,103 @@ angular.module('companyCultureApp')
       $scope.sortArrayB = [];
       $scope.sortAnsB = [];
       $scope.sortAnsA = [];
-      console.log('in game controller after data is ready')
+      $scope.tempArr = [];
+
+      // console.log('in game controller after data is ready')
       $scope.currentQuestionData = data;
       console.log('$scope.currentQuestionData in game controller ', $scope.currentQuestionData);
-      if ($scope.currentQuestionData.answersArray.length > 1) {
-         for(var i = 0; i < $scope.currentQuestionData.answersArray.length; i++){
-              $scope.users.push($scope.currentQuestionData.answersArray[i].user);
-              $scope.blanks.push( {
-                answer: $scope.currentQuestionData.answersArray[i].answer,
-                // user: $scope.currentQuestionData.answersArray[i].user
-                });
-              $scope.bottomArr.push({
-                answer: $scope.currentQuestionData.answersArray[i].answer,
-                // user: $scope.currentQuestionData.answersArray[i].user
-              });
-              $scope.correctOrder.push({
-                answer: $scope.currentQuestionData.answersArray[i].answer,
-                user: $scope.currentQuestionData.answersArray[i].user
-              })
-          };
-        console.log('$scope.users: ', $scope.users)
-        console.log('$scope.blanks: ', $scope.blanks)
-        console.log('$scope.bottomArr: ', $scope.bottomArr)
-        console.log('$scope.correctOrder: ', $scope.correctOrder)
-        $scope.users = shuffle($scope.users);
 
-        // order type only
+      //checking how long answers array is. if more than 8 user 8. if less than 8 user answerarr length
+      var lengthToUse = 0;
+      if($scope.currentQuestionData.answersArray.length>1 && $scope.currentQuestionData.answersArray.length<8){
+          lengthToUse = $scope.currentQuestionData.answersArray.length;
+      }else{
+          lengthToUse = 8;
+      }
+      tempArr = $scope.currentQuestionData.answersArray;
+      if($scope.currentQuestionData.questionType=== "Order" || $scope.currentQuestionData.questionType=== "Match"){
+        
+        for(var i = 0; i < lengthToUse; i++){
+          var spliced = tempArr.splice(Math.floor(Math.random()*(tempArr.length-1)),1);
+          $scope.users.push(spliced.user);
+          $scope.blanks.push({answer: spliced.answer});
+          $scope.bottomArr.push({answer: spliced.answer});
+          $scope.correctOrder.push({answer: spliced.answer, user: spliced.user});
+        };
+        //shuffle users
+        $scope.users = shuffle($scope.users);
         if($scope.currentQuestionData.questionType=== "Order"){
-          console.log("its an order q");
+          // console.log("its an order q");
+          //ordering answers in correct order
           $scope.blanks.sort(function(obj1,obj2){return obj1.answer - obj2.answer});
           $scope.bottomArr.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
           $scope.correctOrder.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+        };
+      }else if ($scope.currentQuestionData.questionType==="Sort"){
+        for(var i = 0; i < lengthToUse; i++){
+          var spliced = tempArr.splice(Math.floor(Math.random()*(tempArr.length-1)),1);
+          $scope.users.push(spliced.user);
+          if(spliced.answer === $scope.currentQuestionData.questionOption.optionA){
+            $scope.sortArrayA.push({user: spliced.user.name});
+            $scope.sortAnsA.push({answer: spliced.answer});
+          }else{
+            $scope.sortArrayB.push({user: spliced.user.name});
+            $scope.sortAnsB.push({answer: spliced.answer});
+          }
         }
-
-        // sort type only
-        if($scope.currentQuestionData.questionType==="Sort"){
-          console.log('sort type');
-            for(var q = 0; q < $scope.currentQuestionData.answersArray.length; q++){
-              if($scope.currentQuestionData.answersArray[q].answer === $scope.currentQuestionData.questionOption.optionA){
-                $scope.sortArrayA.push({user: $scope.currentQuestionData.answersArray[q].user.name});
-                $scope.sortAnsA.push({answer: $scope.currentQuestionData.answersArray[q].answer});
-              }else{
-                $scope.sortArrayB.push({user: $scope.currentQuestionData.answersArray[q].user.name});
-                $scope.sortAnsB.push({answer: $scope.currentQuestionData.answersArray[q].answer});
-              }
-            }
-        }
-        console.log('$scope.sortArrayA: ', $scope.sortArrayA);
-        console.log('$scope.sortAnsA: ', $scope.sortAnsA);
-
-      } else {
-        console.log('answers array does not have more than one answer');
       }
+    
+
+
+      // if ($scope.currentQuestionData.answersArray.length > 1){
+      //    for(var i = 0; i < $scope.currentQuestionData.answersArray.length; i++){
+      //         $scope.users.push($scope.currentQuestionData.answersArray[i].user);
+      //         $scope.blanks.push( {
+      //           answer: $scope.currentQuestionData.answersArray[i].answer
+      //           // user: $scope.currentQuestionData.answersArray[i].user
+      //           });
+      //         $scope.bottomArr.push({
+      //           answer: $scope.currentQuestionData.answersArray[i].answer
+      //           // user: $scope.currentQuestionData.answersArray[i].user
+      //         });
+      //         $scope.correctOrder.push({
+      //           answer: $scope.currentQuestionData.answersArray[i].answer,
+      //           user: $scope.currentQuestionData.answersArray[i].user
+      //         })
+      //     };
+      //   // console.log('$scope.users: ', $scope.users)
+      //   // console.log('$scope.blanks: ', $scope.blanks)
+      //   // console.log('$scope.bottomArr: ', $scope.bottomArr)
+      //   // console.log('$scope.correctOrder: ', $scope.correctOrder)
+      //   $scope.users = shuffle($scope.users);
+
+      //   // order type only
+      //   if($scope.currentQuestionData.questionType=== "Order"){
+      //     // console.log("its an order q");
+      //     $scope.blanks.sort(function(obj1,obj2){return obj1.answer - obj2.answer});
+      //     $scope.bottomArr.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+      //     $scope.correctOrder.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+      //   }
+
+      //   // sort type only
+      //   if($scope.currentQuestionData.questionType==="Sort"){
+      //     // console.log('sort type');
+      //       for(var q = 0; q < $scope.currentQuestionData.answersArray.length; q++){
+      //         if($scope.currentQuestionData.answersArray[q].answer === $scope.currentQuestionData.questionOption.optionA){
+      //           $scope.sortArrayA.push({user: $scope.currentQuestionData.answersArray[q].user.name});
+      //           $scope.sortAnsA.push({answer: $scope.currentQuestionData.answersArray[q].answer});
+      //         }else{
+      //           $scope.sortArrayB.push({user: $scope.currentQuestionData.answersArray[q].user.name});
+      //           $scope.sortAnsB.push({answer: $scope.currentQuestionData.answersArray[q].answer});
+      //         }
+      //       }
+      //   }
+      //   // console.log('$scope.sortArrayA: ', $scope.sortArrayA);
+      //   // console.log('$scope.sortAnsA: ', $scope.sortAnsA);
+
+      // } else {
+      //   // console.log('answers array does not have more than one answer');
+      // }
 
     })
 
