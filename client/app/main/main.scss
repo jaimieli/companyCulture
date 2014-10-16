@@ -7,6 +7,14 @@
     background-repeat: no-repeat;
 }
 
+.hero-unit {
+    position: relative;
+    padding: 30px 15px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    height: 550px;
+}
+
 #banner h1 {
     font-size: 60px;
     line-height: 1;
@@ -16,16 +24,24 @@
     text-shadow: 2px 2px #545454;
 }
 
-.hero-unit {
-    position: relative;
-    padding: 30px 15px;
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-    height: 550px;
+#banner p {
+  color: #fff;
+  font-family: Lato;
+  font-size: 20px;
 }
 
-.test {
-  color: red;
+.firstLink {
+  color: #fff;
+  font-family: Lato;
+  font-size: 20px;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #699EB9;
+  background-color: #699EB9;
+}
+
+.firstLink:hover {
+  text-decoration: none;
 }
 
 h2 {

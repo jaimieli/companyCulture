@@ -20,7 +20,7 @@
   cursor: pointer;
   border: none;
   background-color: #fff;
-  color: #699EB9;
+  color: #3881C2;
   font-family: Lato;
   font-size: 20px;
   font-weight: 300;
@@ -33,14 +33,18 @@
 
 .listOfAllMembers {
   list-style-type: none;
-  float: left;
+}
+
+#admin:first-child {
+  position: relative;
+  top: 10px;
 }
 
 .xAdmin {
   height: 25px;
   width: 25px;
-  margin-left: 105px;
-  margin-bottom: -23px;
+  margin-left: 110px;
+  margin-bottom: -26px;
 }
 
 .xMember {
@@ -49,14 +53,13 @@
   cursor: pointer;
   margin-left: 110px;
   margin-bottom: -26px;
-  z-index: 100;
 }
 
 .xInvite {
   height: 25px;
   width: 25px;
-  margin-left: 118px;
-  margin-bottom: -40px;
+  margin-left: 110px;
+  margin-bottom: -26px;
 }
 
 .groupHeader {
@@ -65,9 +68,9 @@
 }
 
 .addMemberButton {
-  border: 1px solid #699EB9;
+  border: 1px solid #3881C2;
   background-color: #fff;
-  color: #699EB9;
+  color: #3881C2;
   font-family: Lato;
   font-weight: 300;
 }
@@ -104,6 +107,8 @@
   display: block;
   margin-right: auto;
   margin-left: auto;
+  border: none;
+  margin-top: -15px;
 }
 
 
