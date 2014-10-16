@@ -45,6 +45,12 @@
   <p ng-if="currentQuestionData.active && currentQuestionData.answersArray.length < 2">Encourage users to respond to the question - need at least two responses to send out the game</p>
   <button ng-if="currentQuestionData.active && !currentQuestionData.activeGame && currentQuestionData.answersArray.length > 1"ng-click="Admin.sendGame()">Send Game</button>
   <button ng-if="currentQuestionData.activeGame" ng-click="Admin.endGame()">End Game</button>
+  <div ng-if="currentQuestionData.activeGame">
+    <p>Users Who Have Played the Current Game</p>
+    <ul ng-repeat="answer in currentQuestionData.answersArray">
+      <li ng-if="answer.completed">{{answer.user.name}}</li>
+    </ul>
+  </div>
 </div>
 
 <!-- should only show create a question if there are no active questions or games -->

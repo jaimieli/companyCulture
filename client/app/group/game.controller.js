@@ -19,7 +19,7 @@ angular.module('companyCultureApp')
       var usersArr = $scope.groupData.users;
       for (var i = 0; i < usersArr.length; i++) {
         if(usersArr[i].user._id === $scope.currentUser._id) {
-          console.log('found user checking best time')
+          console.log('found user, checking best time')
           bestTime = usersArr[i].bestTime;
         }
       }
@@ -32,8 +32,8 @@ angular.module('companyCultureApp')
           console.log('make call to back end to update bestTime in group obj');
           $http.post('/api/groups/' + $scope.groupData._id + '/updateBestTime', {score: $scope.userScore}).success(function(data){
             console.log('group data after updating best time: ', data);
-            $rootScope.$emit('update group data');
           })
+        } else {
         }
       })
     });
@@ -213,7 +213,6 @@ angular.module('companyCultureApp')
         if(correctCounter === $scope.currentQuestionData.answersArray.length){
           console.log("got it all");
           $scope.$broadcast('timer-stop');
-          $scope.userAnswered();
           $scope.open('afterGameContent.html');
         }
       }
@@ -279,14 +278,11 @@ angular.module('companyCultureApp')
   $scope.showLeaderboard = function() {
     console.log('trying to show leadderboard');
     $modalInstance.dismiss('cancel');
+    $rootScope.$emit('update group data');
     $rootScope.$emit('show leaderboard');
   }
   $scope.ok = function () {
   };
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-
 });
 
 

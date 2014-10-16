@@ -158,22 +158,22 @@ angular.module('companyCultureApp')
         $rootScope.$emit('update group data')
         $location.path('/user');
         // send email out to all group users to notify them that their group has been deactivated
-        var len = $scope.groupData.users.length;
-        for (var i = 0; i < len; i++) {
-          var subject = $scope.groupData.groupName + ' group has been deactivated';
-          var body = '<p><a href="http://localhost:9000/login">Login</a> to make your own group and invite your friends!</p>'
-          var message = {
-            userId: "me",
-            message: {
-              to: $scope.groupData.users[i].user.email,
-              subjectLine: subject,
-              bodyOfEmail: body
-            }
-          }
-          $http.post('/api/messages/sendMessage', message).success(function(data) {
-            console.log('Email Results after deactivating group: ', data.gmail);
-          })
-        }
+        // var len = $scope.groupData.users.length;
+        // for (var i = 0; i < len; i++) {
+        //   var subject = $scope.groupData.groupName + ' group has been deactivated';
+        //   var body = '<p><a href="http://localhost:9000/login">Login</a> to make your own group and invite your friends!</p>'
+        //   var message = {
+        //     userId: "me",
+        //     message: {
+        //       to: $scope.groupData.users[i].user.email,
+        //       subjectLine: subject,
+        //       bodyOfEmail: body
+        //     }
+        //   }
+        //   $http.post('/api/messages/sendMessage', message).success(function(data) {
+        //     console.log('Email Results after deactivating group: ', data.gmail);
+        //   })
+        // }
       });
     }
   })
