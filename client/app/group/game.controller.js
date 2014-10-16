@@ -52,7 +52,7 @@ angular.module('companyCultureApp')
       $scope.currentQuestionData = data;
       console.log('$scope.currentQuestionData in game controller ', $scope.currentQuestionData);
       console.log("qarray:",$scope.currentQuestionData.answersArray);
-      //checking how long answers array is. if more than 8 user 8. if less than 8 user answerarr length
+      //checking how long answer array is. if more than 8 use 8. if less than 8 user answerarr length
       if ($scope.currentQuestionData.answersArray.length > 1){
           var lengthToUse = 0;
           if($scope.currentQuestionData.answersArray.length>1 && $scope.currentQuestionData.answersArray.length<8){
@@ -66,6 +66,7 @@ angular.module('companyCultureApp')
             $scope.tempArr.push($scope.currentQuestionData.answersArray[i]);
            }
            console.log("tempArr", $scope.tempArr);
+           //when q is order or match, splice temparr and push data in to users, blanks, bottomArr, and correctOrder array
           if($scope.currentQuestionData.questionType=== "Order" || $scope.currentQuestionData.questionType=== "Match"){
             for(var i = 0; i < lengthToUse; i++){
               $scope.spliced = $scope.tempArr.splice(Math.floor(Math.random()*($scope.tempArr.length-1)),1);
@@ -89,6 +90,7 @@ angular.module('companyCultureApp')
             console.log("scope.bottomArr - holds answer", $scope.bottomArr);
             console.log("scope.correctOrder - answer and user", $scope.correctOrder);
             // console.log("scope.users", $scope.users);
+            //when q is sort type, splice tempArr then if splice is optionA push to sortArrayA and sortAnsA, samething for optionB
           }else if ($scope.currentQuestionData.questionType==="Sort"){
             for(var i = 0; i < lengthToUse; i++){
               $scope.spliced = $scope.tempArr.splice(Math.floor(Math.random()*($scope.tempArr.length-1)),1);
@@ -176,17 +178,18 @@ angular.module('companyCultureApp')
      $scope.sortAnsA = [];
      $scope.tempArr = [];
 
+     //what was grabbed in the game
      $scope.grabbedItem = function(event, ui, grabbedItem) {
       $scope.grabbed = grabbedItem;
      };
+     //what was dropped in the game
+     //when something is dropped - calls functions to check if answer is correct.
      $scope.droppedItem = function(event, ui, droppedItem, index){
       $scope.dropped = $scope.grabbed;
       $scope.checkDiff();
       $scope.checkAnswer();
      };
-     // $scope.clearItem = function(event, ui, clearedItem, index) {
-     //  delete $scope.bottomArr[index].user.name;
-     // };
+     //makes sure blanks and bottomArr have same values.
      $scope.checkDiff = function() {
       for (var i = 0; i < $scope.blanks.length; i++){
         if($scope.blanks[i].name){
@@ -196,6 +199,7 @@ angular.module('companyCultureApp')
         };
       }
      };
+     //called when game is completed. Function posts the completion to db
      $scope.userAnswered = function(){
       var currentQuestionId = $scope.groupData.questionsArr[$scope.groupData.questionsArr.length - 1]._id;
       $http.get('/api/questions/' + currentQuestionId + '/userCompleted').success(function(data){
@@ -227,6 +231,7 @@ angular.module('companyCultureApp')
           $scope.userAnswered();
           $scope.open('afterGameContent.html');
         };
+        //check answer for Order
       } else if ($scope.currentQuestionData.questionType === 'Order') {
         $scope.right = [];
         console.log($scope.correctOrder);
