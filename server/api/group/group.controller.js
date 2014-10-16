@@ -103,7 +103,7 @@ exports.addInvitee = function(req, res) {
 
       var checkUser = function(person, checkedOneUser) {
         User.findById(person.user.toString(), function(err, user){
-          if(user.email === req.user.email) {
+          if(user._id.toString() === req.user._id.toString()) {
             match = true;
             console.log('match found: ', match);
             checkedOneUser();
@@ -117,7 +117,7 @@ exports.addInvitee = function(req, res) {
         console.log('done checking');
         if (err) console.log(err);
         if (!match) {
-          console.log('current email does not match any existing users');
+          console.log('current user does not match any existing users');
           group.users.addToSet({user: req.user._id});
           group.save(function (err) {
             if (err) { return handleError(res, err); }
@@ -125,7 +125,7 @@ exports.addInvitee = function(req, res) {
             callback();
           });
         } else {
-          console.log('user already exists in group; was not added')
+          console.log('user already exists in group so was not added')
           group.save(function (err) {
             if (err) { return handleError(res, err); }
             updatedObj.group = group;
@@ -135,8 +135,6 @@ exports.addInvitee = function(req, res) {
       }
 
       async.each(group.users, checkUser, doneChecking)
-      // group.users.addToSet({user: req.user._id});
-      // save group
     };
 
     var updateUser = function(callback) {
