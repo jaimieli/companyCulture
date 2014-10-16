@@ -25,7 +25,10 @@
 
 <!-- MATCHING QUESTION -->
   <div ng-if="currentQuestionData.questionType==='Match'">
-    <p>Match each of your group members to their responses to <span style="color:red">{{currentQuestionData.questionText}}</span>.</p>
+
+    <p class="gameInstruction">Match your teammates to their responses.</p>
+    <h1 class="gameQuestionText">{{currentQuestionData.questionText}}</h1>.
+
     <!-- BUTTON TO DRAG INTO BLANK BOX -->
     <div class="item" ng-repeat="item in users" class="top">
       <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
@@ -38,17 +41,33 @@
     <br><br><br>
 
     <!-- BLANK BOX TO RECEIVE BUTTON -->
-    <div ng-repeat="item in blanks" class="bottom">
-      <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="blanks" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user, $index)'}">
-        <div class="btn btn-{{right[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="blanks" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user)'}" ng-hide="!item.name">
-        <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
-        <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
-        </div>
-      </div>
+    <div class="row">
+
+          <div ng-repeat="item in blanks" class="bottom col-md-2">
+            <div class="thumbnailReceiver" data-drop="true" data-jqyoui-options ng-model="blanks" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user, $index)'}">
+              <div class="btn {{right[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="blanks" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user)'}" ng-hide="!item.name">
+                <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
+                <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
+              </div>
+            </div>
+          </div>
+
     </div>
 
     <!-- ANSWERS FROM USERS -->
-    <div ng-repeat="answer in currentQuestionData.answersArray" class="answerList">{{answer.answer}}</div>
+    <div ng-repeat="answer in currentQuestionData.answersArray" class="answerList col-md-2">{{answer.answer}}</div>
+  </div>
+
+  <!-- BUTTON TO DRAG INTO BLANK BOX -->
+  <div ng-repeat="item in users" class="top col-md-2">
+    <div class="row">
+      <div class="thumbnailSender" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
+        <div class="btn" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
+          <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
+          <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
+        </div>
+      </div>
+    </div>
   </div>
 
 <!-- END OF MATCHING QUESTION -->

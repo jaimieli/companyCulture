@@ -34,7 +34,7 @@ angular.module('companyCultureApp')
         var body =
         '<div style="text-align: center;">' +
           '<div>' +
-            '<h1 style="background-color: #70CC7E; color: #fff; text-align: center; padding-top: 10px; padding-bottom: 10px; font-family: Lato; font-weight: 300; font-size: 40px; width: 450px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 0px;">Flock</h1>' +
+            '<h1 style="background-color: #3881C2; color: #fff; text-align: center; padding-top: 10px; padding-bottom: 10px; font-family: Lato; font-weight: 300; font-size: 40px; width: 450px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 0px;">Flock</h1>' +
           '</div>' +
           '<div style="border: 1px solid #eee; top: -20px; width: 450px; display: block; margin-left: auto; margin-right: auto; font-family: Lato; font-weight: 300;">' +
             '<p style="padding-top: 10px; padding-right: 25px; padding-left: 25px; line-height: 22px; text-align: justify;"><span style="font-weight: 500;">' +
@@ -44,7 +44,7 @@ angular.module('companyCultureApp')
             '</span>! Check it out to see how well you know your team members!</p>' +
             '<a href="' +
             link +
-            '" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #70CC7E; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Play</a>' +
+            '" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #3881C2; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Play</a>' +
           '</div>' +
         '</div>';
         var message = {
@@ -90,7 +90,7 @@ angular.module('companyCultureApp')
           var body =
           '<div style="text-align: center;">' +
             '<div>' +
-              '<h1 style="background-color: #70CC7E; color: #fff; text-align: center; padding-top: 10px; padding-bottom: 10px; font-family: Lato; font-weight: 300; font-size: 40px; width: 450px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 0px;">Flock</h1>' +
+              '<h1 style="background-color: #3881C2; color: #fff; text-align: center; padding-top: 10px; padding-bottom: 10px; font-family: Lato; font-weight: 300; font-size: 40px; width: 450px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 0px;">Flock</h1>' +
             '</div>' +
             '<div style="border: 1px solid #eee; top: -20px; width: 450px; display: block; margin-left: auto; margin-right: auto; font-family: Lato; font-weight: 300;">' +
               '<p style="padding-top: 10px; padding-right: 25px; padding-left: 25px; line-height: 22px; text-align: justify;">Flock is a fun way to build company culture. <span style="font-weight: 500">' + $scope.currentUser.name +
@@ -99,7 +99,7 @@ angular.module('companyCultureApp')
               '</span> and would love for you to join too!</p>' +
               '<a href="' +
               link +
-              '" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #70CC7E; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Join</a>' +
+              '" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #3881C2; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Join</a>' +
             '</div>' +
           '</div>';
           var message = {
@@ -134,19 +134,7 @@ angular.module('companyCultureApp')
         $rootScope.$emit('update group data');
       })
     }
-    // delete/destroy group
-    // this.deleteGroupButtonText = 'Delete Group';
-    // this.deleteGroup = function() {
-    //   this.deleteGroupButtonText = 'Group Deleted';
-    //   console.log('trying to delete group');
-    //   $http.delete('api/groups/'+$scope.groupData._id).success(function(data){
-    //     console.log('deleted group');
-    //     // update group data
-    //     $rootScope.$emit('update group data');
-    //     // redirect to user page that lists all the groups the user belongs to
-    //     $location.path('/user');
-    //   });
-    // };
+
     // deactivate group 'delete'
     this.deactivateGroupButtonText = 'Deactivate Group';
     this.deactivateGroup = function() {
@@ -178,24 +166,6 @@ angular.module('companyCultureApp')
       });
     }
   })
-  // .filter('excludeAdmin', function() {
-  //   console.log('in excludeAdmin');
-  //   return function(items) {
-  //     return items;
-  //   }
-    // return function(users){
-    //   console.log('in excludeAdmin filter function')
-    //   var filtered = [];
-    //   for (var i = 0; i < users.length; i++) {
-    //     console.log('user: ', users[i].toString());
-    //     console.log('admin: ', $scope.groupData.admin.toString())
-    //     if (users[i]._id.toString() === $scope.groupData.admin.toString()) {
-    //       filtered.push(users[i]);
-    //     }
-    //   }
-    //   return filtered;
-    // }
-  // });
 // MATCHING CTRL FOR MATCHING QUESTION
   var MatchingCtrl = function ($scope, $modal, $log) {
     $scope.open = function (size) {

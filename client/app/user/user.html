@@ -2,35 +2,34 @@
 
 <div class="col-md-12">
   <div class="container">
-    This is the user view.
-    <h1>Active Groups You're a User Of</h1>
-    <ul ng-repeat="group in currentUser.groups">
-      <li ng-if="group.active===true">
-        <a ng-href= '/group/{{group._id}}' target="_blank">{{group.groupName}}</a>
-      </li>
-    </ul>
-<!--     <h1>Groups You Manage</h1>
-    <ul ng-repeat="groupAdmin in currentUser.groupsAdmin">
-      <li>
-        <a ng-href= ''>{{groupAdmin.groupName}}</a>
-      </li>
-    </ul> -->
+    <div class="row">
 
-    <h1>Groups You Manage</h1>
-    <h5>Active</h5>
-    <ul ng-repeat="group in currentUser.groupsAdmin">
-      <li ng-if="group.active===true">
-        <a ng-href= '/group/{{group._id}}' target="_blank">{{group.groupName}}</a>
-      </li>
-    </ul>
-    <h5>Inactive</h5>
-    <ul ng-repeat="group in currentUser.groupsAdmin">
-      <li ng-if="group.active===false">
-        <p ng-if="group.active===false">{{group.groupName}}</p>
-      </li>
-    </ul>
+      <div class="col-md-6 left">
+        <h3 class="groupHeader">Active groups you're a member of:</h3>
 
+        <div class="groupNames">
+          <ul ng-repeat="group in currentUser.groups" class="groupList">
+            <li ng-if="group.active===true" class="itemLi">
+              <a ng-href= '/group/{{group._id}}' target="_blank" class="groupItem">{{group.groupName}}</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="col-md-6 right">
+        <h3 class="groupHeader">Active groups you manage:</h3>
+
+        <div class="groupNames">
+          <ul ng-repeat="group in currentUser.groupsAdmin" class="groupList">
+            <li ng-if="group.active===true" class="itemLi">
+              <a ng-href= '/group/{{group._id}}' target="_blank" class="groupItem">{{group.groupName}}</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
   </div>
 </div>
-<!-- <div ng-include=" 'app/user/createGroup.html' "></div>
- -->
