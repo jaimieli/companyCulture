@@ -16,15 +16,15 @@ angular.module('companyCultureApp')
         $rootScope.$emit('update group data');
           // after 10 sec set activeGame: false && active: false
           // to set timeout to 24 hours, set delay to 86400000
-          // $timeout(function() {
-          //   $http.put('/api/questions/' + $scope.currentQuestionData._id, {
-          //     active: false,
-          //     activeGame: false
-          //   }).success(function(data){
-          //     console.log('question obj after game is timeout: ', data);
-          //     $rootScope.$emit('update group data');
-          //   })
-          // }, 3000000)
+          $timeout(function() {
+            $http.put('/api/questions/' + $scope.currentQuestionData._id, {
+              active: false,
+              activeGame: false
+            }).success(function(data){
+              console.log('question obj after game is timeout: ', data);
+              $rootScope.$emit('update group data');
+            })
+          }, 90000)
         })
       // send email out to all group users to notify them that there's a new game
       var len = $scope.groupData.users.length;

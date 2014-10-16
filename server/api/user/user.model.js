@@ -19,7 +19,7 @@ var UserSchema = new Schema({
   google: {},
   github: {},
   groups: [ {type: Schema.Types.ObjectId, ref: 'Group'} ],
-  groupsAdmin: [ {type: Schema.Types.ObjectId, ref: 'Group'} ],
+  groupsAdmin: [ {type: Schema.Types.ObjectId, ref: 'Group'} ]
 });
 
 /**
