@@ -94,7 +94,6 @@ angular.module('companyCultureApp')
       } else {
         console.log('answers array does not have more than one answer');
       }
-
     })
 
      $scope.users = [];
@@ -145,10 +144,10 @@ angular.module('companyCultureApp')
         for(var x = 0; x < $scope.bottomArr.length; x++) {
           console.log($scope.currentQuestionData.answersArray)
           if($scope.bottomArr[x].name === $scope.currentQuestionData.answersArray[x].user.name) {
-            $scope.right.push("success");
+            $scope.right.push("green");
             correctCounter++;
           }else{
-             $scope.right.push("danger");
+             $scope.right.push("red");
           }
         }
         if(correctCounter == $scope.bottomArr.length){

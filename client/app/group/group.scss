@@ -125,17 +125,58 @@
   font-weight: 700;
 }
 
-.thumbnail {
-  width: 150px;
-  height: 150px;
+.thumbnailReceiver {
+  width: 122px;
+  height: 122px;
+  border-radius: 50%;
+  border: 1px dashed #B8B8B8;
+}
+
+.thumbnailSender {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 1px solid #B8B8B8;
+}
+
+.thumbnailReceiver img {
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
 }
 
-.thumbnail img {
-  width: 150px;
-  height: 150px;
+.thumbnailSender img {
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
 }
+
+.green {
+  background-color: #40985B;
+  width: 122px;
+  height: 122px;
+  border-radius: 50%;
+}
+
+.red {
+  background-color: #D2403D;
+  width: 122px;
+  height: 122px;
+  border-radius: 50%;
+}
+
+.blanksSec {
+  width: 12.5%;
+}
+
+.answerList {
+  text-align: center;
+  font-family: Lato;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+
 
 
 
