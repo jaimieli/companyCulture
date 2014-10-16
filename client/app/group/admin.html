@@ -17,10 +17,10 @@
   <button ng-if="currentQuestionData.active && currentQuestionData.answersArray.length > 1"ng-click="Admin.sendGame()" ng-disabled="currentQuestionData.activeGame">{{Admin.sendGameButtonText}}</button>
 </div>
 
-<!-- CREATE QUESTION BUTTON -->
-<div ng-if="!questionsExist || !currentQuestionData.active">
-  <h4>Create a Question</h4>
-  <p>Note: When a question is created, it's automatically mailed out to all your users</p>
+<!-- CREATE QUESTION SECTION -->
+<div ng-if="!questionsExist || !currentQuestionData.active" class="row">
+  <h2 class="createHeader">Create a Question</h2>
+  <!-- <p>Note: When a question is created, it's automatically mailed out to all your users</p> -->
 
 <!-- MATCHING QUESTION BUTTON -->
   <div class="singleButton col-md-4" ng-click="open('matchingQuestion.html')" ng-controller="MatchingCtrl">
@@ -91,7 +91,7 @@
 
 <!-- ADD MEMBER TO GROUP BUTTON AND FORM -->
 <h4 class="groupHeader">Members in {{groupData.groupName}}</h4>
-  <button class="addMemberButton" ng-click="Admin.addMemberField()">Add</button>
+  <button class="addMemberButton" ng-click="Admin.addMemberField()">Add+</button>
   <div ng-repeat="invite in Admin.inviteArrField track by $index">
     <label>Name: </label>
     <input ng-model="invite.name" required></input>
@@ -102,7 +102,7 @@
   </div>
 
 <!-- GROUP MEMBER LISTING -->
-<div class="holdingMembers">
+<div class="holdingMembers row">
   <ul ng-repeat="user in groupData.users">
     <li class="listOfAllMembers col-md-2">
         <img ng-if="user._id == groupData.admin" class="xAdmin" ng-src="../assets/images/whitex.png">
@@ -122,7 +122,9 @@
 </div>
 
 <!-- DEACTIVATE BUTTON -->
-<button class="btn btn-danger deactivateButton" ng-click="Admin.deactivateGroup()">{{Admin.deactivateGroupButtonText}}</button>
+<div class="deactivate row">
+  <button class="btn btn-danger deactivateButton" ng-click="Admin.deactivateGroup()">{{Admin.deactivateGroupButtonText}}</button>
+</div>
 
 
 

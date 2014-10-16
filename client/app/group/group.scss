@@ -1,3 +1,7 @@
+.createHeader {
+  font-family: Lato;
+}
+
 .singleButton {
   margin-bottom: 30px;
 }
@@ -6,12 +10,20 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  cursor: pointer;
 }
 
 .buttonIcon {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  cursor: pointer;
+  border: none;
+  background-color: #fff;
+  color: #699EB9;
+  font-family: Lato;
+  font-size: 20px;
+  font-weight: 300;
 }
 
 .holdingMembers {
@@ -49,10 +61,15 @@
 
 .groupHeader {
   display: inline-block;
+  margin-right: 10px;
 }
 
 .addMemberButton {
-
+  border: 1px solid #699EB9;
+  background-color: #fff;
+  color: #699EB9;
+  font-family: Lato;
+  font-weight: 300;
 }
 
 .groupMemberPics {
@@ -77,8 +94,16 @@
   font-style: italic;
 }
 
+.deactivate {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
 .deactivateButton {
   display: block;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 
