@@ -1,12 +1,10 @@
 #banner {
     border-bottom: none;
     margin-top: -20px;
-}
-
-#banner h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
+    background-image: url("../assets/images/landing-hero.jpg");
+    background-position: 0px -160px;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .hero-unit {
@@ -14,12 +12,41 @@
     padding: 30px 15px;
     text-align: center;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-    background: #eee;
     height: 550px;
+}
+
+#banner h1 {
+    font-size: 60px;
+    line-height: 1;
+    letter-spacing: -1px;
+    color: #fff;
+    margin-top: 190px;
+    text-shadow: 2px 2px #545454;
+}
+
+#banner p {
+  color: #fff;
+  font-family: Lato;
+  font-size: 20px;
+}
+
+.firstLink {
+  color: #fff;
+  font-family: Lato;
+  font-size: 20px;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #699EB9;
+  background-color: #699EB9;
+}
+
+.firstLink:hover {
+  text-decoration: none;
 }
 
 h2 {
   text-align: center;
+  margin-top: 0px;
 }
 
 .iconSec {
@@ -58,10 +85,11 @@ h2 {
   padding-bottom: 60px;
 }
 
-.signupSec button {
+.signupSec a {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 .footer {

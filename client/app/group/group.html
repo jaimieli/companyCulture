@@ -2,6 +2,7 @@
 
 <div class="col-md-12">
   <div class="container">
+
     <h1>This is the group view for {{groupData.groupName}}</h1>
     <h4 ng-if="!groupData.active">{{groupData.groupName}} has been deactivated. Return to <a ng-href="/user">User</a></h4>
     <div ng-show="Group.isGroupAdmin && groupData.active" ng-include=" 'app/group/admin.html' " ng-controller="AdminCtrl as Admin">
@@ -15,5 +16,6 @@
     </br>
     <button ng-click="Group.showLeaderboardFunc()">{{Group.leaderboardButtonText}}</button>
     <div ng-show="showLeaderboard" ng-include=" 'app/group/leaderboard.html' " ng-controller=" LeaderboardController as Leader "></div>
+
   </div>
 </div>

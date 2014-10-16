@@ -5,15 +5,8 @@ angular.module('companyCultureApp')
     $scope.menu = [{
       'title': 'User',
       'link': '/user'
-    }
-    // , {
-    //   'title': 'Group',
-    //   'link': '/group'
-    // }
-    ,{
-      'title': 'Game',
-      'link': '/game'
-    },{
+    },
+    {
       'title': 'Create group',
       'link': '/create'
     }
