@@ -2,20 +2,29 @@
 
 angular.module('companyCultureApp')
   .controller('GroupCtrl', function ($scope, $stateParams, $http, Auth, $rootScope) {
-    $scope.showLeaderboard = false;
-
-    $scope.showLeaderboardFunc = function(){
-      $scope.showLeaderboard = true;
-    }
-    $rootScope.$on('show leaderboard', function(event){
-      $scope.showLeaderboard = true;
-    })
     var self = this;
     $scope.currentUser = Auth.getCurrentUser();
     console.log('$scope.currentUser on groupPage load: ', $scope.currentUser);
     $scope.groupId = $stateParams.id;
     console.log('$scope.groupId on groupPage load: ', $scope.groupId);
-    // function to determine if the user has an outstanding question (or game <-- later)
+    // initially hide leaderboard
+    $scope.showLeaderboard = false;
+    // toggle leaderboard button
+    this.leaderboardButtonText = 'Show Leaderboard'
+    this.showLeaderboardFunc = function(){
+      if (!$scope.showLeaderboard) {
+        $scope.showLeaderboard = true;
+        this.leaderboardButtonText = 'Hide Leaderboard'
+      } else {
+        $scope.showLeaderboard = false;
+        this.leaderboardButtonText = 'Show Leaderboard'
+      }
+    }
+    // catches event emitted from leaderboard button in the after game score modal
+    $rootScope.$on('show leaderboard', function(event){
+      $scope.showLeaderboard = true;
+    })
+    // function to determine if the user has answered current question
     var checkUserAnsweredQuestion = function() {
       $scope.showQuestion = true;
       console.log('in checkUserAnsweredQuestion function')
@@ -28,6 +37,7 @@ angular.module('companyCultureApp')
         }
       }
     }
+    // function to determine if the user has played current game
     var checkUserCompletedGame = function(){
       console.log('checking if user completed game');
       $scope.showGame = false;

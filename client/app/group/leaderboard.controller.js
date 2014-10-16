@@ -10,7 +10,7 @@ angular.module('companyCultureApp')
       console.log('data is ready in leaderboard controller');
       $scope.currentQuestionData = data;
       console.log('$scope.currentQuestionData in leaderboard: ', $scope.currentQuestionData);
-      if ($scope.currentQuestionData.activeGame) {
+      if ($scope.currentQuestionData.active) {
         self.leaderboardText = 'Current';
       } else {
         self.leaderboardText = 'Last'
