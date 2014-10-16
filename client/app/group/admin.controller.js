@@ -24,7 +24,7 @@ angular.module('companyCultureApp')
               console.log('question obj after game is timeout: ', data);
               $rootScope.$emit('update group data');
             })
-          }, 10000)
+          }, 3000000)
         })
       // send email out to all group users to notify them that there's a new game
       var len = $scope.groupData.users.length;
