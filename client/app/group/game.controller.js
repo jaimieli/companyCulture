@@ -69,10 +69,10 @@ angular.module('companyCultureApp')
       //checking how long answer array is. if more than 8 use 8. if less than 8 user answerarr length
       if ($scope.currentQuestionData.answersArray.length > 1){
           var lengthToUse = 0;
-          if($scope.currentQuestionData.answersArray.length>1 && $scope.currentQuestionData.answersArray.length<8){
+          if($scope.currentQuestionData.answersArray.length>1 && $scope.currentQuestionData.answersArray.length<6){
               lengthToUse = $scope.currentQuestionData.answersArray.length;
           }else{
-              lengthToUse = 8;
+              lengthToUse = 6;
           }
            console.log(lengthToUse);
            // $scope.tempArr = $scope.currentQuestionData.answersArray;
