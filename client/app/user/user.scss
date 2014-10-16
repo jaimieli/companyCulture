@@ -3,6 +3,7 @@
   display: inline-block;
 }
 
+// USER HTML
 .left {
   border-right: 1px solid #eee;
   margin-top: 60px;
@@ -65,3 +66,99 @@
   text-decoration: none;
   color: #52B3E6;
 }
+
+// CREATE GROUP HTML
+.leftRightSecs {
+  margin-top: 85px;
+}
+
+.createGroupForm {
+  border-right: 2px solid #eee;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.createdGroupView {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.createdGroupView li {
+  list-style-type: none;
+  font-family: Lato;
+}
+
+.invitedName {
+  color: #fff;
+  font-family: Lato;
+  font-size: 18px;
+  border: 1px solid #3881C2;
+  background-color: #3881C2;
+  padding: 9px;
+  border-radius: 3px;
+  font-weight: 300;
+  margin-right: -10px;
+}
+
+.invitedEmail {
+  color: #fff;
+  border: 1px solid #ACD8EC;
+  background-color: #ACD8EC;
+  padding: 9px;
+  font-family: Lato;
+  font-size: 18px;
+  font-weight: 300;
+  border-radius: 3px;
+  margin-left: -10px;
+}
+
+.createCreatedHeader {
+  font-family: Lato;
+  font-weight: 300;
+  margin-bottom: 15px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.invitationNote {
+  text-align: center;
+  font-family: Lato;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

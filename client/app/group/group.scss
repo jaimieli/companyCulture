@@ -26,8 +26,21 @@
   font-weight: 300;
 }
 
+.groupHeader {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.addMemberButton {
+  border: 1px solid #3881C2;
+  background-color: #fff;
+  color: #3881C2;
+  font-family: Lato;
+  font-weight: 300;
+}
+
 .holdingMembers {
-  margin-top: 40px;
+  margin-top: 20px;
   margin-bottom: 40px;
 }
 
@@ -60,19 +73,6 @@
   width: 25px;
   margin-left: 110px;
   margin-bottom: -26px;
-}
-
-.groupHeader {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.addMemberButton {
-  border: 1px solid #3881C2;
-  background-color: #fff;
-  color: #3881C2;
-  font-family: Lato;
-  font-weight: 300;
 }
 
 .groupMemberPics {

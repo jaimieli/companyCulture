@@ -94,21 +94,21 @@
   <h4 class="groupHeader">Members in {{groupData.groupName}}</h4>
   <button class="addMemberButton" ng-click="Admin.addMemberField()">Add+</button>
 </div>
-  <div ng-repeat="invite in Admin.inviteArrField track by $index">
-    <label>Name: </label>
-    <input ng-model="invite.name" required></input>
-    <label>Email Address: </label>
-    <input ng-model="invite.email" required></input>
-    <p ng-show="!invite.validity">*You must enter a valid gmail email.</p>
-    <button ng-disabled="invite.sent===true" ng-click="Admin.sendMessage(invite)">{{invite.button}}</button>
-  </div>
+<div ng-repeat="invite in Admin.inviteArrField track by $index">
+  <label>Name: </label>
+  <input ng-model="invite.name" required></input>
+  <label>Email Address: </label>
+  <input ng-model="invite.email" required></input>
+  <p ng-show="!invite.validity">*You must enter a valid gmail email.</p>
+  <button ng-disabled="invite.sent===true" ng-click="Admin.sendMessage(invite)">{{invite.button}}</button>
+</div>
 
 <!-- GROUP MEMBER LISTING -->
 <div class="holdingMembers">
   <div class="row">
     <ul ng-repeat="user in groupData.users | orderBy:reverse" id="admin">
       <li class="listOfAllMembers col-md-2">
-        <img ng-if="user._id == groupData.admin" class="xAdmin" ng-src="../assets/images/x.png">
+        <img ng-if="user._id == groupData.admin" class="xAdmin" ng-src="../assets/images/whitex.png">
         <img ng-click="Admin.removeMember(user)" ng-if="user._id !== groupData.admin" class="xMember" ng-src="../assets/images/x.png">
         <img class="groupMemberPics" ng-src="{{user.google.picture}}">
         <p class="memberName">{{user.google.name}}</p>
