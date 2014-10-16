@@ -66,7 +66,7 @@ angular.module('companyCultureApp')
       $scope.currentQuestionData = data;
       console.log('$scope.currentQuestionData in game controller ', $scope.currentQuestionData);
       console.log("qarray:",$scope.currentQuestionData.answersArray);
-      //checking how long answer array is. if more than 8 use 8. if less than 8 user answerarr length
+      //checking how long answer array is. if more than 6 use 6. if less than 6 user answerarr length
       if ($scope.currentQuestionData.answersArray.length > 1){
           var lengthToUse = 0;
           if($scope.currentQuestionData.answersArray.length>1 && $scope.currentQuestionData.answersArray.length<6){
@@ -199,6 +199,7 @@ angular.module('companyCultureApp')
       $scope.dropped = $scope.grabbed;
       $scope.checkDiff();
       $scope.checkAnswer();
+      console.log($scope.bottomArr);
      };
      //makes sure blanks and bottomArr have same values.
      $scope.checkDiff = function() {
@@ -214,15 +215,21 @@ angular.module('companyCultureApp')
      $scope.checkAnswer = function(){
       var correctCounter = 0;
       // check answer for Match
+      console.log("checking answer");
       if($scope.currentQuestionData.questionType === 'Match') {
         $scope.right = [];
         for(var x = 0; x < $scope.bottomArr.length; x++) {
-          console.log($scope.currentQuestionData.answersArray)
-          if($scope.bottomArr[x].name === $scope.currentQuestionData.answersArray[x].user.name) {
+          // console.log($scope.currentQuestionData.answersArray)
+          console.log($scope.bottomArr[x].name);
+          console.log($scope.correctOrder[x].user);
+          if($scope.bottomArr[x].name === $scope.correctOrder[x].user) {
+            console.log("pushed green");
             $scope.right.push("green");
             correctCounter++;
+            console.log("its a match!")
           }else{
              $scope.right.push("red");
+             console.log("wrong");
           }
         }
         if(correctCounter == $scope.bottomArr.length){
