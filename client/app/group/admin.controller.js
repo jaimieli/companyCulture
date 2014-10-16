@@ -2,10 +2,9 @@
 
 angular.module('companyCultureApp')
   .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $rootScope, $timeout) {
-    $scope.currentUser = Auth.getCurrentUser();
 
+    $scope.currentUser = Auth.getCurrentUser();
     console.log('current user obj: ', $scope.currentUser);
-      //
 
     this.endGame = function() {
       console.log('trying to end game');
@@ -133,20 +132,6 @@ angular.module('companyCultureApp')
         $rootScope.$emit('update group data');
       })
     }
-    // delete/destroy group
-    // this.deleteGroupButtonText = 'Delete Group';
-    // this.deleteGroup = function() {
-    //   this.deleteGroupButtonText = 'Group Deleted';
-    //   console.log('trying to delete group');
-    //   $http.delete('api/groups/'+$scope.groupData._id).success(function(data){
-    //     console.log('deleted group');
-    //     // update group data
-    //     $rootScope.$emit('update group data');
-    //     // redirect to user page that lists all the groups the user belongs to
-    //     $location.path('/user');
-    //   });
-    // };
-    // deactivate group 'delete'
     this.deactivateGroupButtonText = 'Deactivate Group';
     this.deactivateGroup = function() {
       console.log('trying to deactivate group');
@@ -177,24 +162,7 @@ angular.module('companyCultureApp')
       });
     }
   })
-  // .filter('excludeAdmin', function() {
-  //   console.log('in excludeAdmin');
-  //   return function(items) {
-  //     return items;
-  //   }
-    // return function(users){
-    //   console.log('in excludeAdmin filter function')
-    //   var filtered = [];
-    //   for (var i = 0; i < users.length; i++) {
-    //     console.log('user: ', users[i].toString());
-    //     console.log('admin: ', $scope.groupData.admin.toString())
-    //     if (users[i]._id.toString() === $scope.groupData.admin.toString()) {
-    //       filtered.push(users[i]);
-    //     }
-    //   }
-    //   return filtered;
-    // }
-  // });
+
 // MATCHING CTRL FOR MATCHING QUESTION
   var MatchingCtrl = function ($scope, $modal, $log) {
     $scope.open = function (size) {

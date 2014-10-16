@@ -3,6 +3,10 @@
 angular.module('companyCultureApp')
   .controller('GroupCtrl', function ($scope, $stateParams, $http, Auth, $rootScope) {
     $scope.showLeaderboard = false;
+
+    $scope.showLeaderboardFunc = function(){
+      $scope.showLeaderboard = true;
+    }
     $rootScope.$on('show leaderboard', function(event){
       $scope.showLeaderboard = true;
     })

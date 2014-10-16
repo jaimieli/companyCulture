@@ -107,8 +107,8 @@ exports.addInvitee = function(req, res) {
         }
       }
       console.log('group.invited outside loop: ', group.invited);
+
       // add user to group object if s/he doesn't already exist
-      var userLen = group.users.length;
       var match;
 
       var checkUser = function(person, checkedOneUser) {
