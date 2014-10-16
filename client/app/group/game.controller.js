@@ -33,7 +33,6 @@ angular.module('companyCultureApp')
           $http.post('/api/groups/' + $scope.groupData._id + '/updateBestTime', {score: $scope.userScore}).success(function(data){
             console.log('group data after updating best time: ', data);
           })
-        } else {
         }
       })
     });
@@ -275,7 +274,7 @@ angular.module('companyCultureApp')
 })
 .controller('AfterGameModalInstanceCtrl', function($scope, $modalInstance, $http, Auth, scoreFactory, $rootScope) {
   $scope.userScore = scoreFactory.getScore();
-  $scope.showLeaderboard = function() {
+  $scope.showLeaderboardFunc = function() {
     console.log('trying to show leadderboard');
     $modalInstance.dismiss('cancel');
     $rootScope.$emit('update group data');

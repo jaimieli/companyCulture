@@ -97,7 +97,11 @@ exports.addInvitee = function(req, res) {
         }
       }
       console.log('group.invited outside loop: ', group.invited);
-      // add user to group object
+      // add user to group object if s/he doesn't already exist
+      // var userLen = group.users.length;
+      // for (var i = 0; i < userLen; i++) {
+
+      // }
       group.users.addToSet({user: req.user._id});
       // save group
       group.save(function (err) {

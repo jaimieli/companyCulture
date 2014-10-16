@@ -3,11 +3,15 @@
 <div class="col-md-12">
   <div class="container">
     <h1>This is the group view for {{groupData.groupName}}</h1>
-    <h4 ng-if="groupData.active === false">{{groupData.groupName}} has been deactivated. Return to <a ng-href="/user">User</a></h4>
-    <div ng-show="Group.isGroupAdmin === true && groupData.active === true" ng-include=" 'app/group/admin.html' " ng-controller="AdminCtrl as Admin">
+    <h4 ng-if="!groupData.active">{{groupData.groupName}} has been deactivated. Return to <a ng-href="/user">User</a></h4>
+    <div ng-show="Group.isGroupAdmin && groupData.active" ng-include=" 'app/group/admin.html' " ng-controller="AdminCtrl as Admin">
     </div>
-    <div ng-if="!showGame" ng-include=" 'app/group/showQuestion.html' " ng-controller="ShowQuestionCtrl as showQuest"></div>
-    <div ng-show="showGame && !showQuestion && currentQuestionData.activeGame && currentQuestionData.active" ng-include=" 'app/group/game.html' " ng-controller=" GameController "></div>
-    <div ng-show="showLeaderboard && !showGame" ng-include=" 'app/group/leaderboard.html' " ng-controller=" LeaderboardController as Leader "></div>
+<!--     <div ng-if="currentQuestionData.active" ng-include=" 'app/group/showQuestion.html' " ng-controller="ShowQuestionCtrl as showQuest"></div> -->
+    <div ng-if="showQuestion && currentQuestionData.active && currentQuestionData.activeGame">
+      <h3>Remember to answer the question so you can play the game!</h3>
+    </div>
+    <div ng-if="showQuestion && currentQuestionData.active && !currentQuestionData.activeGame" ng-include=" 'app/group/showQuestion.html' " ng-controller="ShowQuestionCtrl as showQuest"></div>
+    <div ng-show="!showQuestion && showGame && currentQuestionData.activeGame && currentQuestionData.active" ng-include=" 'app/group/game.html' " ng-controller=" GameController "></div>
+    <div ng-show="showLeaderboard" ng-include=" 'app/group/leaderboard.html' " ng-controller=" LeaderboardController as Leader "></div>
   </div>
 </div>
