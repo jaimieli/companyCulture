@@ -28,6 +28,7 @@ angular.module('companyCultureApp')
       return o;
     };
 
+
     
 
     // when the group data is retrieved on load, execute this function
@@ -45,49 +46,67 @@ angular.module('companyCultureApp')
       $scope.sortAnsB = [];
       $scope.sortAnsA = [];
       $scope.tempArr = [];
+      $scope.sliced =  '';
 
       // console.log('in game controller after data is ready')
       $scope.currentQuestionData = data;
       console.log('$scope.currentQuestionData in game controller ', $scope.currentQuestionData);
-
+      console.log("qarray:",$scope.currentQuestionData.answersArray);
       //checking how long answers array is. if more than 8 user 8. if less than 8 user answerarr length
-      var lengthToUse = 0;
-      if($scope.currentQuestionData.answersArray.length>1 && $scope.currentQuestionData.answersArray.length<8){
-          lengthToUse = $scope.currentQuestionData.answersArray.length;
-      }else{
-          lengthToUse = 8;
-      }
-      tempArr = $scope.currentQuestionData.answersArray;
-      if($scope.currentQuestionData.questionType=== "Order" || $scope.currentQuestionData.questionType=== "Match"){
-        
-        for(var i = 0; i < lengthToUse; i++){
-          var spliced = tempArr.splice(Math.floor(Math.random()*(tempArr.length-1)),1);
-          $scope.users.push(spliced.user);
-          $scope.blanks.push({answer: spliced.answer});
-          $scope.bottomArr.push({answer: spliced.answer});
-          $scope.correctOrder.push({answer: spliced.answer, user: spliced.user});
-        };
-        //shuffle users
-        $scope.users = shuffle($scope.users);
-        if($scope.currentQuestionData.questionType=== "Order"){
-          // console.log("its an order q");
-          //ordering answers in correct order
-          $scope.blanks.sort(function(obj1,obj2){return obj1.answer - obj2.answer});
-          $scope.bottomArr.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
-          $scope.correctOrder.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
-        };
-      }else if ($scope.currentQuestionData.questionType==="Sort"){
-        for(var i = 0; i < lengthToUse; i++){
-          var spliced = tempArr.splice(Math.floor(Math.random()*(tempArr.length-1)),1);
-          $scope.users.push(spliced.user);
-          if(spliced.answer === $scope.currentQuestionData.questionOption.optionA){
-            $scope.sortArrayA.push({user: spliced.user.name});
-            $scope.sortAnsA.push({answer: spliced.answer});
+      if ($scope.currentQuestionData.answersArray.length > 1){
+          var lengthToUse = 0;
+          if($scope.currentQuestionData.answersArray.length>1 && $scope.currentQuestionData.answersArray.length<8){
+              lengthToUse = $scope.currentQuestionData.answersArray.length;
           }else{
-            $scope.sortArrayB.push({user: spliced.user.name});
-            $scope.sortAnsB.push({answer: spliced.answer});
+              lengthToUse = 8;
           }
-        }
+           console.log(lengthToUse);
+           // $scope.tempArr = $scope.currentQuestionData.answersArray;
+           for(var i = 0; i < $scope.currentQuestionData.answersArray.length; i++){
+            $scope.tempArr.push($scope.currentQuestionData.answersArray[i]);
+           }
+           console.log("tempArr", $scope.tempArr);
+          if($scope.currentQuestionData.questionType=== "Order" || $scope.currentQuestionData.questionType=== "Match"){
+            for(var i = 0; i < lengthToUse; i++){
+              $scope.spliced = $scope.tempArr.splice(Math.floor(Math.random()*($scope.tempArr.length-1)),1);
+              console.log($scope.spliced[$scope.spliced.length-1].user.name);
+              $scope.users.push($scope.spliced[$scope.spliced.length-1].user);
+              $scope.blanks.push({answer: $scope.spliced[$scope.spliced.length-1].answer});
+              $scope.bottomArr.push({answer: $scope.spliced[$scope.spliced.length-1].answer});
+              $scope.correctOrder.push({answer: $scope.spliced[$scope.spliced.length-1].answer, user: $scope.spliced[$scope.spliced.length-1].user.name});
+            };
+            //shuffle users
+            $scope.users = shuffle($scope.users);
+            if($scope.currentQuestionData.questionType=== "Order"){
+              // console.log("its an order q");
+              //ordering answers in correct order
+              $scope.blanks.sort(function(obj1,obj2){return obj1.answer - obj2.answer});
+              $scope.bottomArr.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+              $scope.correctOrder.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
+            };
+            console.log("scope.users", $scope.users);
+            console.log("scope.blanks - holds answer", $scope.blanks);
+            console.log("scope.bottomArr - holds answer", $scope.bottomArr);
+            console.log("scope.correctOrder - answer and user", $scope.correctOrder);
+            // console.log("scope.users", $scope.users);
+          }else if ($scope.currentQuestionData.questionType==="Sort"){
+            for(var i = 0; i < lengthToUse; i++){
+              $scope.spliced = $scope.tempArr.splice(Math.floor(Math.random()*($scope.tempArr.length-1)),1);
+              $scope.users.push($scope.spliced[$scope.spliced.length-1].user);
+              if($scope.spliced[$scope.spliced.length-1].answer === $scope.currentQuestionData.questionOption.optionA){
+                $scope.sortArrayA.push({user: $scope.spliced[$scope.spliced.length-1].user.name});
+                $scope.sortAnsA.push({answer: $scope.spliced[$scope.spliced.length-1].answer});
+              }else{
+                $scope.sortArrayB.push({user: $scope.spliced[$scope.spliced.length-1].user.name});
+                $scope.sortAnsB.push({answer: $scope.spliced[$scope.spliced.length-1].answer});
+              }
+            }
+          }
+          console.log("scope.sortArrayA - user", $scope.sortArrayA);
+          console.log("scope.sortAnsA - answer", $scope.sortAnsA);
+          console.log("scope.sortArrayB - user", $scope.sortArrayB);
+          console.log("scope.sortAnsB - answer", $scope.sortAnsB);
+          console.log("after qarray:",$scope.currentQuestionData.answersArray);
       }
     
 
@@ -142,7 +161,7 @@ angular.module('companyCultureApp')
       //   // console.log('answers array does not have more than one answer');
       // }
 
-    })
+    });
 
      $scope.users = [];
      $scope.blanks = [];
@@ -155,6 +174,7 @@ angular.module('companyCultureApp')
      $scope.sortArrayB = [];
      $scope.sortAnsB = [];
      $scope.sortAnsA = [];
+     $scope.tempArr = [];
 
      $scope.grabbedItem = function(event, ui, grabbedItem) {
       $scope.grabbed = grabbedItem;
@@ -211,7 +231,7 @@ angular.module('companyCultureApp')
         $scope.right = [];
         console.log($scope.correctOrder);
         for(var x = 0; x < $scope.bottomArr.length; x++) {
-          if($scope.bottomArr[x].name === $scope.correctOrder[x].user.name) {
+          if($scope.bottomArr[x].name === $scope.correctOrder[x].user) {
             $scope.right.push("success");
             correctCounter++;
           }else{
