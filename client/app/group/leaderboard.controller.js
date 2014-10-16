@@ -3,13 +3,18 @@
 angular.module('companyCultureApp')
   .controller('LeaderboardController', function($scope, $rootScope, $http){
     console.log('leaderboard controller')
-    // not sure if we need both group data and current question data on this scope but just in case
+    var self = this;
 
     // currentQuestion data
     $rootScope.$on('data is ready', function(event, data){
       console.log('data is ready in leaderboard controller');
       $scope.currentQuestionData = data;
       console.log('$scope.currentQuestionData in leaderboard: ', $scope.currentQuestionData);
+      if ($scope.currentQuestionData.active) {
+        self.leaderboardText = 'Current';
+      } else {
+        self.leaderboardText = 'Last'
+      }
       // get gameTimes for all users who have completed the game
       // var answersArr = $scope.currentQuestionData.answersArray;
       // for(var i = 0; i < answersArr.length; i ++) {

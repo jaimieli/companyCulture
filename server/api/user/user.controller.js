@@ -38,7 +38,6 @@ exports.validateEmails = function (req, res) {
         console.log('exec error: ' + error);
     }
     console.log('stdout: ' + stdout);
-    console.log('typeof stdout: ', typeof stdout);
     if (stdout.toLowerCase().indexOf('google.com') !== -1) {
       result.valid = true;
     } else {
