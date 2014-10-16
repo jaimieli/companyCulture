@@ -98,17 +98,45 @@ exports.addInvitee = function(req, res) {
       }
       console.log('group.invited outside loop: ', group.invited);
       // add user to group object if s/he doesn't already exist
-      // var userLen = group.users.length;
-      // for (var i = 0; i < userLen; i++) {
+      var userLen = group.users.length;
+      var match;
 
-      // }
-      group.users.addToSet({user: req.user._id});
+      var checkUser = function(person, checkedOneUser) {
+        User.findById(person.user.toString(), function(err, user){
+          if(user.email === req.user.email) {
+            match = true;
+            console.log('match found: ', match);
+            checkedOneUser();
+          } else {
+            checkedOneUser();
+          }
+        })
+      }
+
+      var doneChecking = function(err) {
+        console.log('done checking');
+        if (err) console.log(err);
+        if (!match) {
+          console.log('current email does not match any existing users');
+          group.users.addToSet({user: req.user._id});
+          group.save(function (err) {
+            if (err) { return handleError(res, err); }
+            updatedObj.group = group;
+            callback();
+          });
+        } else {
+          console.log('user already exists in group; was not added')
+          group.save(function (err) {
+            if (err) { return handleError(res, err); }
+            updatedObj.group = group;
+            callback();
+          });
+        }
+      }
+
+      async.each(group.users, checkUser, doneChecking)
+      // group.users.addToSet({user: req.user._id});
       // save group
-      group.save(function (err) {
-        if (err) { return handleError(res, err); }
-        updatedObj.group = group;
-        callback();
-      });
     };
 
     var updateUser = function(callback) {
