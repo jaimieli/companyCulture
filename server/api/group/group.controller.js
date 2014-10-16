@@ -26,18 +26,24 @@ exports.updateBestTime = function(req, res) {
 }
 // Remove User and Update Group
 exports.removeMember = function(req, res){
+  console.log('in removeMember backend')
   var userToRemove = req.body;
   var groupToRemoveFrom = req.params.id;
   var updatedObj = {};
+  console.log('userToRemove: ', userToRemove);
+  console.log('groupToRemoveFrom: ', groupToRemoveFrom)
 
   var updateGroup = function(callback) {
     Group.findById(groupToRemoveFrom, function(err, group){
       if (err) {return handleError(res, err);}
-      if (!group) {return res.send(404);}
+      if (!group) {
+        console.log('this group does not exist');
+        return res.send(404);
+      }
       // remove user from group.users
       var len = group.users.length;
       for (var i = 0; i < len; i++) {
-        if (group.users[i].toString() === userToRemove._id) {
+        if (group.users[i].user.toString() === userToRemove._id) {
           console.log('removing user ' + userToRemove._id + ' from group.users of group ' + groupToRemoveFrom._id);
           group.users.splice(i, 1);
           break;
@@ -53,9 +59,13 @@ exports.removeMember = function(req, res){
   }
 
   var updateUser = function(callback){
+    console.log('userToRemove._id: ', userToRemove._id)
     User.findById(userToRemove._id, function(err, user){
       if (err) {return handleError(res, err);}
-      if (!user) {return res.send(404);}
+      if (!user) {
+        console.log('this user does not exist')
+        return res.send(404);
+      }
       // remove group from user object
       var len = user.groups.length;
       for (var i = 0; i < len; i++) {
@@ -172,12 +182,6 @@ exports.show = function(req, res) {
       console.log(results);
       res.send(results);
     })
-  // Group.findById(req.params.id, function (err, group) {
-  //   if(err) { return handleError(res, err); }
-  //   if(!group) { return res.send(404); }
-  //   })
-  //   return res.json(group);
-  // });
 };
 
 // Creates a new group in the DB.

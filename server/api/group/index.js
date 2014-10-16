@@ -6,9 +6,9 @@ var auth = require('../../auth/auth.service');
 
 var router = express.Router();
 
+router.post('/removeMember/:id', controller.removeMember);
 router.post('/:id/updateBestTime', auth.isAuthenticated(), controller.updateBestTime)
 router.get('/addInvitee/:id', auth.isAuthenticated(), controller.addInvitee);
-router.post('/removeMember/:id', controller.removeMember);
 router.get('/', controller.index);
 router.get('/:id', controller.show);
 router.post('/', auth.isAuthenticated(), controller.create);

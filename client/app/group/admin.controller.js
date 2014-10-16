@@ -126,8 +126,8 @@ angular.module('companyCultureApp')
     }
     // removing member from group
     this.removeMember = function(user) {
-      console.log('delete user: ', user, 'from groupID: ', $scope.groupData._id);
-      $http.post('/api/groups/removeMember/'+$scope.groupData._id, user).success(function(data){
+      console.log('delete user: ', user.user, 'from groupID: ', $scope.groupData._id);
+      $http.post('/api/groups/removeMember/'+$scope.groupData._id, user.user).success(function(data){
         console.log('group after deleting user: ', data.group);
         console.log('user after deleting user from group: ', data.user);
         $rootScope.$emit('update group data');
