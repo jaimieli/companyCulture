@@ -83,7 +83,7 @@ angular.module('companyCultureApp')
            //when q is order or match, splice temparr and push data in to users, blanks, bottomArr, and correctOrder array
           if($scope.currentQuestionData.questionType=== "Order" || $scope.currentQuestionData.questionType=== "Match"){
             for(var i = 0; i < lengthToUse; i++){
-              $scope.spliced = $scope.tempArr.splice(Math.floor(Math.random()*($scope.tempArr.length-1)),1);
+              $scope.spliced = $scope.tempArr.splice(Math.floor(Math.random()*($scope.tempArr.length)),1);
               console.log($scope.spliced[$scope.spliced.length-1].user.name);
               $scope.users.push($scope.spliced[$scope.spliced.length-1].user);
               $scope.blanks.push({answer: $scope.spliced[$scope.spliced.length-1].answer});
@@ -107,7 +107,7 @@ angular.module('companyCultureApp')
             //when q is sort type, splice tempArr then if splice is optionA push to sortArrayA and sortAnsA, samething for optionB
           }else if ($scope.currentQuestionData.questionType==="Sort"){
             for(var i = 0; i < lengthToUse; i++){
-              $scope.spliced = $scope.tempArr.splice(Math.floor(Math.random()*($scope.tempArr.length-1)),1);
+              $scope.spliced = $scope.tempArr.splice(Math.floor(Math.random()*($scope.tempArr.length)),1);
               $scope.users.push($scope.spliced[$scope.spliced.length-1].user);
               if($scope.spliced[$scope.spliced.length-1].answer === $scope.currentQuestionData.questionOption.optionA){
                 $scope.sortArrayA.push({user: $scope.spliced[$scope.spliced.length-1].user.name});
@@ -223,13 +223,13 @@ angular.module('companyCultureApp')
           console.log($scope.bottomArr[x].name);
           console.log($scope.correctOrder[x].user);
           if($scope.bottomArr[x].name === $scope.correctOrder[x].user) {
-            console.log("pushed green");
+            console.log("pushed green!");
             $scope.right.push("green");
             correctCounter++;
             console.log("its a match!")
           }else{
              $scope.right.push("red");
-             console.log("wrong");
+             console.log("wrong, you suck");
           }
         }
         if(correctCounter == $scope.bottomArr.length){
