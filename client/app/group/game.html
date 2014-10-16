@@ -7,18 +7,14 @@
     <progressbar class="progress-striped active" value="timerSeconds" max="90"></progressbar>
   </timer>
 
-  <button class="bookmarkBtn" ng-click="open('afterGameContent.html')">Test Button</button>
-
+<!-- AFTER GAME SCORE MODAL -->
     <script type="text/ng-template" id="afterGameContent.html">
         <div class="modal-header">
           <h1>Your Score</h1>
         </div>
         <div class="modal-body">
           <div>Time: {{userScore}}</div>
-          <button>Leader Board</button>
-        </div>
-        <div class="modal-footer">
-          <button ng-click="cancel()">Cancel</button>
+          <button ng-click="showLeaderboardFunc()">Go to Leaderboard</button>
         </div>
     </script>
 
@@ -28,17 +24,6 @@
 
     <p class="gameInstruction">Match your teammates to their responses.</p>
     <h1 class="gameQuestionText">{{currentQuestionData.questionText}}</h1>.
-
-    <!-- BUTTON TO DRAG INTO BLANK BOX -->
-    <div class="item" ng-repeat="item in users" class="top">
-      <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
-        <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-        <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'" style="height: 50px; width:50px;">
-        <div ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.google.given_name}}</div>
-        </div>
-      </div>
-    </div>
-    <br><br><br>
 
     <!-- BLANK BOX TO RECEIVE BUTTON -->
     <div class="row">

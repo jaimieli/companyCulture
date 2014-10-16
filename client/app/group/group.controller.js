@@ -7,7 +7,25 @@ angular.module('companyCultureApp')
     console.log('$scope.currentUser on groupPage load: ', $scope.currentUser);
     $scope.groupId = $stateParams.id;
     console.log('$scope.groupId on groupPage load: ', $scope.groupId);
-    // function to determine if the user has an outstanding question (or game <-- later)
+    // initially hide leaderboard
+    $scope.showLeaderboard = false;
+    // toggle leaderboard button
+    this.leaderboardButtonText = 'Show Leaderboard'
+    this.showLeaderboardFunc = function(){
+      if (!$scope.showLeaderboard) {
+        $scope.showLeaderboard = true;
+        this.leaderboardButtonText = 'Hide Leaderboard'
+      } else {
+        $scope.showLeaderboard = false;
+        this.leaderboardButtonText = 'Show Leaderboard'
+      }
+    }
+    // catches event emitted from leaderboard button in the after game score modal
+    $rootScope.$on('show leaderboard', function(event){
+      $scope.showLeaderboard = true;
+      self.leaderboardButtonText = 'Hide Leaderboard'
+    })
+    // function to determine if the user has answered current question
     var checkUserAnsweredQuestion = function() {
       $scope.showQuestion = true;
       console.log('in checkUserAnsweredQuestion function')
@@ -20,16 +38,22 @@ angular.module('companyCultureApp')
         }
       }
     }
+    // function to determine if the user has played current game
     var checkUserCompletedGame = function(){
       console.log('checking if user completed game');
-      $scope.showGame = true;
-      var len = $scope.currentQuestionData.answersArray.length;
-      for (var i = 0; i < len; i++) {
-        if ($scope.currentQuestionData.answersArray[i].user._id === $scope.currentUser._id) {
-          if($scope.currentQuestionData.answersArray[i].completed === true) {
-            console.log('already completed most recent game');
-            $scope.showGame = false;
-            return;
+      $scope.showGame = false;
+      // if statement: only users who've completed the question are allowed to see the game
+      if($scope.showQuestion === false) {
+        $scope.showGame = true;
+        console.log('inside check game, $scope.showQuestion: ', $scope.showQuestion);
+        var len = $scope.currentQuestionData.answersArray.length;
+        for (var i = 0; i < len; i++) {
+          if ($scope.currentQuestionData.answersArray[i].user._id === $scope.currentUser._id) {
+            if($scope.currentQuestionData.answersArray[i].completed === true) {
+              console.log('already completed most recent game');
+              $scope.showGame = false;
+              return;
+            }
           }
         }
       }

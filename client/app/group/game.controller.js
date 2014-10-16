@@ -15,11 +15,25 @@ angular.module('companyCultureApp')
     $scope.$on('timer-stopped', function (event, data){
       scoreFactory.setScore(Math.floor(data.millis/1000));
       $scope.userScore = scoreFactory.getScore();
-      // compare current game score to best time in group and update if it's necessary
+      var bestTime;
+      var usersArr = $scope.groupData.users;
+      for (var i = 0; i < usersArr.length; i++) {
+        if(usersArr[i].user._id === $scope.currentUser._id) {
+          console.log('found user, checking best time')
+          bestTime = usersArr[i].bestTime;
+        }
+      }
+
       // save current game score
       $http.post('/api/questions/' + $scope.currentQuestionData._id + '/saveScore', {score: $scope.userScore}).success(function(data){
         console.log('data after saving score: ', data);
-        $rootScope.$emit('update group data');
+        // if best time is null or the currentScore is better than best time, we need to update
+        if(!bestTime || $scope.userScore < bestTime) {
+          console.log('make call to back end to update bestTime in group obj');
+          $http.post('/api/groups/' + $scope.groupData._id + '/updateBestTime', {score: $scope.userScore}).success(function(data){
+            console.log('group data after updating best time: ', data);
+          })
+        }
       })
     });
 
@@ -111,8 +125,6 @@ angular.module('companyCultureApp')
           console.log("after qarray:",$scope.currentQuestionData.answersArray);
       }
 
-    })
-
       // if ($scope.currentQuestionData.answersArray.length > 1){
       //    for(var i = 0; i < $scope.currentQuestionData.answersArray.length; i++){
       //         $scope.users.push($scope.currentQuestionData.answersArray[i].user);
@@ -198,15 +210,7 @@ angular.module('companyCultureApp')
         };
       }
      };
-     //called when game is completed. Function posts the completion to db
-     $scope.userAnswered = function(){
-      var currentQuestionId = $scope.groupData.questionsArr[$scope.groupData.questionsArr.length - 1]._id;
-      $http.get('/api/questions/' + currentQuestionId + '/userCompleted').success(function(data){
-        console.log('question obj after user plays game: ', data);
-        // Don't update scope variables until after modal pops up, etc
-        // $rootScope.$emit('update group data')
-      })
-     }
+
      $scope.checkAnswer = function(){
       var correctCounter = 0;
       // check answer for Match
@@ -227,7 +231,6 @@ angular.module('companyCultureApp')
           $scope.open('afterGameContent.html');
 
           //modal pop up with elapsed time and buttons to go to leader boards
-          $scope.userAnswered();
           $scope.open('afterGameContent.html');
         };
         //check answer for Order
@@ -247,7 +250,7 @@ angular.module('companyCultureApp')
             $scope.$broadcast('timer-stop');
             $scope.open('afterGameContent.html');
             //modal pop up with elapsed time and buttons to go to leader boards
-            $scope.userAnswered();
+
             $scope.open('afterGameContent.html');
         };
       } else if ($scope.currentQuestionData.questionType === "Sort"){
@@ -277,7 +280,6 @@ angular.module('companyCultureApp')
         if(correctCounter === $scope.currentQuestionData.answersArray.length){
           console.log("got it all");
           $scope.$broadcast('timer-stop');
-          $scope.userAnswered();
           $scope.open('afterGameContent.html');
         }
       }
@@ -310,6 +312,7 @@ angular.module('companyCultureApp')
       var modalInstance = $modal.open({
           templateUrl: 'afterGameContent.html',
           controller: 'AfterGameModalInstanceCtrl',
+          backdrop: 'static',
           resolve: {
             currentUserId: function() {
               return $scope.userId;
@@ -338,14 +341,16 @@ angular.module('companyCultureApp')
     }
   }
 })
-.controller('AfterGameModalInstanceCtrl', function($scope, $modalInstance, $http, Auth, scoreFactory) {
+.controller('AfterGameModalInstanceCtrl', function($scope, $modalInstance, $http, Auth, scoreFactory, $rootScope) {
   $scope.userScore = scoreFactory.getScore();
+  $scope.showLeaderboardFunc = function() {
+    console.log('trying to show leadderboard');
+    $modalInstance.dismiss('cancel');
+    $rootScope.$emit('update group data');
+    $rootScope.$emit('show leaderboard');
+  }
   $scope.ok = function () {
   };
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-
 });
 
 

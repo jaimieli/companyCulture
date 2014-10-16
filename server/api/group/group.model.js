@@ -8,11 +8,11 @@ var Question = require('../question/question.model')
 var GroupSchema = new Schema({
   groupName: String,
   active: Boolean,
-  users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  // users: [{
-  //           user: { type: Schema.Types.ObjectId, ref: 'User' },
-  //           bestTime: { type: Number, default: null }
-  //         }]
+  // users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  users: [{
+            user: { type: Schema.Types.ObjectId, ref: 'User' },
+            bestTime: { type: Number, default: null }
+          }],
   questionsArr: [{ type: Schema.Types.ObjectId, ref: 'Question' }],
   admin: { type: Schema.Types.ObjectId, ref: 'User' },
   invited: []

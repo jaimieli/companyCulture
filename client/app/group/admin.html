@@ -1,4 +1,3 @@
-<!-- <h3>This is the admin view for {{groupData.groupName}} nested inside the group view</h3> -->
 
 <div ng-if="currentQuestionData.active && !currentQuestionData.activeGame">
   <h4 >Current Question Status</h4>
@@ -14,7 +13,16 @@
   <h4>Current Game Status</h4>
   <p>Active? {{currentQuestionData.activeGame}}</p>
   <p ng-if="currentQuestionData.active && currentQuestionData.answersArray.length < 2">Encourage users to respond to the question - need at least two responses to send out the game</p>
-  <button ng-if="currentQuestionData.active && currentQuestionData.answersArray.length > 1" ng-click="Admin.sendGame()" ng-disabled="currentQuestionData.activeGame">{{Admin.sendGameButtonText}}</button>
+
+  <button ng-if="currentQuestionData.active && !currentQuestionData.activeGame && currentQuestionData.answersArray.length > 1"ng-click="Admin.sendGame()">Send Game</button>
+  <button ng-if="currentQuestionData.activeGame" ng-click="Admin.endGame()">End Game</button>
+  <div ng-if="currentQuestionData.activeGame">
+    <p>Users Who Have Played the Current Game</p>
+    <ul ng-repeat="answer in currentQuestionData.answersArray">
+      <li ng-if="answer.completed">{{answer.user.name}}</li>
+    </ul>
+  </div>
+
 </div>
 
 <!-- CREATE QUESTION SECTION -->
@@ -110,8 +118,8 @@
       <li class="listOfAllMembers col-md-2">
         <img ng-if="user._id == groupData.admin" class="xAdmin" ng-src="../assets/images/whitex.png">
         <img ng-click="Admin.removeMember(user)" ng-if="user._id !== groupData.admin" class="xMember" ng-src="../assets/images/x.png">
-        <img class="groupMemberPics" ng-src="{{user.google.picture}}">
-        <p class="memberName">{{user.google.name}}</p>
+        <img class="groupMemberPics" ng-src="{{user.user.google.picture}}">
+        <p class="memberName">{{user.user.google.name}}</p>
       </li>
     </ul>
     <ul ng-repeat="invite in groupData.invited track by $index">

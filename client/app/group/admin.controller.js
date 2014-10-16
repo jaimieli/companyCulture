@@ -1,33 +1,31 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $rootScope, $timeout) {
-    $scope.currentUser = Auth.getCurrentUser();
+  .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $rootScope) {
 
+    $scope.currentUser = Auth.getCurrentUser();
     console.log('current user obj: ', $scope.currentUser);
-      //
-    this.sendGameButtonText = 'Send Game';
+
+    this.endGame = function() {
+      console.log('trying to end game');
+      $http.put('/api/questions/' + $scope.currentQuestionData._id, {
+        active: false,
+        activeGame: false
+      }).success(function(data){
+        console.log('question obj after game is timeout: ', data);
+        $rootScope.$emit('update group data');
+      })
+    }
+
     this.sendGame = function() {
       console.log('trying to send game')
-      this.sendGameButtonText = 'Game Sent'
       // set activeGame --> true on question object
       $http.put('/api/questions/' + $scope.currentQuestionData._id, {activeGame: true}).success(function(data){
         console.log('question obj after game is set to active: ', data);
         $rootScope.$emit('update group data');
-          // after 10 sec set activeGame: false && active: false
-          // to set timeout to 24 hours, set delay to 86400000
-          $timeout(function() {
-            $http.put('/api/questions/' + $scope.currentQuestionData._id, {
-              active: false,
-              activeGame: false
-            }).success(function(data){
-              console.log('question obj after game is timeout: ', data);
-              $rootScope.$emit('update group data');
-            })
-          }, 90000)
         })
-      // send email out to all group users to notify them that there's a new game
-      var len = $scope.groupData.users.length;
+      // send email out to users who've answered the question to notify them that there's a new game
+      var len = $scope.currentQuestionData.answersArray.length;
       for (var i = 0; i < len; i++) {
         var subject = $scope.currentUser.name + ' Has Posted A New Game To ' + $scope.groupData.groupName + '!';
         var link = 'http://localhost:9000/login?cookie=' + $scope.groupId;
@@ -50,7 +48,7 @@ angular.module('companyCultureApp')
         var message = {
           userId: "me",
           message: {
-            to: $scope.groupData.users[i].email,
+            to: $scope.currentQuestionData.answersArray[i].user.email,
             subjectLine: subject,
             bodyOfEmail: body
           }
@@ -127,8 +125,8 @@ angular.module('companyCultureApp')
     }
     // removing member from group
     this.removeMember = function(user) {
-      console.log('delete user: ', user, 'from groupID: ', $scope.groupData._id);
-      $http.post('/api/groups/removeMember/'+$scope.groupData._id, user).success(function(data){
+      console.log('delete user: ', user.user, 'from groupID: ', $scope.groupData._id);
+      $http.post('/api/groups/removeMember/'+$scope.groupData._id, user.user).success(function(data){
         console.log('group after deleting user: ', data.group);
         console.log('user after deleting user from group: ', data.user);
         $rootScope.$emit('update group data');
@@ -147,25 +145,26 @@ angular.module('companyCultureApp')
         $rootScope.$emit('update group data')
         $location.path('/user');
         // send email out to all group users to notify them that their group has been deactivated
-        var len = $scope.groupData.users.length;
-        for (var i = 0; i < len; i++) {
-          var subject = $scope.groupData.groupName + ' group has been deactivated';
-          var body = '<p><a href="http://localhost:9000/login">Login</a> to make your own group and invite your friends!</p>'
-          var message = {
-            userId: "me",
-            message: {
-              to: $scope.groupData.users[i].email,
-              subjectLine: subject,
-              bodyOfEmail: body
-            }
-          }
-          $http.post('/api/messages/sendMessage', message).success(function(data) {
-            console.log('Email Results after deactivating group: ', data.gmail);
-          })
-        }
+        // var len = $scope.groupData.users.length;
+        // for (var i = 0; i < len; i++) {
+        //   var subject = $scope.groupData.groupName + ' group has been deactivated';
+        //   var body = '<p><a href="http://localhost:9000/login">Login</a> to make your own group and invite your friends!</p>'
+        //   var message = {
+        //     userId: "me",
+        //     message: {
+        //       to: $scope.groupData.users[i].user.email,
+        //       subjectLine: subject,
+        //       bodyOfEmail: body
+        //     }
+        //   }
+        //   $http.post('/api/messages/sendMessage', message).success(function(data) {
+        //     console.log('Email Results after deactivating group: ', data.gmail);
+        //   })
+        // }
       });
     }
   })
+
 // MATCHING CTRL FOR MATCHING QUESTION
   var MatchingCtrl = function ($scope, $modal, $log) {
     $scope.open = function (size) {
