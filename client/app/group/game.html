@@ -7,15 +7,14 @@
     <progressbar class="progress-striped active" value="timerSeconds" max="90"></progressbar>
   </timer>
 
-  <button class="bookmarkBtn" ng-click="open('afterGameContent.html')">Test Button</button>
-
+<!-- AFTER GAME SCORE MODAL -->
     <script type="text/ng-template" id="afterGameContent.html">
         <div class="modal-header">
           <h1>Your Score</h1>
         </div>
         <div class="modal-body">
           <div>Time: {{userScore}}</div>
-          <button ng-click="showLeaderboardFunc()">Go to Leader Board</button>
+          <button ng-click="showLeaderboardFunc()">Go to Leaderboard</button>
         </div>
     </script>
 

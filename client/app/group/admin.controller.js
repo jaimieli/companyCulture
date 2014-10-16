@@ -24,8 +24,8 @@ angular.module('companyCultureApp')
         console.log('question obj after game is set to active: ', data);
         $rootScope.$emit('update group data');
         })
-      // send email out to all group users to notify them that there's a new game
-      var len = $scope.groupData.users.length;
+      // send email out to users who've answered the question to notify them that there's a new game
+      var len = $scope.currentQuestionData.answersArray.length;
       for (var i = 0; i < len; i++) {
         var subject = $scope.currentUser.name + ' Has Posted A New Game To ' + $scope.groupData.groupName + '!';
         var link = 'http://localhost:9000/login?cookie=' + $scope.groupId;
@@ -48,7 +48,7 @@ angular.module('companyCultureApp')
         var message = {
           userId: "me",
           message: {
-            to: $scope.groupData.users[i].user.email,
+            to: $scope.currentQuestionData.answersArray[i].user.email,
             subjectLine: subject,
             bodyOfEmail: body
           }

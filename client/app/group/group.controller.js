@@ -23,6 +23,7 @@ angular.module('companyCultureApp')
     // catches event emitted from leaderboard button in the after game score modal
     $rootScope.$on('show leaderboard', function(event){
       $scope.showLeaderboard = true;
+      self.leaderboardButtonText = 'Hide Leaderboard'
     })
     // function to determine if the user has answered current question
     var checkUserAnsweredQuestion = function() {
