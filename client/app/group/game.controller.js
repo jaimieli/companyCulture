@@ -29,7 +29,7 @@ angular.module('companyCultureApp')
     };
 
 
-    
+
 
     // when the group data is retrieved on load, execute this function
     $rootScope.$on('data is ready', function(event, data){
@@ -110,8 +110,8 @@ angular.module('companyCultureApp')
           console.log("scope.sortAnsB - answer", $scope.sortAnsB);
           console.log("after qarray:",$scope.currentQuestionData.answersArray);
       }
-    
 
+    })
 
       // if ($scope.currentQuestionData.answersArray.length > 1){
       //    for(var i = 0; i < $scope.currentQuestionData.answersArray.length; i++){
@@ -162,7 +162,6 @@ angular.module('companyCultureApp')
       // } else {
       //   // console.log('answers array does not have more than one answer');
       // }
-
     });
 
      $scope.users = [];
@@ -216,10 +215,10 @@ angular.module('companyCultureApp')
         for(var x = 0; x < $scope.bottomArr.length; x++) {
           console.log($scope.currentQuestionData.answersArray)
           if($scope.bottomArr[x].name === $scope.currentQuestionData.answersArray[x].user.name) {
-            $scope.right.push("success");
+            $scope.right.push("green");
             correctCounter++;
           }else{
-             $scope.right.push("danger");
+             $scope.right.push("red");
           }
         }
         if(correctCounter == $scope.bottomArr.length){

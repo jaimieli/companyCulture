@@ -1,11 +1,193 @@
-
-
-.item{
-	color: red; 
+.createHeader {
+  font-family: Lato;
 }
 
-.thumbnail{
-	width: 100px;
-	height: 100px;
-	float: left;
+.singleButton {
+  margin-bottom: 30px;
 }
+
+.imageIcon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+}
+
+.buttonIcon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  border: none;
+  background-color: #fff;
+  color: #3881C2;
+  font-family: Lato;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.groupHeader {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.addMemberButton {
+  border: 1px solid #3881C2;
+  background-color: #fff;
+  color: #3881C2;
+  font-family: Lato;
+  font-weight: 300;
+}
+
+.holdingMembers {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.listOfAllMembers {
+  list-style-type: none;
+}
+
+#admin:first-child {
+  position: relative;
+  top: 10px;
+}
+
+.xAdmin {
+  height: 25px;
+  width: 25px;
+  margin-left: 110px;
+  margin-bottom: -26px;
+}
+
+.xMember {
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+  margin-left: 110px;
+  margin-bottom: -26px;
+}
+
+.xInvite {
+  height: 25px;
+  width: 25px;
+  margin-left: 110px;
+  margin-bottom: -26px;
+}
+
+.groupMemberPics {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  z-index: 1;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.memberName {
+  text-align: center;
+  font-family: Lato;
+  font-weight: 300;
+}
+
+.invitedLabel {
+  text-align: center;
+  font-family: Lato;
+  font-style: italic;
+}
+
+.deactivate {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.deactivateButton {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  border: none;
+  margin-top: -15px;
+}
+
+// GAME HTML (STYLING THREE INDIVIDUAL GAMES)
+.gameInstruction {
+  font-family: Lato;
+  font-weight: 300;
+  font-size: 18px;
+  text-align: center;
+}
+
+.gameQuestionText {
+  font-family: Lato;
+  text-align: center;
+  font-weight: 700;
+}
+
+.thumbnailReceiver {
+  width: 122px;
+  height: 122px;
+  border-radius: 50%;
+  border: 1px dashed #B8B8B8;
+}
+
+.thumbnailSender {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 1px solid #B8B8B8;
+}
+
+.thumbnailReceiver img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.thumbnailSender img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.green {
+  background-color: #40985B;
+  width: 122px;
+  height: 122px;
+  border-radius: 50%;
+}
+
+.red {
+  background-color: #D2403D;
+  width: 122px;
+  height: 122px;
+  border-radius: 50%;
+}
+
+.blanksSec {
+  width: 12.5%;
+}
+
+.answerList {
+  text-align: center;
+  font-family: Lato;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
