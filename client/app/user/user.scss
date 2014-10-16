@@ -3,14 +3,51 @@
   display: inline-block;
 }
 
+.left {
+  border-right: 1px solid #eee;
+  margin-top: 60px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.right {
+  border-left: 1px solid #eee;
+  margin-top: 60px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  text-align: center;
+}
+
 .groupHeader {
   font-family: Lato;
   font-weight: 300;
+  margin-bottom: 15px;
+}
+
+.groupNames {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
 }
 
 .groupList {
   list-style-type: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.itemLi {
+  text-align: center;
+  display: inline-block;
 }
 
 .groupItem {
@@ -20,8 +57,8 @@
   color: #545454;
   font-family: Lato;
   font-size: 16px;
-  float: left;
-  margin: 5px;
+  display: inline-block;
+  margin: 7px;
 }
 
 .groupItem:hover {

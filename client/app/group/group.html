@@ -2,7 +2,7 @@
 
 <div class="col-md-12">
   <div class="container">
-    <h1>This is the group view for {{groupData.groupName}}</h1>
+    <!-- <h1>This is the group view for {{groupData.groupName}}</h1> -->
     <h4 ng-if="groupData.active === false">{{groupData.groupName}} has been deactivated. Return to <a ng-href="/user">User</a></h4>
     <div ng-show="Group.isGroupAdmin === true && groupData.active === true" ng-include=" 'app/group/admin.html' " ng-controller="AdminCtrl as Admin">
     </div>

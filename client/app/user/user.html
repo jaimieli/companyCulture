@@ -4,22 +4,30 @@
   <div class="container">
     <div class="row">
 
-      <div class="col-md-6">
+      <div class="col-md-6 left">
         <h3 class="groupHeader">Active groups you're a member of:</h3>
-        <ul ng-repeat="group in currentUser.groups" class="groupList">
-          <li ng-if="group.active===true" class="itemLi">
-            <a ng-href= '/group/{{group._id}}' target="_blank" class="groupItem">{{group.groupName}}</a>
-          </li>
-        </ul>
+
+        <div class="groupNames">
+          <ul ng-repeat="group in currentUser.groups" class="groupList">
+            <li ng-if="group.active===true" class="itemLi">
+              <a ng-href= '/group/{{group._id}}' target="_blank" class="groupItem">{{group.groupName}}</a>
+            </li>
+          </ul>
+        </div>
+
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-6 right">
         <h3 class="groupHeader">Active groups you manage:</h3>
-        <ul ng-repeat="group in currentUser.groupsAdmin" class="groupList">
-          <li ng-if="group.active===true" class="itemLi">
-            <a ng-href= '/group/{{group._id}}' target="_blank" class="groupItem">{{group.groupName}}</a>
-          </li>
-        </ul>
+
+        <div class="groupNames">
+          <ul ng-repeat="group in currentUser.groupsAdmin" class="groupList">
+            <li ng-if="group.active===true" class="itemLi">
+              <a ng-href= '/group/{{group._id}}' target="_blank" class="groupItem">{{group.groupName}}</a>
+            </li>
+          </ul>
+        </div>
+
       </div>
 
     </div>

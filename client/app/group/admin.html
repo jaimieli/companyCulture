@@ -1,32 +1,4 @@
-<h3>This is the admin view for {{groupData.groupName}} nested inside the group view</h3>
-<button class="btn btn-danger" ng-click="Admin.deactivateGroup()">{{Admin.deactivateGroupButtonText}}</button>
-<!-- <br></br> -->
-<!-- <button class="btn btn-danger" ng-click="Admin.deleteGroup()">{{Admin.deleteGroupButtonText}}</button> -->
-<h4>Invite Members</h4>
-<!--   <p>Link: {{inviteLink}}</p> -->
-<button ng-click="Admin.addMemberField()">Add Member</button>
-<div ng-repeat="invite in Admin.inviteArrField track by $index">
-  <label>Name: </label>
-  <input ng-model="invite.name" required></input>
-  <label>Email Address: </label>
-  <input ng-model="invite.email" required></input>
-  <p ng-show="!invite.validity">*You must enter a valid gmail email.</p>
-  <button ng-disabled="invite.sent===true" ng-click="Admin.sendMessage(invite)">{{invite.button}}</button>
-</div>
-<h4>Current Group Members</h4>
-<ul ng-repeat="user in groupData.users">
-  <li>
-    {{user.name}}: {{user.email}}
-    <button ng-if="user._id !== groupData.admin" class="btn btn-warning" ng-click="Admin.removeMember(user)">Remove Member</button>
-    <button ng-if="user._id === groupData.admin" class="btn" disabled>Admin - Cannot Remove</button>
-  </li>
-</ul>
-<h4>Invited but Unconfirmed</h4>
-<ul ng-repeat="invite in groupData.invited track by $index">
-  <li ng-if="invite">
-    {{invite.name}}: {{invite.email}}
-  </li>
-</ul>
+<!-- <h3>This is the admin view for {{groupData.groupName}} nested inside the group view</h3> -->
 
 <div ng-if="currentQuestionData.active && !currentQuestionData.activeGame">
   <h4 >Current Question Status</h4>
@@ -38,7 +10,6 @@
     </li>
   </ul>
 </div>
-
 <div ng-if="currentQuestionData.active">
   <h4>Current Game Status</h4>
   <p>Active? {{currentQuestionData.activeGame}}</p>
@@ -46,68 +17,116 @@
   <button ng-if="currentQuestionData.active && currentQuestionData.answersArray.length > 1"ng-click="Admin.sendGame()" ng-disabled="currentQuestionData.activeGame">{{Admin.sendGameButtonText}}</button>
 </div>
 
-<!-- should only show create a question if there are no active questions or games -->
+<!-- CREATE QUESTION BUTTON -->
+<div ng-if="!questionsExist || !currentQuestionData.active">
+  <h4>Create a Question</h4>
+  <p>Note: When a question is created, it's automatically mailed out to all your users</p>
 
-  <div ng-if="!questionsExist || !currentQuestionData.active">
-    <h4>Create a Question</h4>
-    <p>Note: When a question is created, it's automatically mailed out to all your users</p>
-    <div class="container">
-      <button ng-controller="MatchingCtrl" ng-click="open('matchingQuestion.html')">Matching Question</button>
-      <script type="text/ng-template" id="matchingQuestion.html">
-        <div class="modal-header">
-            <h3 class="modal-title">Create A Matching Question</h3>
-        </div>
-        <div class="modal-body">
-          <form name="createMatchingQuestionForm" ng-submit="createMatching()" class="simple-form">
-          Question: <input ng-model="questionText">
-            <input type="submit" ng-click="cancel()" value="Create">
-          </form>
-        </div>
-      </script>
-
-      <button ng-controller="SortingCtrl" ng-click="open('sortingQuestion.html')">Sorting Question</button>
-      <script type="text/ng-template" id="sortingQuestion.html">
-        <div class="modal-header">
-            <h3 class="modal-title">Create A Sorting Question</h3>
-        </div>
-        <div class="modal-body">
-          <form name="createSortingQuestionForm" ng-submit="createSorting(myOption)" ng-controller="FormController" class="simple-form">
-            <select ng-model="myOption" ng-options="option.type for option in options">
-            </select>
-            <div ng-show="myOption.type === 'would' && myOption.value">
-              <p>Would you rather {{optionA}} or {{ optionB }}?<p>
-              <input ng-model="optionA" placeholder="option A">
-              <input ng-model="optionB" placeholder="option B">
-            </div>
-            <div ng-show="myOption.type === 'have' && myOption.value">
-              Have you ever
-              <input ng-model="questionText">?
-            </div>
-            <div ng-show="myOption.type === 'choose' && myOption.value">
-              <input ng-model="optionA">
-              or
-              <input ng-model="optionB">?
-            </div>
-            <input type="submit" ng-click="cancel()" value="Create Question">
-          </form>
-        </div>
+<!-- MATCHING QUESTION BUTTON -->
+  <div class="singleButton col-md-4" ng-click="open('matchingQuestion.html')" ng-controller="MatchingCtrl">
+    <img class="imageIcon" ng-src="../assets/images/matchingAdmin.png">
+    <button class="buttonIcon">Matching Question</button>
+  </div>
+  <script type="text/ng-template" id="matchingQuestion.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Create A Matching Question</h3>
+    </div>
+    <div class="modal-body">
+      <form name="createMatchingQuestionForm" ng-submit="createMatching()" class="simple-form">
+      Question: <input ng-model="questionText">
+        <input type="submit" ng-click="cancel()" value="Create">
+      </form>
+    </div>
   </script>
 
-
-
-
-      <button ng-controller="OrderingCtrl" ng-click="open('orderingQuestion.html')">Ordering Question</button>
-      <script type="text/ng-template" id="orderingQuestion.html">
-        <div class="modal-header">
-            <h3 class="modal-title">Create An Ordering Question</h3>
-        </div>
-        <div class="modal-body">
-          <form name="createOrderingQuestionForm" ng-submit="createOrdering()" class="simple-form">
-            Question: <input ng-model="questionText">
-            <input type="submit" ng-click="cancel()" value="Create">
-          </form>
-        </div>
-    </script>
-    </div>
+<!-- SORTING QUESTION BUTTON -->
+  <div class="singleButton col-md-4" ng-click="open('sortingQuestion.html')" ng-controller="SortingCtrl">
+    <img class="imageIcon" ng-src="../assets/images/sortingAdmin.png">
+    <button class="buttonIcon">Sorting Question</button>
   </div>
+  <script type="text/ng-template" id="sortingQuestion.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Create A Sorting Question</h3>
+    </div>
+    <div class="modal-body">
+      <form name="createSortingQuestionForm" ng-submit="createSorting(myOption)" ng-controller="FormController" class="simple-form">
+        <select ng-model="myOption" ng-options="option.type for option in options">
+        </select>
+        <div ng-show="myOption.type === 'would' && myOption.value">
+          <p>Would you rather {{optionA}} or {{ optionB }}?<p>
+          <input ng-model="optionA" placeholder="option A">
+          <input ng-model="optionB" placeholder="option B">
+        </div>
+        <div ng-show="myOption.type === 'have' && myOption.value">
+          Have you ever
+          <input ng-model="questionText">?
+        </div>
+        <div ng-show="myOption.type === 'choose' && myOption.value">
+          <input ng-model="optionA">
+          or
+          <input ng-model="optionB">?
+        </div>
+        <input type="submit" ng-click="cancel()" value="Create Question">
+      </form>
+    </div>
+  </script>
+
+<!-- ORDERING QUESTION BUTTON -->
+  <div class="singleButton col-md-4" ng-click="open('orderingQuestion.html')" ng-controller="OrderingCtrl">
+    <img class="imageIcon" ng-src="../assets/images/orderingAdmin.png">
+    <button class="buttonIcon">Ordering Question</button>
+  </div>
+  <script type="text/ng-template" id="orderingQuestion.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Create An Ordering Question</h3>
+    </div>
+    <div class="modal-body">
+      <form name="createOrderingQuestionForm" ng-submit="createOrdering()" class="simple-form">
+        Question: <input ng-model="questionText">
+        <input type="submit" ng-click="cancel()" value="Create">
+      </form>
+    </div>
+  </script>
+</div>
+
+<!-- ADD MEMBER TO GROUP BUTTON AND FORM -->
+<h4 class="groupHeader">Members in {{groupData.groupName}}</h4>
+  <button class="addMemberButton" ng-click="Admin.addMemberField()">Add</button>
+  <div ng-repeat="invite in Admin.inviteArrField track by $index">
+    <label>Name: </label>
+    <input ng-model="invite.name" required></input>
+    <label>Email Address: </label>
+    <input ng-model="invite.email" required></input>
+    <p ng-show="!invite.validity">*You must enter a valid gmail email.</p>
+    <button ng-disabled="invite.sent===true" ng-click="Admin.sendMessage(invite)">{{invite.button}}</button>
+  </div>
+
+<!-- GROUP MEMBER LISTING -->
+<div class="holdingMembers">
+  <ul ng-repeat="user in groupData.users">
+    <li class="listOfAllMembers col-md-2">
+        <img ng-if="user._id == groupData.admin" class="xAdmin" ng-src="../assets/images/whitex.png">
+        <img ng-click="Admin.removeMember(user)" ng-if="user._id !== groupData.admin" class="xMember" ng-src="../assets/images/x.png">
+      <img class="groupMemberPics" ng-src="{{user.google.picture}}">
+      <p class="memberName">{{user.google.name}}</p>
+    </li>
+  </ul>
+  <ul ng-repeat="invite in groupData.invited track by $index">
+    <li ng-if="invite" class="listOfAllMembers col-md-2">
+      <img ng-if="user._id !== groupData.admin" class="xInvite" ng-src="../assets/images/whitex.png">
+      <img class="groupMemberPics" ng-src="../assets/images/invitedPic.png">
+      <p class="memberName">{{invite.name}}</p>
+      <p class="invitedLabel">Invited</p>
+    </li>
+  </ul>
+</div>
+
+<!-- DEACTIVATE BUTTON -->
+<button class="btn btn-danger deactivateButton" ng-click="Admin.deactivateGroup()">{{Admin.deactivateGroupButtonText}}</button>
+
+
+
+
+
+
 
