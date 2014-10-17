@@ -250,10 +250,10 @@ angular.module('companyCultureApp')
         console.log($scope.correctOrder);
         for(var x = 0; x < $scope.bottomArr.length; x++) {
           if($scope.bottomArr[x].name === $scope.correctOrder[x].user) {
-            $scope.right.push("success");
+            $scope.right.push("green");
             correctCounter++;
           }else{
-             $scope.right.push("danger");
+             $scope.right.push("red");
           }
         }
         if(correctCounter == $scope.bottomArr.length){
@@ -272,20 +272,20 @@ angular.module('companyCultureApp')
             // console.log('$scope.sortArray[x]: ', $scope.sortArrayA[x])
             // console.log('$scope.sortAnsA[x]: ', $scope.sortAnsA[x])
             if($scope.sortArrayA.map(function(e){return e.user;}).indexOf($scope.sortAnsA[x].name)> -1){
-              $scope.rightA.push("success");
+              $scope.rightA.push("green");
               correctCounter++;
             }
             else{
-              $scope.rightA.push("danger");
+              $scope.rightA.push("red");
             }
         }
         for(var x = 0; x < $scope.sortArrayB.length; x++) {
             if($scope.sortArrayB.map(function(e){return e.user;}).indexOf($scope.sortAnsB[x].name)> -1){
-              $scope.rightB.push("success");
+              $scope.rightB.push("green");
               correctCounter++;
             }
             else{
-              $scope.rightB.push("danger");
+              $scope.rightB.push("red");
             }
         }
         if(correctCounter === $scope.correctOrder.length){

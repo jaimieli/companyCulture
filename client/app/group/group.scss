@@ -126,43 +126,62 @@
 }
 
 .thumbnailReceiver {
-  width: 122px;
-  height: 122px;
+  width: 124px;
+  height: 124px;
   border-radius: 50%;
   border: 1px dashed #B8B8B8;
-}
-
-.thumbnailSender {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 1px solid #B8B8B8;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .thumbnailReceiver img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
+  display: block;
+  margin: 0;
+  padding: 0;
+
+}
+
+.thumbnailSender {
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  border: 1px solid #B8B8B8;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .thumbnailSender img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
+  display: block;
+  margin: 0 !important;
+  padding: 0;
+}
+
+.text-center {
+  line-height: 120px;
 }
 
 .green {
   background-color: #40985B;
-  width: 122px;
-  height: 122px;
+  width: 124px;
+  height: 124px;
   border-radius: 50%;
+  margin: 0;
 }
 
 .red {
   background-color: #D2403D;
-  width: 122px;
-  height: 122px;
+  width: 124px;
+  height: 124px;
   border-radius: 50%;
+  margin: 0;
 }
 
 .blanksSec {
@@ -174,6 +193,32 @@
   font-family: Lato;
   font-weight: 300;
   font-size: 16px;
+}
+
+.sortHeader {
+  text-align: center;
+  font-family: Lato;
+  font-weight: 300;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.leftSort {
+  border-right: 1px solid #eee;
+}
+
+.rightSort {
+  border-left: 1px solid #eee;
+}
+
+.sortGameTop {
+  margin-bottom: 60px;
+}
+
+.greyHolder {
+  background-color: #eee;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 
