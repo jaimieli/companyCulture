@@ -49,6 +49,7 @@ angular.module('companyCultureApp')
     $rootScope.$on('data is ready', function(event, data){
       // reset all the variables
       $scope.users = [];
+      $scope.usersUntouched = [];
       $scope.blanks = [];
       $scope.answers = [];
       $scope.grabbed = "";
@@ -86,6 +87,7 @@ angular.module('companyCultureApp')
               $scope.spliced = $scope.tempArr.splice(Math.floor(Math.random()*($scope.tempArr.length)),1);
               console.log($scope.spliced[$scope.spliced.length-1].user.name);
               $scope.users.push($scope.spliced[$scope.spliced.length-1].user);
+              $scope.usersUntouched.push($scope.spliced[$scope.spliced.length-1].user);
               $scope.blanks.push({answer: $scope.spliced[$scope.spliced.length-1].answer});
               $scope.bottomArr.push({answer: $scope.spliced[$scope.spliced.length-1].answer});
               $scope.correctOrder.push({answer: $scope.spliced[$scope.spliced.length-1].answer, user: $scope.spliced[$scope.spliced.length-1].user.name});
@@ -109,6 +111,7 @@ angular.module('companyCultureApp')
             for(var i = 0; i < lengthToUse; i++){
               $scope.spliced = $scope.tempArr.splice(Math.floor(Math.random()*($scope.tempArr.length)),1);
               $scope.users.push($scope.spliced[$scope.spliced.length-1].user);
+              $scope.usersUntouched.push($scope.spliced[$scope.spliced.length-1].user);
               if($scope.spliced[$scope.spliced.length-1].answer === $scope.currentQuestionData.questionOption.optionA){
                 $scope.sortArrayA.push({user: $scope.spliced[$scope.spliced.length-1].user.name});
                 $scope.sortAnsA.push({answer: $scope.spliced[$scope.spliced.length-1].answer});
@@ -293,11 +296,22 @@ angular.module('companyCultureApp')
      };
      $scope.reset = function() {
       console.log('in the reset');
+      $scope.blanks = [];
+      $scope.users = [];
       for(var t = 0; t < $scope.bottomArr.length; t++) {
         delete $scope.bottomArr[t].name;
-        delete $scope.blanks[t].name;
-         $scope.users[t] = $scope.currentQuestionData.answersArray[t].user;
+        $scope.blanks.push({answer : $scope.bottomArr[t].answer});
+        // console.log("untouched[t]:",$scope.usersUntouched[t]);
+        $scope.users.push($scope.usersUntouched[t]);
+        // console.log("users[t]:", $scope.users[t]);
+        // $scope.users[t].user = $scope.correctOrder[t].user);
+        // $scope.users[t] = $scope.currentQuestionData.answersArray[t].user;
       }
+      console.log('usersUntouched', $scope.usersUntouched);
+      console.log("scopeuser:",$scope.users);
+      console.log("blanks:",$scope.blanks);
+      console.log("bottomArr:",$scope.bottomArr);
+
       if($scope.currentQuestionData.questionType === "Sort"){
         $scope.sortAnsA = [];
         $scope.sortAnsB = [];
