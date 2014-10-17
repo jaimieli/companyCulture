@@ -17,16 +17,19 @@ angular.module('companyCultureApp')
       $scope.interval = ($scope.interval + 1) % 100;
     }, 1000);
     $scope.$on('timer-stopped', function (event, data){
-      scoreFactory.setScore(Math.floor(data.millis/1000));
-      $scope.userScore = scoreFactory.getScore();
-      var bestTime;
-      var usersArr = $scope.groupData.users;
-      for (var i = 0; i < usersArr.length; i++) {
-        if(usersArr[i].user._id === $scope.currentUser._id) {
-          console.log('found user, checking best time')
-          bestTime = usersArr[i].bestTime;
-          $scope.open('afterGameContent.html');
+      if ($scope.showGame) {
+        scoreFactory.setScore(Math.floor(data.millis/1000));
+        $scope.userScore = scoreFactory.getScore();
+        var bestTime;
+        var usersArr = $scope.groupData.users;
+        for (var i = 0; i < usersArr.length; i++) {
+          if(usersArr[i].user._id === $scope.currentUser._id) {
+            console.log('found user, checking best time')
+            bestTime = usersArr[i].bestTime;
+            $scope.open('afterGameContent.html');
+          }
         }
+
       }
 
 
