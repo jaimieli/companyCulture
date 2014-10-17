@@ -17,16 +17,20 @@ angular.module('companyCultureApp')
       $scope.interval = ($scope.interval + 1) % 100;
     }, 1000);
     $scope.$on('timer-stopped', function (event, data){
-      scoreFactory.setScore(Math.floor(data.millis/1000));
-      $scope.userScore = scoreFactory.getScore();
-      var bestTime;
-      var usersArr = $scope.groupData.users;
-      for (var i = 0; i < usersArr.length; i++) {
-        if(usersArr[i].user._id === $scope.currentUser._id) {
-          console.log('found user, checking best time')
-          bestTime = usersArr[i].bestTime;
-          $scope.open('afterGameContent.html');
+      // added if statement so that the modal doesn't pop up if you're not playing the game
+      if ($scope.showGame) {
+        scoreFactory.setScore(Math.floor(data.millis/1000));
+        $scope.userScore = scoreFactory.getScore();
+        var bestTime;
+        var usersArr = $scope.groupData.users;
+        for (var i = 0; i < usersArr.length; i++) {
+          if(usersArr[i].user._id === $scope.currentUser._id) {
+            console.log('found user, checking best time')
+            bestTime = usersArr[i].bestTime;
+            $scope.open('afterGameContent.html');
+          }
         }
+
       }
       // save current game score
       $http.post('/api/questions/' + $scope.currentQuestionData._id + '/saveScore', {score: $scope.userScore}).success(function(data){

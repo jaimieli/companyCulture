@@ -14,6 +14,7 @@ $btnGithubBackgroundHighlight:      #ccc;
 
 .btn-google-plus {
   @include button-variant($btnText, $btnGooglePlusBackground, $btnGooglePlusBackgroundHighlight);
+  margin-top: 12px;
   margin-right: auto;
   margin-left: auto;
   display: block;
@@ -22,5 +23,11 @@ $btnGithubBackgroundHighlight:      #ccc;
 }
 .btn-github {
   @include button-variant($btnTextAlt, $btnGithubBackground, $btnGithubBackgroundHighlight);
+}
+
+.login-container {
+  padding-top: 150px;
+  text-align: center;
+  font-family: Lato;
 }
 
