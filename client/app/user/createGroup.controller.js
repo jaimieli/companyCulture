@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('CreateGroupCtrl', function ($scope, $http, Auth, User, userGroup, async, $rootScope) {
+  .controller('CreateGroupCtrl', function ($scope, $http, Auth, User, userGroup, async, $modal, $rootScope){
     $scope.currentUser = Auth.getCurrentUser();
     console.log('$scope.currentUser in create a group: ', $scope.currentUser);
 
     this.newGroup = {
       active: true,
-      invited: []
+      invited: [{name: "", email: ""},{name: "", email: ""}]
     };
     this.countMembers = 0;
     this.addMember = function($event) {
@@ -20,7 +20,7 @@ angular.module('companyCultureApp')
       console.log(this.newGroup.invited);
       this.countMembers++;
 
-    };
+    }; //closes addMember
     this.deleteMember = function(index) {
       this.newGroup.invited.splice(index, 1);
     }
@@ -70,7 +70,7 @@ angular.module('companyCultureApp')
 
         async.each(group.invited, validateEmail, doneValidating);
 
-      }
+      } //closes validateAll
 
       var createGroupAndEmail = function(done) {
         console.log('group object in createGroupEmail beginning: ', group);
@@ -80,6 +80,7 @@ angular.module('companyCultureApp')
 
           // emit the event below so that the parent user controller will listen for the event
           $scope.$emit('new group created');
+          $rootScope.$emit('new group created', data)
 
           // reset input variables
           self.newGroup = {
@@ -125,7 +126,7 @@ angular.module('companyCultureApp')
               console.log('Email result after creating group and sending one email: ', data.gmail);
               callback();
             })
-          }
+          } // closes sendEmail
           // }
           var doneEmailing = function(err) {
             if (err) console.log(err)
@@ -133,13 +134,51 @@ angular.module('companyCultureApp')
           }
           async.each(data.invited, sendEmail, doneEmailing);
         });
-      }
+      } //closes createGroupAndSendEmail
 
       var doneTasks = function(err, results) {
         console.log('end of async -- results: ', results);
       }
 
       async.series([validateAll, createGroupAndEmail], doneTasks);
+      $scope.open();
+    }; //closes this.createGoup
 
-    };
-  });
+    $scope.open = function () {
+      var modalInstance = $modal.open({
+          templateUrl: 'afterGroupCreation.html',
+          controller: 'CreatedGroupModalInstanceCtrl',
+          // backdrop: 'static',
+          resolve: {
+            groupCreated: function() {
+              return $scope.groupCreated;
+              // console.log("groupCreated:", groupCreated);
+            }
+          }
+        });
+      // modalInstance.result.then(function (selectedItem) {
+      //   $scope.selected = selectedItem;
+      //   }, function () {
+      //   $log.info('Modal dismissed at: ' + new Date());
+      //   });
+     } //closes Modal
+
+
+  }) //closes CreateGroupCtrl
+
+
+
+.controller('CreatedGroupModalInstanceCtrl', function($scope, $modalInstance, $http, Auth, $rootScope, groupCreated) {
+      $rootScope.$on('new group created', function(event, data){
+        console.log('new group created in modal');
+        console.log('data: ', data);
+        $scope.newGroupCreated = data;
+        console.log('$scope.newGroupCreated inside on event: ', $scope.newGroupCreated)
+      })
+      $modalInstance.dismiss('cancel');
+      
+      // console.log("groupCreated:", groupCreated);
+      // console.log("groupCreated", $scope.newGroupCreated);
+      $scope.ok = function () {};
+    });
+

@@ -32,9 +32,6 @@ angular.module('companyCultureApp')
         }
 
       }
-
-
-
       // save current game score
       $http.post('/api/questions/' + $scope.currentQuestionData._id + '/saveScore', {score: $scope.userScore}).success(function(data){
         console.log('data after saving score: ', data);
@@ -48,14 +45,10 @@ angular.module('companyCultureApp')
       })
     });
 
-
     var shuffle = function(o) {
       for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
       return o;
     };
-
-
-
 
     // when the group data is retrieved on load, execute this function
     $rootScope.$on('data is ready', function(event, data){
@@ -89,6 +82,7 @@ angular.module('companyCultureApp')
           }
            console.log(lengthToUse);
            // $scope.tempArr = $scope.currentQuestionData.answersArray;
+           //setting pushing data in answersArray to tempArr
            for(var i = 0; i < $scope.currentQuestionData.answersArray.length; i++){
             $scope.tempArr.push($scope.currentQuestionData.answersArray[i]);
            }
@@ -96,8 +90,10 @@ angular.module('companyCultureApp')
            //when q is order or match, splice temparr and push data in to users, blanks, bottomArr, and correctOrder array
           if($scope.currentQuestionData.questionType=== "Order" || $scope.currentQuestionData.questionType=== "Match"){
             for(var i = 0; i < lengthToUse; i++){
+              //choose random number and use that number as index to splice tempArr
               $scope.spliced = $scope.tempArr.splice(Math.floor(Math.random()*($scope.tempArr.length)),1);
               console.log($scope.spliced[$scope.spliced.length-1].user.name);
+              //push specific attribute to necessary arrays for the game
               $scope.users.push($scope.spliced[$scope.spliced.length-1].user);
               $scope.usersUntouched.push($scope.spliced[$scope.spliced.length-1].user);
               $scope.blanks.push({answer: $scope.spliced[$scope.spliced.length-1].answer});
@@ -121,10 +117,13 @@ angular.module('companyCultureApp')
             //when q is sort type, splice tempArr then if splice is optionA push to sortArrayA and sortAnsA, samething for optionB
           }else if ($scope.currentQuestionData.questionType==="Sort"){
             for(var i = 0; i < lengthToUse; i++){
+               //choose random number and use that number as index to splice tempArr
               $scope.spliced = $scope.tempArr.splice(Math.floor(Math.random()*($scope.tempArr.length)),1);
+              //push specific attribute to necessary arrays for the game
               $scope.users.push($scope.spliced[$scope.spliced.length-1].user);
               $scope.correctOrder.push({answer: $scope.spliced[$scope.spliced.length-1].answer, user: $scope.spliced[$scope.spliced.length-1].user.name});
               $scope.usersUntouched.push($scope.spliced[$scope.spliced.length-1].user);
+              //check if answer is optionA or optionB and push to array accordingly
               if($scope.spliced[$scope.spliced.length-1].answer === $scope.currentQuestionData.questionOption.optionA){
                 $scope.sortArrayA.push({user: $scope.spliced[$scope.spliced.length-1].user.name});
                 $scope.sortAnsA.push({answer: $scope.spliced[$scope.spliced.length-1].answer});
@@ -228,16 +227,19 @@ angular.module('companyCultureApp')
       }
      };
 
+
      $scope.checkAnswer = function(){
       var correctCounter = 0;
       // check answer for Match
       console.log("checking answer");
       if($scope.currentQuestionData.questionType === 'Match') {
+        //right array contains color. this is used to change option green and red depending on if the dropped item is the correct one or not.
         $scope.right = [];
         for(var x = 0; x < $scope.bottomArr.length; x++) {
           // console.log($scope.currentQuestionData.answersArray)
           console.log($scope.bottomArr[x].name);
           console.log($scope.correctOrder[x].user);
+          //correct if name in bottomArr at index equals name in correctOrder at the same index
           if($scope.bottomArr[x].name === $scope.correctOrder[x].user) {
             console.log("pushed green!");
             $scope.right.push("green");
@@ -259,6 +261,7 @@ angular.module('companyCultureApp')
         $scope.right = [];
         console.log($scope.correctOrder);
         for(var x = 0; x < $scope.bottomArr.length; x++) {
+          //correct if name in bottomArr at index equals name in correctOrder at the same index
           if($scope.bottomArr[x].name === $scope.correctOrder[x].user) {
             $scope.right.push("green");
             correctCounter++;
@@ -280,6 +283,7 @@ angular.module('companyCultureApp')
         for(var x = 0; x < $scope.sortArrayA.length; x++) {
             // console.log('$scope.sortArray[x]: ', $scope.sortArrayA[x])
             // console.log('$scope.sortAnsA[x]: ', $scope.sortAnsA[x])
+            //if name in sortAnsA exists in sortArrayA, the drop is considered correct 
             if($scope.sortArrayA.map(function(e){return e.user;}).indexOf($scope.sortAnsA[x].name)> -1){
               $scope.rightA.push("green");
               correctCounter++;
@@ -289,6 +293,7 @@ angular.module('companyCultureApp')
             }
         }
         for(var x = 0; x < $scope.sortArrayB.length; x++) {
+            //if name in sortAnsB exists in sortArrayB, the drop is considered correct
             if($scope.sortArrayB.map(function(e){return e.user;}).indexOf($scope.sortAnsB[x].name)> -1){
               $scope.rightB.push("green");
               correctCounter++;
