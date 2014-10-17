@@ -14,7 +14,7 @@
     <div ng-show="!showQuestion && showGame && currentQuestionData.activeGame && currentQuestionData.active" ng-include=" 'app/group/game.html' " ng-controller=" GameController "></div>
     <br>
     </br>
-    <button ng-click="Group.showLeaderboardFunc()">{{Group.leaderboardButtonText}}</button>
+    <button ng-if="currentQuestionData" ng-click="Group.showLeaderboardFunc()">{{Group.leaderboardButtonText}}</button>
     <div ng-show="showLeaderboard" ng-include=" 'app/group/leaderboard.html' " ng-controller=" LeaderboardController as Leader "></div>
 
   </div>
