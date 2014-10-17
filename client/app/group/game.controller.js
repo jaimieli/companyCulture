@@ -239,8 +239,6 @@ angular.module('companyCultureApp')
         if(correctCounter == $scope.bottomArr.length){
           console.log("got it all");
           $scope.$broadcast('timer-stop');
-          $scope.open('afterGameContent.html');
-
           //modal pop up with elapsed time and buttons to go to leader boards
           $scope.open('afterGameContent.html');
         };
@@ -263,10 +261,9 @@ angular.module('companyCultureApp')
         if(correctCounter == $scope.bottomArr.length){
             console.log("got it all");
             $scope.$broadcast('timer-stop');
-            $scope.open('afterGameContent.html');
             //modal pop up with elapsed time and buttons to go to leader boards
-
             $scope.open('afterGameContent.html');
+            
         };
       } else if ($scope.currentQuestionData.questionType === "Sort"){
         $scope.rightA = [];
@@ -295,6 +292,7 @@ angular.module('companyCultureApp')
         if(correctCounter === $scope.correctOrder.length){
           console.log("got it all");
           $scope.$broadcast('timer-stop');
+          //modal pop up with elapsed time and buttons to go to leader boards
           $scope.open('afterGameContent.html');
         }
       }
