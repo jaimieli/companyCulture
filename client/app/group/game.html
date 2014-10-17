@@ -14,7 +14,6 @@
         </div>
     </script>
 
-
 <!-- MATCHING QUESTION -->
   <div ng-if="currentQuestionData.questionType==='Match'">
     <p class="gameInstruction">Match your teammates to their responses.</p>
@@ -59,11 +58,6 @@
     <p class="gameInstruction">Guess your teammates' responses.</p>
     <h1 class="gameQuestionText">{{currentQuestionData.questionText}}</h1>
 
-
-
-
-
-
       <!-- SORTING QUESTION - HAVE -->
       <div ng-if="currentQuestionData.sortType==='have'">
 
@@ -107,14 +101,6 @@
 
       </div>
       <!-- END OF SORTING QUESTION - HAVE -->
-
-
-
-
-
-
-
-
 
       <!-- SORTING QUESTION - WOULD && CHOOSE -->
       <div ng-if="currentQuestionData.sortType==='would' || currentQuestionData.sortType==='choose' ">
@@ -196,8 +182,6 @@
   </div>
 </div>
 <!-- END OF ORDERING QUESTION -->
-
-
 
 <!-- <button class="btn btn-primary" ng-click="reset()">Reset</button> -->
 
