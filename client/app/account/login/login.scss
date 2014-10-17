@@ -18,3 +18,9 @@ $btnGithubBackgroundHighlight:      #ccc;
 .btn-github {
   @include button-variant($btnTextAlt, $btnGithubBackground, $btnGithubBackgroundHighlight);
 }
+
+.login-container {
+  padding-top: 150px;
+  text-align: center;
+  font-family: Lato;
+}
