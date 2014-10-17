@@ -250,10 +250,14 @@ angular.module('companyCultureApp')
         console.log($scope.correctOrder);
         for(var x = 0; x < $scope.bottomArr.length; x++) {
           if($scope.bottomArr[x].name === $scope.correctOrder[x].user) {
+            console.log("correct!")
+            console.log("bottomArr",$scope.bottomArr[x].name);
+            console.log("correctOrder",$scope.correctOrder[x].user);
             $scope.right.push("success");
             correctCounter++;
           }else{
              $scope.right.push("danger");
+             console.log("wrong, you suck");
           }
         }
         if(correctCounter == $scope.bottomArr.length){
