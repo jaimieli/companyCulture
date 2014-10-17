@@ -27,7 +27,7 @@
 
 <div ng-if="groupData.questionsArr[groupData.questionsArr.length-1].questionType === 'Order'">
   <form name="userAnswerOrder" class="simple-form" ng-submit="showQuest.userAnswer()">
-    <input ng-model="showQuest.answer" required>
+    <input type="number" ng-model="showQuest.answer" required>
     <input type="submit" value="Answer">
   </form>
 </div>
