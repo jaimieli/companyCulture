@@ -2,7 +2,7 @@
 
 angular.module('companyCultureApp')
   .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $rootScope) {
-
+    var self = this;
     $scope.currentUser = Auth.getCurrentUser();
     console.log('current user obj: ', $scope.currentUser);
 
@@ -16,6 +16,12 @@ angular.module('companyCultureApp')
         $rootScope.$emit('update group data');
       })
     }
+
+    // automatically end game when everyone in the answers array has completed the game
+    $rootScope.$on('everyone has completed the game', function(event){
+      console.log('catching everyone has completed game')
+      self.endGame();
+    })
 
     this.sendGame = function() {
       console.log('trying to send game')
@@ -163,6 +169,7 @@ angular.module('companyCultureApp')
         // }
       });
     }
+
   })
 
 // MATCHING CTRL FOR MATCHING QUESTION
