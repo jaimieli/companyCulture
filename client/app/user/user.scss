@@ -67,13 +67,14 @@
   color: #52B3E6;
 }
 
-// CREATE GROUP HTML
-.leftRightSecs {
-  margin-top: 85px;
-}
+// // CREATE GROUP HTML
+// .leftRightSecs {
+//   margin-top: 85px;
+// }
 
 .createGroupForm {
-  border-right: 2px solid #eee;
+  display: inline-block;
+  text-align: center;
   padding-top: 20px;
   padding-bottom: 20px;
 }
