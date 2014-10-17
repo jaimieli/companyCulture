@@ -14,8 +14,11 @@ $btnGithubBackgroundHighlight:      #ccc;
 
 .btn-google-plus {
   @include button-variant($btnText, $btnGooglePlusBackground, $btnGooglePlusBackgroundHighlight);
-  display: inline-block !important;
-	text-align: center !important;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  width: 30%;
+  min-height: 30% !important;
 }
 .btn-github {
   @include button-variant($btnTextAlt, $btnGithubBackground, $btnGithubBackgroundHighlight);
