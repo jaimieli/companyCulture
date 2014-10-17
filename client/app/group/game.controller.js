@@ -17,6 +17,7 @@ angular.module('companyCultureApp')
       $scope.interval = ($scope.interval + 1) % 100;
     }, 1000);
     $scope.$on('timer-stopped', function (event, data){
+      // added if statement so that the modal doesn't pop up if you're not playing the game
       if ($scope.showGame) {
         scoreFactory.setScore(Math.floor(data.millis/1000));
         $scope.userScore = scoreFactory.getScore();
