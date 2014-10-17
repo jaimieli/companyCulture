@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('GroupCtrl', function ($scope, $stateParams, $http, Auth, $rootScope) {
+  .controller('GroupCtrl', function ($scope, $stateParams, $http, Auth, $rootScope, async) {
     var self = this;
     $scope.currentUser = Auth.getCurrentUser();
     console.log('$scope.currentUser on groupPage load: ', $scope.currentUser);
@@ -47,17 +47,39 @@ angular.module('companyCultureApp')
         $scope.showGame = true;
         console.log('inside check game, $scope.showQuestion: ', $scope.showQuestion);
         var len = $scope.currentQuestionData.answersArray.length;
-        for (var i = 0; i < len; i++) {
-          if ($scope.currentQuestionData.answersArray[i].user._id === $scope.currentUser._id) {
-            if($scope.currentQuestionData.answersArray[i].completed === true) {
+        var checkOneUser = function(answer, callback) {
+          if (answer.user._id === $scope.currentUser._id) {
+            if(answer.completed === true) {
               console.log('already completed most recent game');
               $scope.showGame = false;
+              callback();
+            } else {
+            callback();
+            }
+          } else {
+            callback();
+          }
+        }
+
+        var doneCheckingUsers = function(err) {
+          if (err) {console.log(err)};
+          // function to determine if all users have played current game
+          for (var i = 0; i < $scope.currentQuestionData.answersArray.length; i++){
+            if ($scope.currentQuestionData.answersArray[i].completed === false) {
+              console.log('not everyone has completed the game');
               return;
             }
           }
+          if ($scope.currentQuestionData.activeGame === true) {
+            console.log('everyone has completed the game so ending game')
+            $rootScope.$emit('everyone has completed the game');
+          }
+          return;
         }
+        async.each($scope.currentQuestionData.answersArray, checkOneUser, doneCheckingUsers)
       }
     }
+
     $http.get('/api/groups/'+$scope.groupId).success(function(data){
       $scope.groupData = data;
       console.log('$scope.groupData on groupPage load: ', $scope.groupData);
