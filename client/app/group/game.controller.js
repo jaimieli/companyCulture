@@ -111,6 +111,7 @@ angular.module('companyCultureApp')
             for(var i = 0; i < lengthToUse; i++){
               $scope.spliced = $scope.tempArr.splice(Math.floor(Math.random()*($scope.tempArr.length)),1);
               $scope.users.push($scope.spliced[$scope.spliced.length-1].user);
+              $scope.correctOrder.push({answer: $scope.spliced[$scope.spliced.length-1].answer, user: $scope.spliced[$scope.spliced.length-1].user.name});
               $scope.usersUntouched.push($scope.spliced[$scope.spliced.length-1].user);
               if($scope.spliced[$scope.spliced.length-1].answer === $scope.currentQuestionData.questionOption.optionA){
                 $scope.sortArrayA.push({user: $scope.spliced[$scope.spliced.length-1].user.name});
@@ -287,7 +288,7 @@ angular.module('companyCultureApp')
               $scope.rightB.push("danger");
             }
         }
-        if(correctCounter === $scope.currentQuestionData.answersArray.length){
+        if(correctCounter === $scope.correctOrder.length){
           console.log("got it all");
           $scope.$broadcast('timer-stop');
           $scope.open('afterGameContent.html');
@@ -315,16 +316,26 @@ angular.module('companyCultureApp')
       if($scope.currentQuestionData.questionType === "Sort"){
         $scope.sortAnsA = [];
         $scope.sortAnsB = [];
-        for(var q = 0; q < $scope.currentQuestionData.answersArray.length; q++){
-          if($scope.currentQuestionData.answersArray[q].answer === $scope.currentQuestionData.questionOption.optionA){
-            $scope.sortAnsA.push({answer: $scope.currentQuestionData.answersArray[q].answer});
+        $scope.sortArrayA = [];
+        $scope.sortArrayB = [];
+        for(var q = 0; q < $scope.correctOrder.length; q++){
+          $scope.users.push($scope.usersUntouched[q]);
+          if($scope.correctOrder[q].answer === $scope.currentQuestionData.questionOption.optionA){
+            $scope.sortAnsA.push({answer: $scope.correctOrder[q].answer});
+            $scope.sortArrayA.push({user: $scope.correctOrder[q].user});
+            console.log("detected optionA so pushing to sortAnsA");
+            console.log("sortAnsA",$scope.sortAnsA);
+            console.log("sortArrayA",$scope.sortArrayA);
           }else{
-
-            $scope.sortAnsB.push({answer: $scope.currentQuestionData.answersArray[q].answer});
+            $scope.sortAnsB.push({answer: $scope.correctOrder[q].answer});
+            $scope.sortArrayB.push({user: $scope.correctOrder[q].user});
+            console.log("detected optionB so pushing to sortAnsB");
+            console.log("sortAnsB",$scope.sortAnsB);
+            console.log("sortArrayB",$scope.sortArrayB);
           }
         }
-        $scope.sortArrayA = shuffle($scope.sortArrayA);
-        $scope.sortArrayB = shuffle($scope.sortArrayB);
+        // $scope.sortArrayA = shuffle($scope.sortArrayA);
+        // $scope.sortArrayB = shuffle($scope.sortArrayB);
       }
       $scope.users = shuffle($scope.users);
     };
