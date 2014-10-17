@@ -8,8 +8,7 @@
       <form name="memberForm" ng-submit="Create.newGroup.invited.length > 1 && memberForm.$valid && Create.createGroup(Create.newGroup)" novalidate>
         <input class="groupItem" ng-model="Create.newGroup.groupName" placeholder="Group Name" name="groupName" required/><br>
         <p class="groupNameError" ng-show="memberForm.groupName.$error.required && memberForm.groupName.$dirty">*A group name is required</p>
-        <br></br>
-        <button class="addMemberButton" ng-click="Create.addMember($event)">Add+</button>
+        <button class="addGroupButton" ng-click="Create.addMember($event)">Add+</button>
      <!--    <p>Members:</p> -->
         <br><br>
         <div ng-repeat="invite in Create.newGroup.invited">
@@ -23,7 +22,7 @@
         </div>
         <p ng-show="Create.newGroup.invited.length < 2">*You need at least two members</p>
         <p ng-show="memberForm"></p>
-        <input class="addMemberButton" type="submit" value="Create New Group">
+        <input class="addGroupButton" type="submit" value="Create New Group">
       </form>
     </div>
 
