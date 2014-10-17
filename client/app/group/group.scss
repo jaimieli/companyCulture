@@ -229,6 +229,70 @@
   padding-bottom: 15px;
 }
 
+// LEADER BOARD VIEW
+.leaderboardHeader {
+  text-align: center;
+  font-family: Lato;
+  font-size: 24px;
+  margin-bottom: 60px;
+}
+
+.leaderboardList {
+  list-style-type: none;
+}
+
+.leaderboardItem img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.leaderName {
+  font-family: Lato;
+  font-size: 14px;
+  text-align: center;
+}
+
+.leaderTime {
+  font-family: Lato;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 300;
+  margin-top: -10px;
+}
+
+.tableHeader {
+  text-align: center;
+  font-family: Lato;
+  font-size: 20px
+}
+
+.pictureList {
+  list-style-type: none;
+}
+
+.leaderboardPic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: block;
+}
+
+.tableColumn {
+  padding-left: 0px;
+}
+
+.tableItem {
+  list-style-type: none;
+  text-align: center;
+  line-height: 80px;
+  font-family: Lato;
+  font-weight: 300;
+}
+
 
 
 

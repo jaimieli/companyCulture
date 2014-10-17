@@ -3,11 +3,11 @@
 angular.module('companyCultureApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
-      'title': 'User',
+      'title': 'My Teams',
       'link': '/user'
     },
     {
-      'title': 'Create group',
+      'title': 'Create a Team',
       'link': '/create'
     }
     ];

@@ -1,12 +1,56 @@
 
-<h3>This is the leaderboard view</h3>
-<h4>Times for {{Leader.leaderboardText}} Game</h4>
-<ul ng-repeat="answer in currentQuestionData.answersArray">
-  <li ng-if="answer.gameTime">
-    {{answer.user.name}}: {{answer.gameTime}}
-  </li>
-</ul>
-<h4>Best Times in Group</h4>
-<ul ng-repeat="person in groupData.users">
-  <li ng-if="person.bestTime">{{person.user.name}}: {{person.bestTime}}</li>
-</ul>
+
+<div class="col-md-12">
+
+  <h3 class="leaderboardHeader">Team Leaderboard</h3>
+
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-3">
+      <div class="tableHeader">Team Member</div>
+    </div>
+    <div class="col-md-3 tableHeader">Latest Score</div>
+    <div class="col-md-3 tableHeader">Best Score</div>
+  </div>
+
+  <div class="col-md-3">
+    <ul ng-repeat="member in memberData" class="pictureGroup">
+        <li class="pictureList">
+          <img class="leaderboardPic" ng-src="{{member.item.google.picture}}">
+        </li>
+    </ul>
+  </div>
+
+  <div class="col-md-3 tableItem">
+    <ul class="tableColumn" ng-repeat="member in memberData">
+      <li class="tableItem">{{member.item.name}}</li>
+    </ul>
+  </div>
+
+  <div class="col-md-3">
+    <ul class="tableColumn" ng-repeat="member in memberData">
+      <li class="tableItem">{{member.currentScore}}</li>
+    </ul>
+  </div>
+
+  <div class="col-md-3">
+    <ul class="tableColumn" ng-repeat="member in memberData">
+      <li class="tableItem">{{member.bestScore}}</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- <p class="leaderName">{{answer.user.google.name}}</p>
+        <p class="leaderTime">{{answer.gameTime}} seconds</p> -->
+
+<!-- <h4 class="leaderboardHeader">All Time Leaderboard</h4>
+<div class="row">
+  <ul ng-repeat="person in groupData.users" class="leaderboardList col-md-2">
+    <li ng-if="person.bestTime" class="leaderboardItem">
+      <img ng-src="{{person.user.google.picture}}">
+      <p class="leaderName">{{person.user.google.name}}</p>
+      <p class="leaderTime">{{person.bestTime}} seconds</p>
+    </li>
+  </ul>
+</div> -->
