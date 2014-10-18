@@ -104,6 +104,7 @@ angular.module('companyCultureApp')
       if(data.admin === Auth.getCurrentUser()._id) {
         self.isGroupAdmin = true;
         console.log('admin of the group');
+        $rootScope.$emit('is groupAdmin')
       }
     })
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth) {
+  .controller('NavbarCtrl', function ($scope, $location, Auth, $rootScope) {
     $scope.menu = [{
       'title': 'My Teams',
       'link': '/user'
@@ -16,6 +16,11 @@ angular.module('companyCultureApp')
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
+
+    $rootScope.$on('is groupAdmin', function() {
+      console.log('catching is admin')
+      $scope.isGroupAdmin = true;
+    })
 
     $scope.logout = function() {
       Auth.logout();
