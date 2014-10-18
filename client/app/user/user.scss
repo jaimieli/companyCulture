@@ -1,3 +1,8 @@
+// CREATE GROUP HTML
+.groupNameText {
+  color: black !important;
+}
+
 // ADMIN HTML
 .modal-title {
   text-align: center;
@@ -74,7 +79,7 @@
   border: 1px solid #dbdbda;
   padding: 10px;
   border-radius: 4px;
-  color: #545454;
+  color: #545454 !important;
   font-family: Lato;
   font-size: 16px;
   display: inline-block;
@@ -97,10 +102,6 @@
 }
 
 // // CREATE GROUP HTML
-// .leftRightSecs {
-//   margin-top: 85px;
-// }
-
 .createGroupForm {
   display: inline-block;
   text-align: center;
