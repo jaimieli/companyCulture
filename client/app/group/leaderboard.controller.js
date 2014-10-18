@@ -24,13 +24,23 @@ angular.module('companyCultureApp')
       $scope.groupData = data;
       console.log('$scope.groupData in leaderboard: ', $scope.groupData);
 
+
       var setMemberData = function(member, done) {
+        var randomBird = Math.ceil(Math.random() * 10);
         var memberObj = {};
         memberObj.item = member.user;
         memberObj.bestScore = member.bestTime;
+        memberObj.item.google.picture = function() {
+          if (member.user.google.picture === "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg") {
+            return "/assets/images/birdpictures/bird" + randomBird + ".png";
+          } else {
+            return member.user.google.picture;
+          }
+        }();
         $scope.memberData.push(memberObj);
         done();
       }
+
 
       var complete = function () {
         console.log("$scope.memberData in complete:", $scope.memberData);
