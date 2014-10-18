@@ -1,31 +1,37 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('GroupCtrl', function ($scope, $stateParams, $http, Auth, $rootScope, async) {
+  .controller('GroupCtrl', function ($scope, $stateParams, $http, Auth, $rootScope, async, navbar) {
     var self = this;
+    $scope.showLeaderboard = false;
+    $scope.showActivity = true;
+    $rootScope.$on('show current activity', function() {
+      console.log('catching show current activity');
+      $scope.showLeaderboard = false;
+      $scope.showAdmin = false;
+      $scope.showActivity = true;
+    })
+    $rootScope.$on('show leaderboard', function() {
+      console.log('catching show leaderboard')
+      $scope.showLeaderboard = true;
+      $scope.showAdmin = false;
+      $scope.showQuestion = false;
+      $scope.showGame = false;
+      $scope.showActivity = false;
+    })
+    $rootScope.$on('show admin view', function(){
+      console.log('catching show admin')
+      $scope.showAdmin = true;
+      $scope.showQuestion = false;
+      $scope.showGame = false;
+      $scope.showLeaderboard = false;
+      $scope.showActivity = false;
+    })
     $scope.currentUser = Auth.getCurrentUser();
     console.log('$scope.currentUser on groupPage load: ', $scope.currentUser);
     $scope.groupId = $stateParams.id;
     console.log('$scope.groupId on groupPage load: ', $scope.groupId);
-    // initially hide leaderboard
-    $scope.showLeaderboard = true;
-    // toggle leaderboard button
-    this.leaderboardButtonText = 'Show Leaderboard'
-    this.showLeaderboardFunc = function(){
-      // if (!$scope.showLeaderboard) {
-      //   $scope.showLeaderboard = true;
-      //   this.leaderboardButtonText = 'Hide Leaderboard'
-      // } else {
-      //   $scope.showLeaderboard = false;
-      //   this.leaderboardButtonText = 'Show Leaderboard'
-      // }
-    }
-    // catches event emitted from leaderboard button in the after game score modal
-    $rootScope.$on('show leaderboard', function(event){
-      $scope.showLeaderboard = true;
-      self.leaderboardButtonText = 'Hide Leaderboard'
-    })
-    // function to determine if the user has answered current question
+
     var checkUserAnsweredQuestion = function() {
       $scope.showQuestion = true;
       console.log('in checkUserAnsweredQuestion function')
@@ -44,12 +50,13 @@ angular.module('companyCultureApp')
       $scope.showGame = false;
       // if statement: only users who've completed the question are allowed to see the game
       if($scope.showQuestion === false) {
+        console.log('trying to switch showGame to true')
         $scope.showGame = true;
-        console.log('inside check game, $scope.showQuestion: ', $scope.showQuestion);
+        console.log('inside check game, $scope.showGame: ', $scope.showGame);
         var len = $scope.currentQuestionData.answersArray.length;
         var checkOneUser = function(answer, callback) {
           if (answer.user._id === $scope.currentUser._id) {
-            if(answer.completed === true) {
+            if(answer.gameTime) {
               console.log('already completed most recent game');
               $scope.showGame = false;
               callback();
@@ -84,6 +91,7 @@ angular.module('companyCultureApp')
       $scope.groupData = data;
       console.log('$scope.groupData on groupPage load: ', $scope.groupData);
       $rootScope.$emit('groupData ready', data);
+      navbar.setGroupName(data.groupName);
       // if there's a question
       if(data.questionsArr.length > 0) {
         $scope.questionsExist = true;
@@ -104,7 +112,8 @@ angular.module('companyCultureApp')
       if(data.admin === Auth.getCurrentUser()._id) {
         self.isGroupAdmin = true;
         console.log('admin of the group');
-        $rootScope.$emit('is groupAdmin')
+        // $rootScope.$emit('is groupAdmin')
+        // navbar.setAdminStatus(self.isGroupAdmin);
       }
     })
 

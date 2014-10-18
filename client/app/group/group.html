@@ -3,16 +3,39 @@
 <div class="col-md-12">
   <div class="container">
     <h4 ng-if="!groupData.active">{{groupData.groupName}} has been deactivated. Return to <a ng-href="/user">User</a></h4>
-    <div ng-show="Group.isGroupAdmin && groupData.active" ng-include=" 'app/group/admin.html' " ng-controller="AdminCtrl as Admin">
+    <div ng-show="Group.isGroupAdmin && groupData.active && showAdmin" ng-include=" 'app/group/admin.html' " ng-controller="AdminCtrl as Admin">
     </div>
-    <div ng-if="showQuestion && currentQuestionData.active && currentQuestionData.activeGame">
-      <h3>To play the current game, you must've answered the question post. A new question and game will be sent out soon!</h3>
+<!-- activity view -->
+    <div ng-if="showActivity">
+  <!--     after completing question, but no game sent out yet -->
+      <div ng-if="showGame && !showQuestion && currentQuestionData.active && !currentQuestionData.activeGame && !showAdmin && !showLeaderboard">
+        <h3>Thanks for completing the question. Game will be sent out shortly.</h3>
+      </div>
+
+  <!--     after completing game, but game is not over -->
+      <div ng-if="!showGame && !showQuestion && currentQuestionData.active && currentQuestionData.activeGame">
+        <h3>Game is still in session. Check out the leaderboard to see how you stack up against your teammates.</h3>
+      </div>
+  <!-- game is over, but admin has not sent out a new question -->
+      <div ng-if="!currentQuestionData.active && !currentQuestionData.activeGame && !showAdmin && !showLeaderboard">
+        <h3>Waiting for group administrator to send out question.</h3>
+      </div>
+
+  <!-- game is in session, but missed answering the question so cannot play
+   -->
+      <div ng-if="showQuestion && currentQuestionData.active && currentQuestionData.activeGame && !showAdmin && !showLeaderboard">
+        <h3>To play the current game, you must've answered the question. A new question and game will be sent out soon!</h3>
+      </div>
+
+      <!-- Question -->
+      <div ng-if="showQuestion && currentQuestionData.active && !currentQuestionData.activeGame" ng-include=" 'app/group/showQuestion.html' " ng-controller="ShowQuestionCtrl as showQuest"></div>
+
+      <!-- Game -->
+      <div ng-show="!showQuestion && showGame && currentQuestionData.activeGame && currentQuestionData.active" ng-include=" 'app/group/game.html' " ng-controller=" GameController "></div>
     </div>
-    <div ng-if="showQuestion && currentQuestionData.active && !currentQuestionData.activeGame" ng-include=" 'app/group/showQuestion.html' " ng-controller="ShowQuestionCtrl as showQuest"></div>
-    <div ng-show="!showQuestion && showGame && currentQuestionData.activeGame && currentQuestionData.active" ng-include=" 'app/group/game.html' " ng-controller=" GameController "></div>
-    <br>
-    </br>
 <!--     <button ng-if="currentQuestionData" ng-click="Group.showLeaderboardFunc()">{{Group.leaderboardButtonText}}</button> -->
+
+    <!-- Leaderboard -->
     <div ng-show="showLeaderboard" ng-include=" 'app/group/leaderboard.html' " ng-controller=" LeaderboardController as Leader "></div>
 
   </div>
