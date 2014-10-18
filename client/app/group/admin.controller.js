@@ -231,9 +231,9 @@ angular.module('companyCultureApp')
   var SortingInstanceCtrl = function ($scope, $modalInstance, $http, $rootScope) {
     var sortType = $scope.sortType;
     $scope.options = [
-      { type: "Would you rather...", value: true },
-      { type: "Have you ever...", value: true },
-      { type: "Choose between...", value: true },
+      { qtype: "Would you rather...", type: "would", value: true },
+      { qtype: "Have you ever...", type: "have", value: true },
+      { qtype: "Choose between...", type: "choose", value: true },
     ];
     $scope.ok = function () {
     };
@@ -252,7 +252,9 @@ var FormController = function($scope, $http, $stateParams, $rootScope, newQuesti
     console.log('$scope.optionA: ', $scope.optionA);
     console.log('$scope.optionB: ', $scope.optionB);
     var groupId = $stateParams.id;
+    console.log(sortType.type);
     if (sortType.type === "would") {
+      console.log("in would");
       $http.post('/api/questions/' + groupId, {
         active: true,
         groupId: groupId,
