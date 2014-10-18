@@ -101,48 +101,48 @@
   </script>
 </div>
 
-<!-- ADD MEMBER TO GROUP BUTTON AND FORM -->
-<div class="row">
-  <h4 class="adminGroupHeader">Members in {{groupData.groupName}}</h4>
-  <button class="addMemberButton" ng-click="Admin.addMemberField()">Add+</button>
-</div>
-<div ng-repeat="invite in Admin.inviteArrField track by $index">
-  <label>Name: </label>
-  <input ng-model="invite.name" required></input>
-  <label>Email Address: </label>
-  <input ng-model="invite.email" required></input>
-  <p ng-show="!invite.validity">*You must enter a valid gmail email.</p>
-  <button ng-disabled="invite.sent===true" ng-click="Admin.sendMessage(invite)">{{invite.button}}</button>
-</div>
 
-<!-- GROUP MEMBER LISTING -->
-<div class="holdingMembers">
+
+  <!-- ADD MEMBER TO GROUP BUTTON AND FORM -->
   <div class="row">
-    <ul ng-repeat="user in groupData.users | orderBy:reverse" id="admin">
-      <li class="listOfAllMembers col-md-2">
-        <img ng-if="user._id == groupData.admin" class="xAdmin" ng-src="../assets/images/whitex.png">
-        <img ng-click="Admin.removeMember(user)" ng-if="user._id !== groupData.admin" class="xMember" ng-src="../assets/images/x.png">
-        <img class="groupMemberPics" ng-src="{{user.user.google.picture}}">
-        <p class="memberName">{{user.user.google.name}}</p>
-      </li>
-    </ul>
-    <ul ng-repeat="invite in groupData.invited track by $index">
-      <li ng-if="invite" class="listOfAllMembers col-md-2">
-        <img ng-if="user._id !== groupData.admin" class="xInvite" ng-src="../assets/images/whitex.png">
-        <img class="groupMemberPics" ng-src="../assets/images/invitedPic.png">
-        <p class="memberName">{{invite.name}}</p>
-        <p class="invitedLabel">Invited</p>
-      </li>
-    </ul>
+    <h4 class="adminGroupHeader">Members in {{groupData.groupName}}</h4>
+    <button class="addMemberButton" ng-click="Admin.addMemberField()">Add+</button>
   </div>
-</div>
-
-<!-- DEACTIVATE BUTTON -->
-<div class="row">
-  <div class="deactivate">
-    <button class="btn btn-danger deactivateButton" ng-click="Admin.deactivateGroup()">{{Admin.deactivateGroupButtonText}}</button>
+  <div ng-repeat="invite in Admin.inviteArrField track by $index">
+    <label>Name: </label>
+    <input ng-model="invite.name" required></input>
+    <label>Email Address: </label>
+    <input ng-model="invite.email" required></input>
+    <p ng-show="!invite.validity">*You must enter a valid gmail email.</p>
+    <button ng-disabled="invite.sent===true" ng-click="Admin.sendMessage(invite)">{{invite.button}}</button>
   </div>
-</div>
+  <!-- GROUP MEMBER LISTING -->
+  <div class="holdingMembers">
+    <div class="row">
+      <ul ng-repeat="user in groupData.users | orderBy:reverse" id="admin">
+        <li class="listOfAllMembers col-md-2">
+          <img ng-if="user.user._id == groupData.admin" class="xAdmin" ng-src="../assets/images/whitex.png">
+          <img ng-click="Admin.removeMember(user)" ng-if="user.user._id !== groupData.admin" class="xMember" ng-src="../assets/images/x.png">
+          <img class="groupMemberPics" ng-src="{{user.user.google.picture}}">
+          <p class="memberName">{{user.user.google.name}}</p>
+        </li>
+      </ul>
+      <ul ng-repeat="invite in groupData.invited track by $index">
+        <li ng-if="invite" class="listOfAllMembers col-md-2">
+          <img ng-if="user._id !== groupData.admin" class="xInvite" ng-src="../assets/images/whitex.png">
+          <img class="groupMemberPics" ng-src="../assets/images/invitedPic.png">
+          <p class="memberName">{{invite.name}}</p>
+          <p class="invitedLabel">Invited</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- DEACTIVATE BUTTON -->
+  <div class="row">
+    <div class="deactivate">
+      <button class="btn btn-danger deactivateButton" ng-click="Admin.deactivateGroup()">Delete Group</button>
+    </div>
+  </div>
 
 
 
