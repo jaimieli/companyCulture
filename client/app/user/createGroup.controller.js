@@ -156,6 +156,7 @@ angular.module('companyCultureApp')
             }
           }
         });
+      //modalInstance result takes 2 arguments, 1st is when clicked ok, 2nd is when dismissed or cancelled
       modalInstance.result.then(function() {}, function () {
         $location.path('/user');
         $log.info('Modal dismissed at: ' + new Date());
