@@ -6,23 +6,20 @@
     <div class="col-md-12 createGroupForm">
       <h3 class="createCreatedHeader">Create a new group</h3>
       <form name="memberForm" ng-submit="Create.newGroup.invited.length > 1 && memberForm.$valid && Create.createGroup(Create.newGroup)" novalidate>
-        <input class="groupItem" ng-model="Create.newGroup.groupName" placeholder="Group Name" name="groupName" required/><br>
+        <input class="groupNameInput" ng-model="Create.newGroup.groupName" placeholder="Group Name" name="groupName" required/><br>
         <p class="groupNameError" ng-show="memberForm.groupName.$error.required && memberForm.groupName.$dirty">*A group name is required</p>
-        <button class="addGroupButton" ng-click="Create.addMember($event)">Add+</button>
-     <!--    <p>Members:</p> -->
-        <br><br>
+        <button class="addMemberToGroup" ng-click="Create.addMember($event)">Add Member</button>
         <div ng-repeat="invite in Create.newGroup.invited">
-          <input class="groupItem" name="formName" placeholder="Name" ng-model="invite.name" required/>
-          <input class="groupItem" type="email" name="formEmail" placeholder="Email" ng-model="invite.email" required>
+          <input class="groupMemberNameInput" name="formName" placeholder="Name" ng-model="invite.name" required/>
+          <input class="groupEmailInput" type="email" name="formEmail" placeholder="Email" ng-model="invite.email" required>
           <!-- <p class="groupNameError" ng-show="memberForm.formEmail.$error.required && memberForm.formEmail.$dirty">*Email required</p> -->
-
           {{invite.validity}}
           <p ng-show="!invite.validity && memberForm.formEmail.$dirty && memberForm.$valid">*You must enter a valid gmail email.</p>
-          <button class="btn btn-xs btn-danger" ng-click="Create.deleteMember($index)">Delete</button>
+          <button class="btn deleteMemberGroup" ng-click="Create.deleteMember($index)">Delete</button>
         </div>
         <p ng-show="Create.newGroup.invited.length < 2">*You need at least two members</p>
         <p ng-show="memberForm"></p>
-        <input class="addGroupButton" type="submit" value="Create New Group">
+        <input class="createNewGroup" type="submit" value="Create New Group">
       </form>
     </div>
 
@@ -43,7 +40,7 @@
 
 <script type="text/ng-template" id="afterGroupCreation.html">
         <div class="modal-header">
-          <h3 class="createCreatedHeader">Youve Just Created the <span style="font-weight: 500">{{newGroupCreated.groupName}}</span> Group</h3>
+          <h3 class="createCreatedHeader">Youve Just Created the <span class="groupNameText" style="font-weight: 500">{{newGroupCreated.groupName}}</span> Group</h3>
         </div>
         <div class="modal-body">
           <h3 class="invitationNote">The following people will receive an email invitation shortly!</h3>

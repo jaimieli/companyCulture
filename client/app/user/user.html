@@ -10,11 +10,6 @@
             <a ng-href= '/group/{{group._id}}' class="groupItem">{{group.groupName}}</a>
           </li>
         </ul>
-        <ul ng-repeat="group in currentUser.groupsAdmin" class="groupList">
-          <li ng-if="group.active===true" class="itemLi">
-            <a ng-href= '/group/{{group._id}}' class="groupItem">{{group.groupName}}</a>
-          </li>
-        </ul>
       </div>
   </div>
 </div>

@@ -28,12 +28,14 @@
   <div class="col-md-3">
     <ul class="tableColumn" ng-repeat="member in memberData">
       <li ng-show="member.currentScore" class="tableItem">{{member.currentScore}} seconds</li>
+      <li ng-hide="member.currentScore" class="tableItem">n/a</li>
     </ul>
   </div>
 
   <div class="col-md-3">
     <ul class="tableColumn" ng-repeat="member in memberData">
       <li ng-show="member.bestScore" class="tableItem">{{member.bestScore}} seconds</li>
+      <li ng-hide="member.bestScore" class="tableItem">n/a</li>
     </ul>
   </div>
 </div>

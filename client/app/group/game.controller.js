@@ -147,56 +147,6 @@ angular.module('companyCultureApp')
           console.log("scope.sortAnsB - answer", $scope.sortAnsB);
           console.log("after qarray:",$scope.currentQuestionData.answersArray);
       }
-
-      // if ($scope.currentQuestionData.answersArray.length > 1){
-      //    for(var i = 0; i < $scope.currentQuestionData.answersArray.length; i++){
-      //         $scope.users.push($scope.currentQuestionData.answersArray[i].user);
-      //         $scope.blanks.push( {
-      //           answer: $scope.currentQuestionData.answersArray[i].answer
-      //           // user: $scope.currentQuestionData.answersArray[i].user
-      //           });
-      //         $scope.bottomArr.push({
-      //           answer: $scope.currentQuestionData.answersArray[i].answer
-      //           // user: $scope.currentQuestionData.answersArray[i].user
-      //         });
-      //         $scope.correctOrder.push({
-      //           answer: $scope.currentQuestionData.answersArray[i].answer,
-      //           user: $scope.currentQuestionData.answersArray[i].user
-      //         })
-      //     };
-      //   // console.log('$scope.users: ', $scope.users)
-      //   // console.log('$scope.blanks: ', $scope.blanks)
-      //   // console.log('$scope.bottomArr: ', $scope.bottomArr)
-      //   // console.log('$scope.correctOrder: ', $scope.correctOrder)
-      //   $scope.users = shuffle($scope.users);
-
-      //   // order type only
-      //   if($scope.currentQuestionData.questionType=== "Order"){
-      //     // console.log("its an order q");
-      //     $scope.blanks.sort(function(obj1,obj2){return obj1.answer - obj2.answer});
-      //     $scope.bottomArr.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
-      //     $scope.correctOrder.sort(function(obj1,obj2){return obj1.answer- obj2.answer});
-      //   }
-
-      //   // sort type only
-      //   if($scope.currentQuestionData.questionType==="Sort"){
-      //     // console.log('sort type');
-      //       for(var q = 0; q < $scope.currentQuestionData.answersArray.length; q++){
-      //         if($scope.currentQuestionData.answersArray[q].answer === $scope.currentQuestionData.questionOption.optionA){
-      //           $scope.sortArrayA.push({user: $scope.currentQuestionData.answersArray[q].user.name});
-      //           $scope.sortAnsA.push({answer: $scope.currentQuestionData.answersArray[q].answer});
-      //         }else{
-      //           $scope.sortArrayB.push({user: $scope.currentQuestionData.answersArray[q].user.name});
-      //           $scope.sortAnsB.push({answer: $scope.currentQuestionData.answersArray[q].answer});
-      //         }
-      //       }
-      //   }
-      //   // console.log('$scope.sortArrayA: ', $scope.sortArrayA);
-      //   // console.log('$scope.sortAnsA: ', $scope.sortAnsA);
-
-      // } else {
-      //   // console.log('answers array does not have more than one answer');
-      // }
     });
 
      $scope.users = [];
@@ -318,51 +268,6 @@ angular.module('companyCultureApp')
         }
       }
      };
-     $scope.reset = function() {
-      console.log('in the reset');
-      $scope.blanks = [];
-      $scope.users = [];
-      for(var t = 0; t < $scope.bottomArr.length; t++) {
-        delete $scope.bottomArr[t].name;
-        $scope.blanks.push({answer : $scope.bottomArr[t].answer});
-        // console.log("untouched[t]:",$scope.usersUntouched[t]);
-        $scope.users.push($scope.usersUntouched[t]);
-        // console.log("users[t]:", $scope.users[t]);
-        // $scope.users[t].user = $scope.correctOrder[t].user);
-        // $scope.users[t] = $scope.currentQuestionData.answersArray[t].user;
-      }
-      console.log('usersUntouched', $scope.usersUntouched);
-      console.log("scopeuser:",$scope.users);
-      console.log("blanks:",$scope.blanks);
-      console.log("bottomArr:",$scope.bottomArr);
-
-      if($scope.currentQuestionData.questionType === "Sort"){
-        $scope.sortAnsA = [];
-        $scope.sortAnsB = [];
-        $scope.sortArrayA = [];
-        $scope.sortArrayB = [];
-        for(var q = 0; q < $scope.correctOrder.length; q++){
-          $scope.users.push($scope.usersUntouched[q]);
-          if($scope.correctOrder[q].answer === $scope.currentQuestionData.questionOption.optionA){
-            $scope.sortAnsA.push({answer: $scope.correctOrder[q].answer});
-            $scope.sortArrayA.push({user: $scope.correctOrder[q].user});
-            console.log("detected optionA so pushing to sortAnsA");
-            console.log("sortAnsA",$scope.sortAnsA);
-            console.log("sortArrayA",$scope.sortArrayA);
-          }else{
-            $scope.sortAnsB.push({answer: $scope.correctOrder[q].answer});
-            $scope.sortArrayB.push({user: $scope.correctOrder[q].user});
-            console.log("detected optionB so pushing to sortAnsB");
-            console.log("sortAnsB",$scope.sortAnsB);
-            console.log("sortArrayB",$scope.sortArrayB);
-          }
-        }
-        // $scope.sortArrayA = shuffle($scope.sortArrayA);
-        // $scope.sortArrayB = shuffle($scope.sortArrayB);
-      }
-      $scope.users = shuffle($scope.users);
-    };
-
      $scope.open = function (templateUrl) {
       var modalInstance = $modal.open({
           templateUrl: 'afterGameContent.html',
@@ -384,7 +289,6 @@ angular.module('companyCultureApp')
         });
      }
 })
-
 .factory('scoreFactory', function() {
   var score;
   return {

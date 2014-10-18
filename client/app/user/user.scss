@@ -15,11 +15,12 @@
   font-family: Lato;
   font-size: 16px;
   font-weight: 300;
+  margin-bottom: 15px;
 }
 
 .simple-form input {
   height: 30px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .questionSubmit {
@@ -33,6 +34,12 @@
   border-radius: 3px;
 }
 
+.questionSubmitCenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .questionInput {
   width: 470px;
   padding-left: 10px;
@@ -40,6 +47,18 @@
 
 .oneOption {
   padding-left: 10px;
+  width: 250px;
+}
+
+.dropDown {
+  height: 30px;
+  font-family: Lato;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+  font-family: 300;
+  margin-bottom: 10px;
 }
 
 // USER HTML
@@ -73,8 +92,8 @@
 .groupItem {
   border: 1px solid #dbdbda;
   padding: 10px;
-  border-radius: 4px;
-  color: #545454;
+  border-radius: 3px;
+  color: #545454 !important;
   font-family: Lato;
   font-size: 16px;
   display: inline-block;
@@ -84,7 +103,7 @@
 .addGroupButton {
   margin-top: 30px;
   border: 1px solid #3881C2;
-  border-radius: 4px;
+  border-radius: 3px;
   background-color: #fff;
   color: #3881C2;
   font-family: Lato;
@@ -96,10 +115,73 @@
   color: #52B3E6;
 }
 
-// // CREATE GROUP HTML
-// .leftRightSecs {
-//   margin-top: 85px;
-// }
+// CREATE GROUP HTML
+.groupNameInput {
+  border: 1px solid #b8b8b8;
+  width: 500px;
+  padding: 10px;
+  border-radius: 3px;
+  color: #545454 !important;
+  font-family: Lato;
+  font-size: 16px;
+  margin: 7px;
+}
+
+.groupMemberNameInput {
+  border: 1px solid #b8b8b8;
+  width: 210px;
+  padding: 10px;
+  border-radius: 3px;
+  color: #545454 !important;
+  font-family: Lato;
+  font-size: 16px;
+  display: inline-block;
+  margin: 3px;
+}
+
+.groupEmailInput {
+  border: 1px solid #b8b8b8;
+  width: 210px;
+  padding: 10px;
+  border-radius: 3px;
+  color: #545454 !important;
+  font-family: Lato;
+  font-size: 16px;
+  display: inline-block;
+  margin: 3px;
+}
+
+.addMemberToGroup {
+  margin-top: 30px;
+  border: 1px solid #3881C2;
+  padding: 5px 10px;
+  border-radius: 3px;
+  background-color: #fff;
+  color: #3881C2;
+  font-family: Lato;
+  font-weight: 300;
+  margin-left: -400px;
+}
+
+.createNewGroup {
+  margin-top: 15px;
+  margin-bottom: 60px;
+  padding: 5px 10px;
+  border: 1px solid #3881C2;
+  border-radius: 3px;
+  color: #fff;
+  background-color: #3881C2;
+  font-family: Lato;
+  font-weight: 300;
+}
+
+.deleteMemberGroup {
+  background-color: #D2403D;
+  color: #fff;
+  height: 42px;
+  font-family: Lato;
+  font-weight: 300;
+}
 
 .createGroupForm {
   display: inline-block;
