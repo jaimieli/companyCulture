@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('UserCtrl', function ($scope, $http, $cookies, userGroup, $rootScope) {
+  .controller('UserCtrl', function ($scope, $http, $cookies, userGroup, $rootScope, navbar) {
     // listening for new group created
     $scope.$on('new group created', function(event) {
       $http.get('/api/users/getGroups').success(function(data){
@@ -32,8 +32,6 @@ angular.module('companyCultureApp')
 
     var questionsArr = "";
 
-
-
     $http.get('/api/questions').success(function(questionsArr) {
          $scope.questionsArr = questionsArr;
      });
@@ -44,4 +42,4 @@ angular.module('companyCultureApp')
     };
 
   });
- 
+

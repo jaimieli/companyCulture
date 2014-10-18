@@ -15,9 +15,9 @@ angular.module('companyCultureApp')
             '</div>' +
             '<div style="border: 1px solid #eee; top: -20px; width: 450px; display: block; margin-left: auto; margin-right: auto; font-family: Lato; font-weight: 300;">' +
               '<p style="padding-top: 10px; padding-right: 25px; padding-left: 25px; line-height: 22px; text-align: justify;"><span style="font-weight: 500;">' +
-              $scope.currentUser.name +
+              groupData.currentUser.name +
               '</span> just posted a new question to <span style="font-weight: 500;">' +
-              $scope.groupData.groupName +
+              groupData.groupName +
               '</span>! Answer the question so we can create a great game for you!</p>' +
               '<a href="' +
               link +

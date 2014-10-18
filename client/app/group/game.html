@@ -1,6 +1,12 @@
+<div ng-show="!clickedPlay">
+  <h3>Game is ready</h3>
+  <button ng-click="play()">Click here to play!</button>
+</div>
+
+<div ng-show="clickedPlay">
 <!-- TIMER -->
-  <timer>
-    <progressbar class="progress" value="timerSeconds" max="60"></progressbar>
+  <timer autoStart="false">
+    <progressbar class="progress-striped active" value="timerSeconds" max="60"></progressbar>
   </timer>
 
 <!-- AFTER GAME SCORE MODAL -->
@@ -169,20 +175,20 @@
       <div ng-repeat="item in bottomArr" class="answerList col-md-2">{{item.answer}}</div>
     </div>
 
-  <!-- BUTTON TO DRAG INTO BLANK BOX -->
-  <div class="row greyHolder">
-    <div ng-repeat="item in users" class="top col-md-2">
-      <div class="thumbnailSender" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
-        <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-          <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
-          <div class="text-center" ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.name}}</div>
+    <!-- BUTTON TO DRAG INTO BLANK BOX -->
+    <div class="row greyHolder">
+      <div ng-repeat="item in users" class="top col-md-2">
+        <div class="thumbnailSender" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
+          <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
+            <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
+            <div class="text-center" ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.name}}</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <!-- END OF ORDERING QUESTION -->
 </div>
-<!-- END OF ORDERING QUESTION -->
-
 <!-- <button class="btn btn-primary" ng-click="reset()">Reset</button> -->
 
 

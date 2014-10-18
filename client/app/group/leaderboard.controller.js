@@ -21,6 +21,7 @@ angular.module('companyCultureApp')
     })
     // current Group Data
     $rootScope.$on('groupData ready', function(event, data){
+      $scope.memberData = [];
       $scope.groupData = data;
       console.log('$scope.groupData in leaderboard: ', $scope.groupData);
 

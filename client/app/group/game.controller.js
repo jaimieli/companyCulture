@@ -5,20 +5,28 @@ angular.module('companyCultureApp')
     // TIMER
     $scope.score = 0;
     $scope.timerSeconds = 0;
-    $scope.$on('timer-tick', function(event, value) {
-      $scope.timerSeconds = 60 - (Math.floor(value.millis / 1000)) % 100;
-      if($scope.timerSeconds === 0){
-        $scope.$broadcast('timer-stop');
-        console.log("time up!");
-      }
-    });
     $scope.interval = 0;
-    $interval(function() {
-      $scope.interval = ($scope.interval + 1) % 100;
-    }, 1000);
+    $scope.clickedPlay = false;
+
+    $scope.play = function() {
+      console.log('trying to play game');
+      $scope.$broadcast('timer-start');
+      $scope.clickedPlay = true;
+      $scope.$on('timer-tick', function(event, value) {
+        $scope.timerSeconds = 60 - (Math.floor(value.millis / 1000)) % 100;
+        if($scope.timerSeconds === 0){
+          $scope.$broadcast('timer-stop');
+          console.log("time up!");
+        }
+      });
+      $interval(function() {
+        $scope.interval = ($scope.interval + 1) % 100;
+      }, 1000);
+    }
+
     $scope.$on('timer-stopped', function (event, data){
       // added if statement so that the modal doesn't pop up if you're not playing the game
-      if ($scope.showGame) {
+
         scoreFactory.setScore(Math.floor(data.millis/1000));
         $scope.userScore = scoreFactory.getScore();
         var bestTime;
@@ -29,7 +37,7 @@ angular.module('companyCultureApp')
             bestTime = usersArr[i].bestTime;
             $scope.open('afterGameContent.html');
           }
-        }
+
 
       }
       // save current game score
@@ -233,7 +241,7 @@ angular.module('companyCultureApp')
         for(var x = 0; x < $scope.sortArrayA.length; x++) {
             // console.log('$scope.sortArray[x]: ', $scope.sortArrayA[x])
             // console.log('$scope.sortAnsA[x]: ', $scope.sortAnsA[x])
-            //if name in sortAnsA exists in sortArrayA, the drop is considered correct 
+            //if name in sortAnsA exists in sortArrayA, the drop is considered correct
             if($scope.sortArrayA.map(function(e){return e.user;}).indexOf($scope.sortAnsA[x].name)> -1){
               $scope.rightA.push("green");
               correctCounter++;
