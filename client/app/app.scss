@@ -40,6 +40,24 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   background-color: #116ABA !important;
 }
 
+
+.navbar .nav > li > a {
+  color: #fff !important;
+  font-family: Lato !important;
+  font-weight: 300 !important;
+}
+
+
+.navbar .nav > li > a:hover {
+  color: #fff;
+  background-color: #116ABA;
+  font-weight: 300 !important;
+}
+
+
+
+
+
 // Component styles are injected through grunt
 // injector
 @import 'account/login/login.scss';
