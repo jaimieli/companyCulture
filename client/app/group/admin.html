@@ -58,24 +58,26 @@
     </div>
     <div class="modal-body">
       <form name="createSortingQuestionForm" ng-submit="createSorting(myOption)" ng-controller="FormController" class="simple-form">
-        <p>Example: "Would you rather smell like tuna for an entire year or be forced to eat a can of black olives for every meal for six months?"</p>
-        <select ng-model="myOption" ng-options="option.type for option in options">
+        <select class="dropDown" ng-model="myOption" ng-options="option.type for option in options">
         </select>
         <div ng-show="myOption.type === 'Would you rather...' && myOption.value">
-          <p>Would you rather {{optionA}} or {{ optionB }}?<p>
+          <p>Example: "Would you rather smell like tuna for an entire year or be forced to eat a can of black olives for every meal for six months?"</p>
+          <p>Would you rather {{optionA}} or {{ optionB }} ?<p>
           <input class="oneOption" ng-model="optionA" placeholder="option A">
           <input class="oneOption" ng-model="optionB" placeholder="option B">
         </div>
         <div ng-show="myOption.type === 'Have you ever...' && myOption.value">
+          <p>Example: "Have you ever gone skydiving?"</p>
           Have you ever
-          <input ng-model="questionText">
+          <input class="oneOption" ng-model="questionText"> ?
         </div>
         <div ng-show="myOption.type === 'Choose between...' && myOption.value">
-          <input ng-model="optionA">
+          <p>Example: "Over or under? (referring to toilet paper)"</p>
+          <input class="oneOption" ng-model="optionA" placeholder="option A">
           or
-          <input ng-model="optionB">?
+          <input class="oneOption" ng-model="optionB" placeholder="option B"> ?
         </div>
-        <input class="questionSubmit" type="submit" ng-click="cancel()" value="Create">
+        <input class="questionSubmit questionSubmitCenter" type="submit" ng-click="cancel()" value="Create">
       </form>
     </div>
   </script>
