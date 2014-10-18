@@ -231,9 +231,9 @@ angular.module('companyCultureApp')
   var SortingInstanceCtrl = function ($scope, $modalInstance, $http, $rootScope) {
     var sortType = $scope.sortType;
     $scope.options = [
-      { type: "would", value: true },
-      { type: "have", value: true },
-      { type: "choose", value: true },
+      { type: "Would you rather...", value: true },
+      { type: "Have you ever...", value: true },
+      { type: "Choose between...", value: true },
     ];
     $scope.ok = function () {
     };

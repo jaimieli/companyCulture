@@ -1,12 +1,12 @@
-<h3>This is the show question view nested inside the group view</h3>
-<p>question type: {{groupData.questionsArr[groupData.questionsArr.length-1].questionType}}</p>
-<p>question text: {{groupData.questionsArr[groupData.questionsArr.length-1].questionText}}</p>
-<p>sort type: {{groupData.questionsArr[groupData.questionsArr.length-1].sortType}}</p>
+<h1 class="questionShown">Answer the following question:</h1>
+<p class="questionShownText">{{groupData.questionsArr[groupData.questionsArr.length-1].questionText}}</p>
 
 <div ng-if="groupData.questionsArr[groupData.questionsArr.length-1].questionType === 'Match'">
   <form name="userAnswerMatch" ng-submit="showQuest.userAnswer()" class="simple-form">
-    <input ng-model="showQuest.answer" required>
-    <input type="submit" value="Answer">
+    <div class="inputHolder">
+      <input class="answerSubmitInput" ng-model="showQuest.answer" required>
+      <input class="questionSubmit" type="submit" value="Submit">
+    </div>
   </form>
 </div>
 
@@ -17,7 +17,6 @@
       <input type="radio" ng-click="showQuest.userAnswer(groupData.questionsArr[groupData.questionsArr.length-1].questionOption.optionA)">{{groupData.questionsArr[groupData.questionsArr.length-1].questionOption.optionA}}
       <input type="radio" ng-click="showQuest.userAnswer(groupData.questionsArr[groupData.questionsArr.length-1].questionOption.optionB)">{{groupData.questionsArr[groupData.questionsArr.length-1].questionOption.optionB}}
     </div>
-
     <div ng-if="groupData.questionsArr[groupData.questionsArr.length-1].sortType === 'have'">
       <input type="radio" ng-click="showQuest.userAnswer('Yes')">Yes
       <input type="radio" ng-click="showQuest.userAnswer('No')">No
@@ -28,6 +27,6 @@
 <div ng-if="groupData.questionsArr[groupData.questionsArr.length-1].questionType === 'Order'">
   <form name="userAnswerOrder" class="simple-form" ng-submit="showQuest.userAnswer()">
     <input type="number" ng-model="showQuest.answer" required>
-    <input type="submit" value="Answer">
+    <input class="questionSubmit" type="submit" value="Submit">
   </form>
 </div>

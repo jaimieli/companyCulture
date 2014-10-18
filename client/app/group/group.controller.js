@@ -8,17 +8,17 @@ angular.module('companyCultureApp')
     $scope.groupId = $stateParams.id;
     console.log('$scope.groupId on groupPage load: ', $scope.groupId);
     // initially hide leaderboard
-    $scope.showLeaderboard = false;
+    $scope.showLeaderboard = true;
     // toggle leaderboard button
     this.leaderboardButtonText = 'Show Leaderboard'
     this.showLeaderboardFunc = function(){
-      if (!$scope.showLeaderboard) {
-        $scope.showLeaderboard = true;
-        this.leaderboardButtonText = 'Hide Leaderboard'
-      } else {
-        $scope.showLeaderboard = false;
-        this.leaderboardButtonText = 'Show Leaderboard'
-      }
+      // if (!$scope.showLeaderboard) {
+      //   $scope.showLeaderboard = true;
+      //   this.leaderboardButtonText = 'Hide Leaderboard'
+      // } else {
+      //   $scope.showLeaderboard = false;
+      //   this.leaderboardButtonText = 'Show Leaderboard'
+      // }
     }
     // catches event emitted from leaderboard button in the after game score modal
     $rootScope.$on('show leaderboard', function(event){

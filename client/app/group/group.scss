@@ -1,5 +1,11 @@
 .createHeader {
   font-family: Lato;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.blueBackground {
+  background-color: #3881C2;
 }
 
 .singleButton {
@@ -14,21 +20,28 @@
 }
 
 .buttonIcon {
+  width: 226px;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 8px;
+  border-radius: 3px;
   display: block;
   margin-left: auto;
   margin-right: auto;
   cursor: pointer;
   border: none;
-  background-color: #fff;
-  color: #3881C2;
+  background-color: #3881C2;
+  color: #fff;
   font-family: Lato;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 300;
 }
 
-.groupHeader {
+.adminGroupHeader {
   display: inline-block;
   margin-right: 10px;
+  font-family: Lato;
+  font-weight: 300;
 }
 
 .addMemberButton {
@@ -109,6 +122,10 @@
   margin-left: auto;
   border: none;
   margin-top: -15px;
+  font-family: Lato;
+  font-weight: 300;
+  border-radius: 3px;
+  font-size: 16px;
 }
 
 // GAME HTML (STYLING THREE INDIVIDUAL GAMES)
@@ -230,24 +247,16 @@
 }
 
 // LEADER BOARD VIEW
+.wholeLeaderBoard {
+  background-color: #eee;
+  margin-bottom: 60px;
+}
+
 .leaderboardHeader {
   text-align: center;
   font-family: Lato;
   font-size: 24px;
-  margin-bottom: 60px;
-}
-
-.leaderboardList {
-  list-style-type: none;
-}
-
-.leaderboardItem img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  display: block;
-  margin: 0;
-  padding: 0;
+  margin-bottom: 40px;
 }
 
 .leaderName {
@@ -279,6 +288,8 @@
   height: 80px;
   border-radius: 50%;
   display: block;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .tableColumn {
@@ -291,6 +302,31 @@
   line-height: 80px;
   font-family: Lato;
   font-weight: 300;
+}
+
+// SHOW QUESTION HTML
+.questionShown {
+  font-family: Lato;
+  font-size: 24px;
+  text-align: center;
+}
+
+.questionShownText {
+  font-family: Lato;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 300;
+}
+
+.inputHolder {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.answerSubmitInput {
+  width: 400px;
 }
 
 

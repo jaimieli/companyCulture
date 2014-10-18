@@ -3,33 +3,18 @@
 <div class="col-md-12">
   <div class="container">
     <div class="row">
-
-      <div class="col-md-6 left">
-        <h3 class="groupHeader">Active groups you're a member of:</h3>
-
-        <div class="groupNames">
-          <ul ng-repeat="group in currentUser.groups" class="groupList">
-            <li ng-if="group.active===true" class="itemLi">
-              <a ng-href= '/group/{{group._id}}' target="_blank" class="groupItem">{{group.groupName}}</a>
-            </li>
-          </ul>
-        </div>
-
+      <h3 class="groupHeader">Your Teams</h3>
+      <div class="groupNames">
+        <ul ng-repeat="group in currentUser.groups" class="groupList">
+          <li ng-if="group.active===true" class="itemLi">
+            <a ng-href= '/group/{{group._id}}' target="_blank" class="groupItem">{{group.groupName}}</a>
+          </li>
+        </ul>
+        <ul ng-repeat="group in currentUser.groupsAdmin" class="groupList">
+          <li ng-if="group.active===true" class="itemLi">
+            <a ng-href= '/group/{{group._id}}' target="_blank" class="groupItem">{{group.groupName}}</a>
+          </li>
+        </ul>
       </div>
-
-      <div class="col-md-6 right">
-        <h3 class="groupHeader">Active groups you manage:</h3>
-
-        <div class="groupNames">
-          <ul ng-repeat="group in currentUser.groupsAdmin" class="groupList">
-            <li ng-if="group.active===true" class="itemLi">
-              <a ng-href= '/group/{{group._id}}' target="_blank" class="groupItem">{{group.groupName}}</a>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-
-    </div>
   </div>
 </div>

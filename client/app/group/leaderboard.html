@@ -1,9 +1,7 @@
 
 
-<div class="col-md-12">
-
+<div class="col-md-12 wholeLeaderBoard">
   <h3 class="leaderboardHeader">Team Leaderboard</h3>
-
   <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-3">
@@ -29,14 +27,13 @@
 
   <div class="col-md-3">
     <ul class="tableColumn" ng-repeat="member in memberData">
-      <li class="tableItem">{{member.currentScore}}</li>
+      <li ng-show="member.currentScore" class="tableItem">{{member.currentScore}} seconds</li>
     </ul>
   </div>
 
   <div class="col-md-3">
     <ul class="tableColumn" ng-repeat="member in memberData">
-      <li class="tableItem">{{member.bestScore}}</li>
+      <li ng-show="member.bestScore" class="tableItem">{{member.bestScore}} seconds</li>
     </ul>
   </div>
-
 </div>

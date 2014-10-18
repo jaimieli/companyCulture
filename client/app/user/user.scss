@@ -1,35 +1,54 @@
-.groupNameError {
-  color: red;
-  display: inline-block;
+// ADMIN HTML
+.modal-title {
+  text-align: center;
+  font-family: Lato;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.simple-form {
+  border-radius: 3px;
+}
+
+.simple-form p {
+  text-align: center;
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.simple-form input {
+  height: 30px;
+  margin-bottom: 15px;
+}
+
+.questionSubmit {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 300;
+  background-color: #3881C2;
+  color: #fff;
+  border: none;
+  width: 92px;
+  border-radius: 3px;
+}
+
+.questionInput {
+  width: 470px;
+  padding-left: 10px;
+}
+
+.oneOption {
+  padding-left: 10px;
 }
 
 // USER HTML
-.left {
-  border-right: 1px solid #eee;
-  margin-top: 60px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 30px;
-  padding-right: 30px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.right {
-  border-left: 1px solid #eee;
-  margin-top: 60px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 30px;
-  padding-right: 30px;
-  text-align: center;
-}
-
 .groupHeader {
   font-family: Lato;
   font-weight: 300;
   margin-bottom: 15px;
+  text-align: center;
+  margin-top: 60px;
 }
 
 .groupNames {
@@ -61,7 +80,6 @@
   display: inline-block;
   margin: 7px;
 }
-
 
 .addGroupButton {
   margin-top: 30px;

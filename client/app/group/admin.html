@@ -1,5 +1,4 @@
-
-<div ng-if="currentQuestionData.active && !currentQuestionData.activeGame">
+<!-- <div ng-if="currentQuestionData.active && !currentQuestionData.activeGame">
   <h4 >Current Question Status</h4>
   <p>Active? {{currentQuestionData.active}}</p>
   <p>{{currentQuestionData.answersArray.length}} People Have Answered the Current Question</p>
@@ -8,20 +7,20 @@
       {{answer.user.name}}: {{answer.user.email}}
     </li>
   </ul>
-</div>
+</div> -->
 <div ng-if="currentQuestionData.active">
-  <h4>Current Game Status</h4>
-  <p>Active? {{currentQuestionData.activeGame}}</p>
+  <!-- <h4>Current Game Status</h4>
+  <p>Active? {{currentQuestionData.activeGame}}</p> -->
   <p ng-if="currentQuestionData.active && currentQuestionData.answersArray.length < 2">Encourage users to respond to the question - need at least two responses to send out the game</p>
 
   <button ng-if="currentQuestionData.active && !currentQuestionData.activeGame && currentQuestionData.answersArray.length > 1" ng-click="Admin.sendGame()">Send Game</button>
   <button ng-if="currentQuestionData.activeGame" ng-click="Admin.endGame()">End Game</button>
-  <div ng-if="currentQuestionData.activeGame">
+  <!-- <div ng-if="currentQuestionData.activeGame">
     <p>Users Who Have Played the Current Game</p>
     <ul ng-repeat="answer in currentQuestionData.answersArray">
       <li ng-if="answer.completed">{{answer.user.name}}</li>
     </ul>
-  </div>
+  </div> -->
 
 </div>
 
@@ -41,8 +40,9 @@
     </div>
     <div class="modal-body">
       <form name="createMatchingQuestionForm" ng-submit="createMatching()" class="simple-form">
-      Question: <input ng-model="questionText">
-        <input type="submit" ng-click="cancel()" value="Create">
+        <p>Example: "What is your favorite ice cream flavor?"</p>
+        <input class="questionInput" ng-model="questionText" placeholder="Question">
+        <input class="questionSubmit" type="submit" ng-click="cancel()" value="Create">
       </form>
     </div>
   </script>
@@ -58,23 +58,24 @@
     </div>
     <div class="modal-body">
       <form name="createSortingQuestionForm" ng-submit="createSorting(myOption)" ng-controller="FormController" class="simple-form">
+        <p>Example: "Would you rather smell like tuna for an entire year or be forced to eat a can of black olives for every meal for six months?"</p>
         <select ng-model="myOption" ng-options="option.type for option in options">
         </select>
-        <div ng-show="myOption.type === 'would' && myOption.value">
+        <div ng-show="myOption.type === 'Would you rather...' && myOption.value">
           <p>Would you rather {{optionA}} or {{ optionB }}?<p>
-          <input ng-model="optionA" placeholder="option A">
-          <input ng-model="optionB" placeholder="option B">
+          <input class="oneOption" ng-model="optionA" placeholder="option A">
+          <input class="oneOption" ng-model="optionB" placeholder="option B">
         </div>
-        <div ng-show="myOption.type === 'have' && myOption.value">
+        <div ng-show="myOption.type === 'Have you ever...' && myOption.value">
           Have you ever
-          <input ng-model="questionText">?
+          <input ng-model="questionText">
         </div>
-        <div ng-show="myOption.type === 'choose' && myOption.value">
+        <div ng-show="myOption.type === 'Choose between...' && myOption.value">
           <input ng-model="optionA">
           or
           <input ng-model="optionB">?
         </div>
-        <input type="submit" ng-click="cancel()" value="Create Question">
+        <input class="questionSubmit" type="submit" ng-click="cancel()" value="Create">
       </form>
     </div>
   </script>
@@ -86,12 +87,13 @@
   </div>
   <script type="text/ng-template" id="orderingQuestion.html">
     <div class="modal-header">
-        <h3 class="modal-title">Create An Ordering Question</h3>
+      <h3 class="modal-title">Create An Ordering Question</h3>
     </div>
     <div class="modal-body">
       <form name="createOrderingQuestionForm" ng-submit="createOrdering()" class="simple-form">
-        Question: <input ng-model="questionText">
-        <input type="submit" ng-click="cancel()" value="Create">
+        <p>Example: "How many countries have you been to?"</p>
+        <input class="questionInput" ng-model="questionText" placeholder="Question">
+        <input class="questionSubmit" type="submit" ng-click="cancel()" value="Create">
       </form>
     </div>
   </script>
@@ -99,7 +101,7 @@
 
 <!-- ADD MEMBER TO GROUP BUTTON AND FORM -->
 <div class="row">
-  <h4 class="groupHeader">Members in {{groupData.groupName}}</h4>
+  <h4 class="adminGroupHeader">Members in {{groupData.groupName}}</h4>
   <button class="addMemberButton" ng-click="Admin.addMemberField()">Add+</button>
 </div>
 <div ng-repeat="invite in Admin.inviteArrField track by $index">
@@ -135,10 +137,9 @@
 
 <!-- DEACTIVATE BUTTON -->
 <div class="row">
-
-<div class="deactivate">
-  <button class="btn btn-danger deactivateButton" ng-click="Admin.deactivateGroup()">{{Admin.deactivateGroupButtonText}}</button>
-</div>
+  <div class="deactivate">
+    <button class="btn btn-danger deactivateButton" ng-click="Admin.deactivateGroup()">{{Admin.deactivateGroupButtonText}}</button>
+  </div>
 </div>
 
 
