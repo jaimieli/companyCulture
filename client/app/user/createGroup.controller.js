@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('CreateGroupCtrl', function ($scope, $http, Auth, User, userGroup, async, $modal, $rootScope){
+  .controller('CreateGroupCtrl', function ($scope, $http, Auth, User, userGroup, async, $modal, $rootScope, $log, $location){
     $scope.currentUser = Auth.getCurrentUser();
     console.log('$scope.currentUser in create a group: ', $scope.currentUser);
 
@@ -152,15 +152,15 @@ angular.module('companyCultureApp')
           resolve: {
             groupCreated: function() {
               return $scope.groupCreated;
-              // console.log("groupCreated:", groupCreated);
+              console.log("groupCreated:", groupCreated);
             }
           }
         });
-      // modalInstance.result.then(function (selectedItem) {
-      //   $scope.selected = selectedItem;
-      //   }, function () {
-      //   $log.info('Modal dismissed at: ' + new Date());
-      //   });
+      modalInstance.result.then(function() {}, function () {
+        $location.path('/user');
+        $log.info('Modal dismissed at: ' + new Date());
+        });
+
      } //closes Modal
 
 
@@ -175,7 +175,8 @@ angular.module('companyCultureApp')
         $scope.newGroupCreated = data;
         console.log('$scope.newGroupCreated inside on event: ', $scope.newGroupCreated)
       })
-      $modalInstance.dismiss('cancel');
+      // $modalInstance.dismiss('cancel');
+      // console.log('closed');
       
       // console.log("groupCreated:", groupCreated);
       // console.log("groupCreated", $scope.newGroupCreated);
