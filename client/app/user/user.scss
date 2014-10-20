@@ -201,27 +201,25 @@
 }
 
 .invitedName {
-  color: #fff;
+  color: #3881C2;
   font-family: Lato;
   font-size: 18px;
-  border: 1px solid #3881C2;
-  background-color: #3881C2;
   padding: 9px;
   border-radius: 3px;
   font-weight: 300;
   margin-right: -10px;
+  list-style-type: none;
 }
 
 .invitedEmail {
-  color: #fff;
-  border: 1px solid #ACD8EC;
-  background-color: #ACD8EC;
+  color: #ACD8EC;
   padding: 9px;
   font-family: Lato;
   font-size: 18px;
   font-weight: 300;
   border-radius: 3px;
   margin-left: -10px;
+  list-style-type: none;
 }
 
 .createCreatedHeader {
