@@ -19,9 +19,7 @@ angular.module('companyCultureApp')
               '</span> just posted a new question to <span style="font-weight: 500;">' +
               groupData.groupName +
               '</span>! Answer the question so we can create a great game for you!</p>' +
-              '<a href="' +
-              link +
-              '" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #3881C2; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Answer</a>' +
+              '<a href="http://teamflock.herokuapp.com/" style="text-decoration: none; display: block; margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 35px; background-color: #3881C2; width: 110px; padding-top: 10px; padding-bottom: 10px; color: #fff; font-family: Lato; font-size: 18px; font-weight: 300;">Answer</a>' +
             '</div>' +
           '</div>';
           var message = {
