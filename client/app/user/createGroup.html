@@ -4,9 +4,9 @@
 <div class="col-md-12 leftRightSecs" ng-controller="CreateGroupCtrl as Create">
 
     <div class="col-md-12 createGroupForm">
-      <h3 class="createCreatedHeader">Create a new group</h3>
+      <h3 class="createCreatedHeader">Create a new team</h3>
       <form name="memberForm" ng-submit="Create.newGroup.invited.length > 1 && memberForm.$valid && Create.createGroup(Create.newGroup)" novalidate>
-        <input class="groupNameInput" ng-model="Create.newGroup.groupName" placeholder="Group Name" name="groupName" required/><br>
+        <input class="groupNameInput" ng-model="Create.newGroup.groupName" placeholder="Team Name" name="groupName" required/><br>
         <p class="groupNameError" ng-show="memberForm.groupName.$error.required && memberForm.groupName.$dirty">*A group name is required</p>
         <button class="addMemberToGroup" ng-click="Create.addMember($event)">Add Member</button>
         <div ng-repeat="invite in Create.newGroup.invited">
@@ -19,7 +19,7 @@
         </div>
         <p ng-show="Create.newGroup.invited.length < 2">*You need at least two members</p>
         <p ng-show="memberForm"></p>
-        <input class="createNewGroup" type="submit" value="Create New Group">
+        <input class="createNewGroup" type="submit" value="Create New Team">
       </form>
     </div>
 
