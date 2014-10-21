@@ -173,7 +173,7 @@ angular.module('companyCultureApp')
   })
 
 // MATCHING CTRL FOR MATCHING QUESTION
-  var MatchingCtrl = function ($scope, $modal, $log) {
+  var MatchingCtrl = /*@ngInject*/ function ($scope, $modal, $log) {
     $scope.open = function (size) {
       var modalInstance = $modal.open({
         templateUrl: 'matchingQuestion.html',
@@ -187,7 +187,7 @@ angular.module('companyCultureApp')
       });
     };
   };
-  var MatchingInstanceCtrl = function ($rootScope, $scope, $modalInstance, $http, $stateParams, newQuestionMessage) {
+  var MatchingInstanceCtrl = /*@ngInject*/ function ($rootScope, $scope, $modalInstance, $http, $stateParams, newQuestionMessage) {
 
     $scope.ok = function () {
     };
@@ -214,7 +214,7 @@ angular.module('companyCultureApp')
   };
 
 // SORTING CTRL FOR SORTING QUESTION
-  var SortingCtrl = function ($scope, $modal, $log) {
+  var SortingCtrl = /*@ngInject*/ function ($scope, $modal, $log) {
     $scope.open = function (size) {
       var modalInstance = $modal.open({
         templateUrl: 'sortingQuestion.html',
@@ -228,7 +228,7 @@ angular.module('companyCultureApp')
       });
     };
   };
-  var SortingInstanceCtrl = function ($scope, $modalInstance, $http, $rootScope) {
+  var SortingInstanceCtrl = /*@ngInject*/ function ($scope, $modalInstance, $http, $rootScope) {
     var sortType = $scope.sortType;
     $scope.options = [
       { qtype: "Would you rather...", type: "would", value: true },
@@ -246,7 +246,7 @@ angular.module('companyCultureApp')
   };
 
  //SORTING FORM CONTROLLER
-var FormController = function($scope, $http, $stateParams, $rootScope, newQuestionMessage) {
+var FormController = /*@ngInject*/ function($scope, $http, $stateParams, $rootScope, newQuestionMessage) {
  $scope.createSorting = function(sortType) {
     // console.log("is this sorting working?");
     console.log('$scope.optionA: ', $scope.optionA);
@@ -308,7 +308,7 @@ var FormController = function($scope, $http, $stateParams, $rootScope, newQuesti
 };
 
 // SORTING CTRL FOR SORTING QUESTION
-  var OrderingCtrl = function ($scope, $modal, $log) {
+  var OrderingCtrl = /*@ngInject*/ function ($scope, $modal, $log) {
     $scope.open = function (size) {
       var modalInstance = $modal.open({
         templateUrl: 'orderingQuestion.html',
@@ -322,7 +322,7 @@ var FormController = function($scope, $http, $stateParams, $rootScope, newQuesti
       });
     };
   };
-  var OrderingInstanceCtrl = function ($scope, $modalInstance, $http, $rootScope, $stateParams, newQuestionMessage) {
+  var OrderingInstanceCtrl = /*@ngInject*/ function ($scope, $modalInstance, $http, $rootScope, $stateParams, newQuestionMessage) {
     var groupId = $stateParams.id;
     $scope.ok = function () {
     };

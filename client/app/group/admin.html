@@ -31,7 +31,7 @@
 
 <!-- MATCHING QUESTION BUTTON -->
   <div class="singleButton col-md-4" ng-click="open('matchingQuestion.html')" ng-controller="MatchingCtrl">
-    <img class="imageIcon" ng-src="../assets/images/matchingExample.png">
+    <img class="imageIcon" ng-src="/assets/images/matchingExample.png">
     <button class="buttonIcon">Matching Question</button>
   </div>
   <script type="text/ng-template" id="matchingQuestion.html">
@@ -49,7 +49,7 @@
 
 <!-- SORTING QUESTION BUTTON -->
   <div class="singleButton col-md-4" ng-click="open('sortingQuestion.html')" ng-controller="SortingCtrl">
-    <img class="imageIcon" ng-src="../assets/images/sortingExample.png">
+    <img class="imageIcon" ng-src="/assets/images/sortingExample.png">
     <button class="buttonIcon">Sorting Question</button>
   </div>
   <script type="text/ng-template" id="sortingQuestion.html">
@@ -84,7 +84,7 @@
 
 <!-- ORDERING QUESTION BUTTON -->
   <div class="singleButton col-md-4" ng-click="open('orderingQuestion.html')" ng-controller="OrderingCtrl">
-    <img class="imageIcon" ng-src="../assets/images/orderingExample.png">
+    <img class="imageIcon" ng-src="/assets/images/orderingExample.png">
     <button class="buttonIcon">Ordering Question</button>
   </div>
   <script type="text/ng-template" id="orderingQuestion.html">
@@ -121,16 +121,16 @@
     <div class="row">
       <ul ng-repeat="user in groupData.users | orderBy:reverse" id="admin">
         <li class="listOfAllMembers col-md-2">
-          <img ng-if="user.user._id == groupData.admin" class="xAdmin" ng-src="../assets/images/whitex.png">
-          <img ng-click="Admin.removeMember(user)" ng-if="user.user._id !== groupData.admin" class="xMember" ng-src="../assets/images/x.png">
+          <img ng-if="user.user._id == groupData.admin" class="xAdmin" ng-src="/assets/images/whitex.png">
+          <img ng-click="Admin.removeMember(user)" ng-if="user.user._id !== groupData.admin" class="xMember" ng-src="/assets/images/x.png">
           <img class="groupMemberPics" ng-src="{{user.user.google.picture}}">
           <p class="memberName">{{user.user.google.name}}</p>
         </li>
       </ul>
       <ul ng-repeat="invite in groupData.invited track by $index">
         <li ng-if="invite" class="listOfAllMembers col-md-2">
-          <img ng-if="user._id !== groupData.admin" class="xInvite" ng-src="../assets/images/whitex.png">
-          <img class="groupMemberPics" ng-src="../assets/images/invitedPic.png">
+          <img ng-if="user._id !== groupData.admin" class="xInvite" ng-src="/assets/images/whitex.png">
+          <img class="groupMemberPics" ng-src="/assets/images/invitedPic.png">
           <p class="memberName">{{invite.name}}</p>
           <p class="invitedLabel">Invited</p>
         </li>
