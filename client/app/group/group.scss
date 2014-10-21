@@ -392,6 +392,13 @@
   width: 270px;
 }
 
+.linkToAdmin:hover {
+  color: #fff;
+  background-color: #0C406E;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .alertMessage {
   margin-top: 200px;
   font-family: Lato;
