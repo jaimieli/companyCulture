@@ -178,7 +178,7 @@ angular.module('companyCultureApp')
       })
       // $modalInstance.dismiss('cancel');
       // console.log('closed');
-      
+
       // console.log("groupCreated:", groupCreated);
       // console.log("groupCreated", $scope.newGroupCreated);
       $scope.ok = function () {};
