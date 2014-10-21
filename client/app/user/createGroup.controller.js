@@ -96,7 +96,7 @@ angular.module('companyCultureApp')
           // for (var i = 0; i < len; i++) {
           var sendEmail = function(person, callback) {
             var subject = $scope.currentUser.name + ' Has Invited You To Join Flock!';
-            var link = 'http://localhost:9000/login?cookie=' + data._id;
+            var link = 'http://teamflock.herokuapp.com/login?cookie=' + data._id;
             var body =
             '<div style="text-align: center;">' +
               '<div>' +

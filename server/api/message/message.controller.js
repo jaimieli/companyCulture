@@ -10,7 +10,7 @@ var google = require('googleapis');
 var gmail = google.gmail('v1');
 
 var OAuth2 = google.auth.OAuth2;
-var oauth2Client = new OAuth2(process.env.GOOGLE_ID, process.env.GOOGLE_SECRET, "http://localhost:9000/auth/google/callback");
+var oauth2Client = new OAuth2(process.env.GOOGLE_ID, process.env.GOOGLE_SECRET, "http://teamflock.herokuapp.com/auth/google/callback");
 
 // send message
 exports.sendMessage = function(req, res){

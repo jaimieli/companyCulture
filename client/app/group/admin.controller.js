@@ -34,7 +34,7 @@ angular.module('companyCultureApp')
       var len = $scope.currentQuestionData.answersArray.length;
       for (var i = 0; i < len; i++) {
         var subject = $scope.currentUser.name + ' Has Posted A New Game To ' + $scope.groupData.groupName + '!';
-        var link = 'http://localhost:9000/login?cookie=' + $scope.groupId;
+        var link = 'http://teamflock.herokuapp.com/login?cookie=' + $scope.groupId;
         var body =
         '<div style="text-align: center;">' +
           '<div>' +
@@ -90,7 +90,7 @@ angular.module('companyCultureApp')
           invite.button = "Invite Sent";
           console.log('$scope.currentUser: ', $scope.currentUser);
           var subject = $scope.currentUser.name + ' Has Invited You To Join Flock!';
-          var link = 'http://localhost:9000/login?cookie=' + $scope.groupId;
+          var link = 'http://teamflock.herokuapp.com/login?cookie=' + $scope.groupId;
           var body =
           '<div style="text-align: center;">' +
             '<div>' +
