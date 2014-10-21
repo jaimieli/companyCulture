@@ -3,6 +3,9 @@
 angular.module('companyCultureApp')
   .controller('GroupCtrl', function ($scope, $stateParams, $http, Auth, $rootScope, async, navbar) {
     var self = this;
+    $scope.displayAdmin = function() {
+      $rootScope.$emit('show admin view');
+    }
     $scope.showLeaderboard = false;
     $scope.showActivity = true;
     $rootScope.$on('show current activity', function() {
