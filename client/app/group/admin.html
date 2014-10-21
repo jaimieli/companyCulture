@@ -11,10 +11,10 @@
 <div ng-if="currentQuestionData.active">
   <!-- <h4>Current Game Status</h4>
   <p>Active? {{currentQuestionData.activeGame}}</p> -->
-  <p ng-if="currentQuestionData.active && currentQuestionData.answersArray.length < 2">Encourage users to respond to the question - need at least two responses to send out the game</p>
+  <p ng-if="currentQuestionData.active && currentQuestionData.answersArray.length < 2" class="alertMessage">Encourage users to respond to the question - need at least two responses to send out the game</p>
 
-  <button ng-if="currentQuestionData.active && !currentQuestionData.activeGame && currentQuestionData.answersArray.length > 1" ng-click="Admin.sendGame()">Send Game</button>
-  <button ng-if="currentQuestionData.activeGame" ng-click="Admin.endGame()">End Game</button>
+  <button ng-if="currentQuestionData.active && !currentQuestionData.activeGame && currentQuestionData.answersArray.length > 1" ng-click="Admin.sendGame()" class="sendEndGame">Send Game</button>
+  <button ng-if="currentQuestionData.activeGame" ng-click="Admin.endGame()" class="">End Game</button>
   <!-- <div ng-if="currentQuestionData.activeGame">
     <p>Users Who Have Played the Current Game</p>
     <ul ng-repeat="answer in currentQuestionData.answersArray">
