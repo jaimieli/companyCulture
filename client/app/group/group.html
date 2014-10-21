@@ -9,31 +9,31 @@
     <div ng-if="showActivity">
   <!--     after completing question, but no game sent out yet -->
       <div ng-if="!showQuestion && currentQuestionData.active && !currentQuestionData.activeGame && !showAdmin && !showLeaderboard">
-        <h3 ng-if="!Group.isGroupAdmin">Thanks for completing the question. Game will be sent out shortly.</h3>
+        <h3 ng-if="!Group.isGroupAdmin" class="alertMessage">Thanks for completing the question! The game will be sent out shortly.</h3>
         <div ng-if="Group.isGroupAdmin">
-          <h3>Checkout who's answered the question and send out the game soon.</h3>
-          <a ng-click="displayAdmin()">Head to Admin Panel</a>
+          <h3 class="alertMessage">Checkout who's answered the question and send out the game soon.</h3>
+          <a ng-click="displayAdmin()" class="linkToAdmin">Head to Admin Panel</a>
         </div>
       </div>
 
   <!--     after completing game, but game is not over -->
       <div ng-if="!showGame && !showQuestion && currentQuestionData.active && currentQuestionData.activeGame">
-        <h3>Game is still in session. Check out the leaderboard to see how you stack up against your teammates.</h3>
+        <h3 class="alertMessage">The game is still in session. Head to the leaderboard to see how you stack up against your teammates.</h3>
       </div>
   <!-- game is over, but admin has not sent out a new question -->
       <div ng-if="!currentQuestionData.active && !currentQuestionData.activeGame && !showAdmin && !showLeaderboard">
-        <h3 ng-if="!Group.isGroupAdmin">Waiting for group administrator to send out question.</h3>
+        <h3 ng-if="!Group.isGroupAdmin" class="alertMessage">Waiting for your team administrator to send out a question.</h3>
         <div ng-if="Group.isGroupAdmin">
-          <h3>Don't forget to send your team a question.</h3>
-          <a ng-click="displayAdmin()">Head to Admin Panel</a>
+          <h3 class="alertMessage">Don't forget to send your team a question!</h3>
+          <a ng-click="displayAdmin()" class="linkToAdmin">Head to Admin Panel</a>
         </div>
       </div>
 
   <!-- game is in session, but missed answering the question so cannot play
    -->
       <div ng-if="showQuestion && currentQuestionData.active && currentQuestionData.activeGame && !showAdmin && !showLeaderboard">
-        <h3 ng-if="!Group.isGroupAdmin">To play the current game, you must've answered the question. A new question and game will be sent out soon!</h3>
-        <div ng-if="Group.isGroupAdmin"><a ng-click="displayAdmin()">Head to Admin Panel</a></div>
+        <h3 ng-if="!Group.isGroupAdmin" class="alertMessage">To play the current game, you must've answered the question. A new question and game will be sent out soon!</h3>
+        <div ng-if="Group.isGroupAdmin"><a ng-click="displayAdmin()" class="linkToAdmin">Head to Admin Panel</a></div>
       </div>
 
       <!-- Question -->

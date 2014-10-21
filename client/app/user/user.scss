@@ -209,7 +209,9 @@
 }
 
 .invitedName {
-  color: #3881C2;
+  color: #fff;
+  background-color: #3881C2;
+  margin-left: -40px;
   font-family: Lato;
   font-size: 18px;
   padding: 9px;
@@ -220,7 +222,8 @@
 }
 
 .invitedEmail {
-  color: #ACD8EC;
+  color: #fff;
+  background-color: #ACD8EC;
   padding: 9px;
   font-family: Lato;
   font-size: 18px;
@@ -243,6 +246,7 @@
   font-family: Lato;
   font-size: 18px;
   font-weight: 300;
+  margin-bottom: 30px;
 }
 
 

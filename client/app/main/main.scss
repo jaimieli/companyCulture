@@ -1,9 +1,16 @@
-#banner h2 {
+.flockLogo {
   color: #fff;
   font-family: Lato;
   float: left;
   margin-left: 20px;
   margin-top: 15px;
+  font-size: 40px;
+  text-decoration: none;
+}
+
+.flockLogo:hover {
+  text-decoration: none;
+  color: #fff;
 }
 
 .bannerSignIn {
