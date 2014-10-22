@@ -5,7 +5,7 @@ Flock is an easy and delightful way for team members to get to know each other t
 
 This is a MEAN stack app with Google oAuth integrated for user login and notifications. It also utilizes an Angular drag-drop module to support game functionalities.
 
-Checkout our live app at http://teamflock.herokuapp.com and our video tutorial at http://youtu.be/FKQS7oswN5I.
+Checkout our live app at http://teamflock.herokuapp.com and our video demo at http://youtu.be/QvgHJ4HuR8g.
 
 Feel free to contact us at getteamflock@gmail.com.
 
