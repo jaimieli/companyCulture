@@ -154,7 +154,7 @@ angular.module('companyCultureApp')
         // var len = $scope.groupData.users.length;
         // for (var i = 0; i < len; i++) {
         //   var subject = $scope.groupData.groupName + ' group has been deactivated';
-        //   var body = '<p><a href="http://localhost:9000/login">Login</a> to make your own group and invite your friends!</p>'
+        //   var body = '<p><a href="http://teamflock.herokuapp.com/login">Login</a> to make your own group and invite your friends!</p>'
         //   var message = {
         //     userId: "me",
         //     message: {

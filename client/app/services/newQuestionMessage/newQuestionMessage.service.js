@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .factory('newQuestionMessage', function ($http) {
+  .factory('newQuestionMessage', function ($http, Auth) {
     return {
       sendNewQuestionMessage: function (groupData) {
         console.log('groupData in newQuestionMessage factory: ', groupData);
         var len = groupData.users.length;
         for (var i = 0; i < len; i++) {
-          var subject = groupData.users[0].name + ' Has Posted a New Question To ' + groupData.groupName + "!";
+          var subject = groupData.users[0].user.name + ' Has Posted a New Question To ' + groupData.groupName + "!";
           var body =
           '<div style="text-align: center;">' +
             '<div>' +
@@ -15,7 +15,7 @@ angular.module('companyCultureApp')
             '</div>' +
             '<div style="border: 1px solid #eee; top: -20px; width: 450px; display: block; margin-left: auto; margin-right: auto; font-family: Lato; font-weight: 300;">' +
               '<p style="padding-top: 10px; padding-right: 25px; padding-left: 25px; line-height: 22px; text-align: justify;"><span style="font-weight: 500;">' +
-              groupData.currentUser.name +
+              Auth.getCurrentUser().name +
               '</span> just posted a new question to <span style="font-weight: 500;">' +
               groupData.groupName +
               '</span>! Answer the question so we can create a great game for you!</p>' +
@@ -25,7 +25,7 @@ angular.module('companyCultureApp')
           var message = {
             userId: "me",
             message: {
-              to: groupData.users[i].email,
+              to: groupData.users[i].user.email,
               subjectLine: subject,
               bodyOfEmail: body
             }

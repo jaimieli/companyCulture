@@ -60,11 +60,13 @@ exports.sendMessage = function(req, res){
         if (!group) {return res.send(404);}
         group.invited.addToSet(req.body.invite);
         group.save(function(err, group){
+          console.log('gmail results: ', results)
           console.log('group after save: ', group);
           return res.send({gmail: results, group: group});
         })
       })
     } else {
+      console.log('gmail results: ', results)
       return res.send({gmail: results});
     }
   })
