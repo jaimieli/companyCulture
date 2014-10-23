@@ -21,8 +21,6 @@ function onConnect(socket) {
   require('../api/message/message.socket').register(socket);
   require('../api/group/group.socket').register(socket);
   require('../api/question/question.socket').register(socket);
-  require('../api/game/game.socket').register(socket);
-  require('../api/thing/thing.socket').register(socket);
 }
 
 module.exports = function (socketio) {
