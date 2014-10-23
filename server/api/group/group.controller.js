@@ -4,6 +4,39 @@ var _ = require('lodash');
 var Group = require('./group.model');
 var User = require('../user/user.model')
 var async = require('async');
+var exec = require('child_process').exec;
+
+// Validate emails
+exports.validateEmails = function (req, res) {
+  console.log('req.body: ', req.body)
+  var group = req.body
+  var invitedArr = req.body.invited;
+  var validateEmail = function(indiv, callback) {
+    var emailHost = indiv.email.split('@')[1];
+    console.log('emailHost: ', emailHost);
+    var result = {};
+    result.email = req.body.email;
+    exec('host -t mx ' + emailHost, function(error, stdout, stderr) {
+      if (error !== null) {
+          console.log('exec error: ' + error);
+      }
+      console.log('stdout: ' + stdout);
+      if (stdout.toLowerCase().indexOf('google.com') !== -1) {
+        indiv.valid = true;
+        callback();
+      } else {
+        indiv.valid = false;
+        callback();
+      }
+    });
+  }
+  var doneValidating = function(err) {
+    if(err) console.log(err);
+    console.log('group in validating: ', group);
+    res.send(200, group);
+  }
+  async.each(invitedArr, validateEmail, doneValidating)
+}
 
 // Update best time
 exports.updateBestTime = function(req, res) {

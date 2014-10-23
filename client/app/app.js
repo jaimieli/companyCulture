@@ -8,8 +8,7 @@ angular.module('companyCultureApp', [
   'ui.router',
   'ui.bootstrap',
   'ngDragDrop',
-  'timer',
-  'ngAsync'
+  'timer'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
