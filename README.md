@@ -9,4 +9,4 @@ Checkout our live app at http://teamflock.herokuapp.com and our video demo at ht
 
 Feel free to contact us at getteamflock@gmail.com.
 
-Flock was created by Jaimie Li, Summer Michiko, and Mike Novak.
+Flock was created by Jaimie Li, Summer McDonald, and Mike Novak.
