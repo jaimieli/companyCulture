@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth, $rootScope, navbar, $stateParams, $http) {
+  .controller('NavbarCtrl', function ($scope, $location, Auth, $rootScope, $stateParams, $http) {
 
     $scope.menu = [{
       'title': 'My Teams',
@@ -27,11 +27,6 @@ angular.module('companyCultureApp')
     }
     console.log('$stateParams.id in navbar: ', $stateParams.id)
     $scope.groupId = $stateParams.id;
-
-
-
-    // $scope.groupName = navbar.getGroupName();
-    // console.log('$scope.groupName in navbar: ', $scope.groupName);
 
     $http.get('/api/groups/'+ $scope.groupId).success(function(data){
       console.log('in promise of groupName is navbar: ', data);
