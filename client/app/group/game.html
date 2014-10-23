@@ -30,8 +30,8 @@
       <div ng-repeat="item in blanks" class="bottom col-md-2">
         <div class="thumbnailReceiver" data-drop="true" data-jqyoui-options ng-model="blanks" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.user, $index)'}">
           <div class="{{right[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="blanks" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.user)'}" ng-hide="!item.name">
-            <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
-            <div class="text-center" ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.name}}</div>
+            <img ng-src="{{item.google.picture}}" ng-hide="!item.google.profilePhoto">
+            <div class="text-center" ng-hide="item.google.profilePhoto">{{item.name}}</div>
           </div>
         </div>
       </div>
@@ -47,8 +47,8 @@
       <div ng-repeat="item in users" class="top col-md-2">
         <div class="thumbnailSender" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
           <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-            <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
-            <div class="text-center" ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.name}}</div>
+            <img ng-src="{{item.google.picture}}" ng-hide="!item.google.profilePhoto">
+            <div class="text-center" ng-hide="item.google.profilePhoto">{{item.name}}</div>
           </div>
         </div>
       </div>
@@ -74,8 +74,8 @@
             <div class="thumbnailReceiver" data-drop="true" data-jqyoui-options ng-model="sortAnsA" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
               <!-- {{rightA[$index]}} -->
               <div class="{{rightA[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsA" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-                <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
-                <div class="text-center" ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.name}}</div>
+                <img ng-src="{{item.google.picture}}" ng-hide="!item.google.profilePhoto">
+                <div class="text-center" ng-hide="item.google.profilePhoto">{{item.name}}</div>
               </div>
             </div>
           </div>
@@ -86,8 +86,8 @@
               <div class="thumbnailReceiver" data-drop="true" data-jqyoui-options ng-model="sortAnsB" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
                 <!-- btn-{{rightB[$index]}} -->
                 <div class="{{rightB[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsB" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-                  <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
-                  <div class="text-center" ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.name}}</div>
+                <img ng-src="{{item.google.picture}}" ng-hide="!item.google.profilePhoto">
+                <div class="text-center" ng-hide="item.google.profilePhoto">{{item.name}}</div>
                 </div>
               </div>
             </div>
@@ -98,8 +98,8 @@
           <div ng-repeat="item in users" class="col-md-2">
             <div class="thumbnailSender" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
               <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-              <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
-              <div class="text-center" ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.name}}</div>
+              <img ng-src="{{item.google.picture}}" ng-hide="!item.google.profilePhoto">
+              <div class="text-center" ng-hide="item.google.profilePhoto">{{item.name}}</div>
               </div>
             </div>
           </div>
@@ -117,8 +117,8 @@
               <div class="thumbnailReceiver" data-drop="true" data-jqyoui-options ng-model="sortAnsA" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
                 <!-- {{rightA[$index]}} -->
                 <div class="{{rightA[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsA" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-                  <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
-                  <div class="text-center" ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.name}}</div>
+                  <img ng-src="{{item.google.picture}}" ng-hide="!item.google.profilePhoto">
+                  <div class="text-center" ng-hide="item.google.profilePhoto">{{item.name}}</div>
                 </div>
               </div>
             </div>
@@ -130,8 +130,8 @@
               <div class="thumbnailReceiver" data-drop="true" data-jqyoui-options ng-model="sortAnsB" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
                 <!-- btn btn-{{rightB[$index]}} -->
                 <div class="{{rightB[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="sortAnsB" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-                  <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
-                  <div class="text-center" ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.name}}</div>
+                  <img ng-src="{{item.google.picture}}" ng-hide="!item.google.profilePhoto">
+                  <div class="text-center" ng-hide="item.google.profilePhoto">{{item.name}}</div>
                 </div>
               </div>
             </div>
@@ -143,8 +143,8 @@
           <div ng-repeat="item in users" class="col-md-2">
             <div class="thumbnailSender" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
               <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-              <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
-              <div class="text-center" ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.name}}</div>
+              <img ng-src="{{item.google.picture}}" ng-hide="!item.google.profilePhoto">
+              <div class="text-center" ng-hide="item.google.profilePhoto">{{item.name}}</div>
               </div>
             </div>
           </div>
@@ -164,8 +164,8 @@
       <div ng-repeat="item in blanks" class="bottom col-md-2">
         <div class="thumbnailReceiver" data-drop="true" data-jqyoui-options ng-model="blanks" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
           <div class="{{right[$index]}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="blanks" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-            <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
-            <div class="text-center" ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.name}}</div>
+            <img ng-src="{{item.google.picture}}" ng-hide="!item.google.profilePhoto">
+            <div class="text-center" ng-hide="item.google.profilePhoto">{{item.name}}</div>
           </div>
         </div>
       </div>
@@ -180,8 +180,8 @@
       <div ng-repeat="item in users" class="top col-md-2">
         <div class="thumbnailSender" data-drop="true" data-jqyoui-options ng-model="users" jqyoui-droppable="{index: {{$index}}, onDrop:'droppedItem(item.name, $index)'}">
           <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="users" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: true, onStart:'grabbedItem(item.name)'}" ng-hide="!item.name">
-            <img ng-src="{{item.google.picture}}" ng-hide="item.google.picture === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">
-            <div class="text-center" ng-hide="item.google.picture !== 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'">{{item.name}}</div>
+            <img ng-src="{{item.google.picture}}" ng-hide="!item.google.profilePhoto">
+            <div class="text-center" ng-hide="item.google.profilePhoto">{{item.name}}</div>
           </div>
         </div>
       </div>

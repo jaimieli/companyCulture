@@ -23,6 +23,8 @@ exports.setup = function (User, config) {
           // give use a random bird photo if they don't have a photo
           if (user.google.picture === "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg") {
             user.google.picture = "/assets/images/birdpictures/bird" + Math.ceil(Math.random() * 10) + ".png";
+          } else {
+            user.google.profilePhoto = true;
           }
           user.google.accessToken = accessToken;
           user.google.refreshToken = refreshToken;
@@ -35,6 +37,8 @@ exports.setup = function (User, config) {
           // give use a random bird photo if they don't have a photo
           if (user.google.picture === "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg") {
             user.google.picture = "/assets/images/birdpictures/bird" + Math.ceil(Math.random() * 10) + ".png";
+          } else {
+            user.google.profilePhoto = true;
           }
           user.google.accessToken = accessToken;
           user.google.refreshToken = refreshToken;
