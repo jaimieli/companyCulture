@@ -19,48 +19,26 @@ angular.module('companyCultureApp')
         self.leaderboardText = 'Last'
       }
     })
+
     // current Group Data
     $rootScope.$on('groupData ready', function(event, data){
       $scope.memberData = [];
       $scope.groupData = data;
       console.log('$scope.groupData in leaderboard: ', $scope.groupData);
-
-
-      var setMemberData = function(member, done) {
-        var randomBird = Math.ceil(Math.random() * 10);
-        var memberObj = {};
-        memberObj.item = member.user;
-        memberObj.bestScore = member.bestTime;
-        memberObj.item.google.picture = function() {
-          if (member.user.google.picture === "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg") {
-            return "/assets/images/birdpictures/bird" + randomBird + ".png";
-          } else {
-            return member.user.google.picture;
-          }
-        }();
-        $scope.memberData.push(memberObj);
-        done();
-      }
-
-
-      var complete = function () {
-        console.log("$scope.memberData in complete:", $scope.memberData);
-        console.log("$scope.currentQuestionData in complete:", $scope.currentQuestionData);
-        console.log("finished!");
-        $rootScope.$on("data is ready", function (event, data) {
-          console.log("got into rootScope!!!", data);
-          $scope.currentQuestionData = data;
-          for (var i=0; i<$scope.memberData.length; i++) {
-            for (var j=0; j<$scope.currentQuestionData.answersArray.length; j++) {
-              if($scope.memberData[i].item._id === $scope.currentQuestionData.answersArray[j].user._id) {
-                $scope.memberData[i].currentScore = $scope.currentQuestionData.answersArray[j].gameTime;
+      $rootScope.$on('data is ready', function() {
+        $http.post('/api/groups/setLeaderboardData', $scope.groupData).success(function(data){
+          console.log('done setting leaderboard data: ', data);
+          $scope.memberData = data;
+          if($scope.currentQuestionData.answersArray) {
+            for (var i=0; i<$scope.memberData.length; i++) {
+              for (var j=0; j<$scope.currentQuestionData.answersArray.length; j++) {
+                if($scope.memberData[i].item._id === $scope.currentQuestionData.answersArray[j].user._id) {
+                  $scope.memberData[i].currentScore = $scope.currentQuestionData.answersArray[j].gameTime;
+                }
               }
             }
           }
-          console.log("$scope.memberData at end:", $scope.memberData);
         })
-      }
-      async.each($scope.groupData.users, setMemberData, complete);
-      console.log("memberData:", $scope.memberData);
+      })
     })
   })
