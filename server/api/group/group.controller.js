@@ -6,6 +6,26 @@ var User = require('../user/user.model')
 var async = require('async');
 var exec = require('child_process').exec;
 
+// set leaderboard data
+exports.setLeaderboardData = function(req, res){
+  var users = req.body.users;
+  console.log('req.body.users in setLeaderboardData: ', req.body.users)
+  var memberData = []
+  var setMemberData = function(member, done) {
+    var randomBird = Math.ceil(Math.random() * 10);
+    var memberObj = {};
+    memberObj.item = member.user;
+    memberObj.bestScore = member.bestTime;
+    memberData.push(memberObj);
+    done();
+  }
+  var complete = function (err) {
+    if (err) console.log(err);
+    res.send(200, memberData);
+  }
+  async.each(users, setMemberData, complete);
+}
+
 // Validate emails
 exports.validateEmails = function (req, res) {
   console.log('req.body: ', req.body)

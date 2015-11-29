@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('companyCultureApp')
-  .controller('CreateGroupCtrl', function ($scope, $http, Auth, User, userGroup, $modal, $rootScope, $log, $location){
+  .controller('CreateGroupCtrl', function ($scope, $http, Auth, User, $modal, $rootScope, $log, $location){
     $scope.currentUser = Auth.getCurrentUser();
     console.log('$scope.currentUser in create a group: ', $scope.currentUser);
 

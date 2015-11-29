@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var Group = require('../group/group.model')
-var Game = require('../game/game.model')
+var User = require('../user/user.model')
 
 var QuestionSchema = new Schema({
   active: Boolean,

@@ -20,6 +20,12 @@ exports.setup = function (User, config) {
             provider: 'google',
             google: profile._json
           });
+          // give use a random bird photo if they don't have a photo
+          if (user.google.picture === "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg") {
+            user.google.picture = "/assets/images/birdpictures/bird" + Math.ceil(Math.random() * 10) + ".png";
+          } else {
+            user.google.profilePhoto = true;
+          }
           user.google.accessToken = accessToken;
           user.google.refreshToken = refreshToken;
           user.save(function(err) {
@@ -28,6 +34,12 @@ exports.setup = function (User, config) {
           });
         } else {
           user.google = profile._json;
+          // give use a random bird photo if they don't have a photo
+          if (user.google.picture === "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg") {
+            user.google.picture = "/assets/images/birdpictures/bird" + Math.ceil(Math.random() * 10) + ".png";
+          } else {
+            user.google.profilePhoto = true;
+          }
           user.google.accessToken = accessToken;
           user.google.refreshToken = refreshToken;
           user.save(function() {
